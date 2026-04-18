@@ -7,7 +7,7 @@ import { VibgyorButton } from "./ui/VibgyorButton";
 import { RevealText, FadeUp, RevealStaggerGroup, RevealItem, RevealImage } from "./ui/Reveal";
 
 export function AboutVision() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // Client-First Flexibility is open by default
+  const [openIndex, setOpenIndex] = useState<number | null>(0); // Client-First open by default
 
   const reasons = [
     {
@@ -94,9 +94,9 @@ export function AboutVision() {
                         {reason.title}
                       </h3>
 
-                      {/* Column 3: Icon (Absolute on mobile, grid on desktop) */}
-                      <div className="absolute right-0 top-10 md:relative md:top-0 md:right-0 shrink-0 ml-auto">
-                        <div className="relative w-6 h-6 md:w-8 md:h-8 flex items-center justify-center">
+                      {/* Column 3: Icon (Hidden on mobile to avoid heading clutter, visible on desktop) */}
+                      <div className="hidden md:flex relative shrink-0 ml-auto">
+                        <div className="relative w-8 h-8 flex items-center justify-center">
                           <div className={`absolute w-full h-[1.5px] transition-all duration-500 ${isOpen ? 'rotate-[135deg] bg-[#03AEF2]' : 'rotate-0 bg-[#16232A] group-hover:bg-[#03AEF2]'}`} />
                           <div className={`absolute w-[1.5px] h-full transition-all duration-500 ${isOpen ? 'rotate-[135deg] bg-[#03AEF2]' : 'rotate-0 bg-[#16232A] group-hover:bg-[#03AEF2]'}`} />
                         </div>
