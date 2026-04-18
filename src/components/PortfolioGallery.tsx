@@ -31,7 +31,20 @@ export function PortfolioGallery() {
           </p>
         </div>
 
-        <div className="relative w-full h-[450px] md:h-[650px] flex items-center justify-center">
+        <motion.div 
+          className="relative w-full h-[450px] md:h-[650px] flex items-center justify-center"
+          style={{ touchAction: "pan-y" }}
+          onPanEnd={(e, info) => {
+            const swipe = Math.abs(info.offset.x) > 30 || Math.abs(info.velocity.x) > 400;
+            if (swipe) {
+              if (info.offset.x < 0) {
+                nextSlide();
+              } else {
+                prevSlide();
+              }
+            }
+          }}
+        >
           <button 
             onClick={prevSlide}
             className="absolute left-0 md:left-4 z-50 p-4 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all group active:scale-90"
@@ -68,7 +81,7 @@ export function PortfolioGallery() {
               );
             })}
           </div>
-        </div>
+        </motion.div>
         
         <div className="flex justify-center mt-16 md:mt-24">
           <VibgyorButton href="/projects">View All Projects</VibgyorButton>

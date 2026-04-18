@@ -98,15 +98,18 @@ export function Navigation() {
             aria-label="Toggle Menu"
           >
             <motion.span 
-              animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-              className="w-8 h-0.5 bg-[#16232A] rounded-full transition-colors"
-            />
-            <motion.span 
-              animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+              animate={isOpen ? { y: 8, rotate: 45 } : { y: 0, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 20 }}
               className="w-8 h-0.5 bg-[#16232A] rounded-full"
             />
             <motion.span 
-              animate={isOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+              animate={isOpen ? { rotate: -45 } : { rotate: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              className="w-8 h-0.5 bg-[#16232A] rounded-full"
+            />
+            <motion.span 
+              animate={isOpen ? { y: -8, rotate: 45 } : { y: 0, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 20 }}
               className="w-8 h-0.5 bg-[#16232A] rounded-full"
             />
           </button>

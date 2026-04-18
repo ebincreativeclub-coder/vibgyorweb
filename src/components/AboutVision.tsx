@@ -6,7 +6,7 @@ import Image from "next/image";
 import { VibgyorButton } from "./ui/VibgyorButton";
 
 export function AboutVision() {
-  const [openIndex, setOpenIndex] = useState<number | null>(1); // Index 01 (02 in display) is open by default
+  const [openIndex, setOpenIndex] = useState<number | null>(0); // Client-First Flexibility is open by default
 
   const reasons = [
     {

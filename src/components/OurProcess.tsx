@@ -32,7 +32,7 @@ const processSteps = [
 ];
 
 export function OurProcess() {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(1);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
 
   return (
     <section className="bg-white py-24 md:py-32 font-['Instrument_Sans'] overflow-hidden">
