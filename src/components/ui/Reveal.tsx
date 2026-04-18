@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 
-const EASE = [0.16, 1, 0.3, 1];
+const EASE = [0.16, 1, 0.3, 1] as const;
 const DURATION = 1.0;
 
 // ==========================================
