@@ -4,34 +4,39 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const brands = [
-  { id: 1, src: "/images/brands/01 2.png", width: 183, height: 122 },
-  { id: 2, src: "/images/brands/02 2.png", width: 132, height: 88 },
-  { id: 3, src: "/images/brands/03 2.png", width: 209, height: 140 },
-  { id: 4, src: "/images/brands/04 2.png", width: 177, height: 118 },
-  { id: 5, src: "/images/brands/09 1.png", width: 130, height: 86 },
+  { id: 1, src: "/images/brands/Alfardan@3x.png", alt: "Alfardan" },
+  { id: 2, src: "/images/brands/Asteco@3x.png", alt: "Asteco" },
+  { id: 3, src: "/images/brands/Banana Island Resort Doha@3x.png", alt: "Banana Island" },
+  { id: 4, src: "/images/brands/Doha Festival City@3x.png", alt: "Doha Festival City" },
+  { id: 5, src: "/images/brands/HBK@3x.png", alt: "HBK" },
+  { id: 6, src: "/images/brands/Hyatt@3x.png", alt: "Hyatt" },
+  { id: 7, src: "/images/brands/KONE@3x.png", alt: "KONE" },
+  { id: 8, src: "/images/brands/MELIA@3x.png", alt: "MELIA" },
+  { id: 9, src: "/images/brands/QAFAC@3x.png", alt: "QAFAC" },
+  { id: 10, src: "/images/brands/Wyndham@3x.png", alt: "Wyndham" },
 ];
 
 export function Companies() {
   return (
-    <section className="bg-white pt-10 pb-24 md:pb-32 overflow-hidden font-['Instrument_Sans']">
-      <div className="container mx-auto px-6 text-center">
+    <section className="bg-[#F1F2F3] pt-0 pb-24 md:pb-32 overflow-hidden font-['Instrument_Sans'] selection:bg-[#03AEF2] selection:text-white">
+      <div className="text-center">
         {/* Title: Trusted by the 150+ companies */}
         <motion.h4 
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-[20px] font-medium text-[#16232A] mb-12"
+          className="text-[18px] md:text-[20px] font-medium text-[#16232A] mb-12 tracking-tight"
         >
           Trusted by the 150+ companies
         </motion.h4>
 
-        {/* Infinite Looping Carousel with Logos */}
+        {/* Infinite Looping Carousel with Logos - Full Viewport Width */}
         <div className="relative w-full overflow-hidden flex items-center">
           <motion.div 
-            className="flex gap-6 lg:gap-8 items-center"
+            className="flex gap-4 md:gap-6 items-center"
             animate={{ x: ["0%", "-50%"] }}
             transition={{
-              duration: 25,
+              duration: 30, // Balanced speed
               ease: "linear",
               repeat: Infinity
             }}
@@ -40,24 +45,19 @@ export function Companies() {
             {[...brands, ...brands].map((brand, idx) => (
               <div
                 key={`${brand.id}-${idx}`}
-                className="w-[239px] h-[95px] px-8 py-4 border border-[#63757E]/30 rounded-[50px] flex items-center justify-center bg-white shrink-0 hover:border-[#03AEF2] hover:shadow-sm transition-all duration-300"
+                className="w-[180px] md:w-[260px] h-[75px] md:h-[105px] px-4 py-2 border border-[#63757E]/15 rounded-[60px] flex items-center justify-center bg-white shrink-0 hover:border-[#63757E]/40 hover:shadow-sm transition-all duration-300 group"
               >
-                <div className="relative w-full h-full flex items-center justify-center">
+                <div className="relative w-[85%] h-[85%] flex items-center justify-center">
                   <Image
                     src={brand.src}
-                    alt="Trusted Partner"
-                    width={brand.width}
-                    height={brand.height}
-                    className="object-contain max-h-[60px] w-auto transition-transform duration-300 hover:scale-105"
+                    alt={brand.alt}
+                    fill
+                    className="object-contain transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
               </div>
             ))}
           </motion.div>
-
-          {/* Fade overlays for the premium carousel look */}
-          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
         </div>
       </div>
     </section>

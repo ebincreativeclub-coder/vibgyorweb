@@ -15,7 +15,7 @@ export function ServicesPortfolio() {
   ];
 
   return (
-    <section className="bg-[#16232A] text-white pt-16 pb-24 md:pt-20 md:pb-32 font-['Instrument_Sans'] overflow-hidden">
+    <section className="bg-[#16232A] text-white pt-16 pb-0 md:pt-20 md:pb-0 font-['Instrument_Sans'] overflow-hidden">
       
       {/* 1. HEADER SECTION */}
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
@@ -64,8 +64,9 @@ export function ServicesPortfolio() {
                   </h3>
                 </div>
                 <div className="w-[15%] md:w-[20%] flex justify-end transition-transform duration-500 group-hover:translate-x-2 group-hover:-translate-y-2">
-                  <svg viewBox="0 0 78 85" fill="none" className="w-8 h-8 md:w-16 md:h-16 lg:w-[78px] lg:h-[85px] origin-right">
-                    <path d="M10 75L67 10M67 10H10M67 10V75" stroke="currentColor" strokeWidth="9" strokeLinecap="square" strokeLinejoin="miter" className={`transition-colors duration-500 ${isActive ? 'text-white' : 'text-[#63757E]'}`} />
+                  <svg viewBox="0 0 115 115" fill="none" className={`w-10 h-10 md:w-20 md:h-20 lg:w-[94px] lg:h-[94px] origin-right transition-colors duration-500 ${isActive ? 'text-white' : 'text-[#63757E]'}`}>
+                    <path d="M29.6995 84.2159L84.2158 29.6991" stroke="currentColor" strokeWidth="9" />
+                    <path d="M24.4648 30.0525H84.5689V90.1566" stroke="currentColor" strokeWidth="9" />
                   </svg>
                 </div>
               </div>

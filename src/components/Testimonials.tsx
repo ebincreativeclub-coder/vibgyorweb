@@ -6,96 +6,135 @@ import { useState } from "react";
 const testimonials = [
   {
     id: 1,
-    author: "Harish",
+    name: "Harish",
     role: "CEO",
     company: "Vital Health Technologies",
-    text: "“The team of Vibgyor have been outstanding to work with during our new office fitout works . The professionalism of them and quality of their work was exceptional, as well as their easy going attitudes. Our building, which is just under 1000sq mtr, was delivered on time and in only 8 weeks. A massive credit to Sabeesh, Unni and the rest of the team at Vibgyor. Feel free to come over to Vital to inspect the high quality fit out.”",
+    text: "Working with Vibgyor on our new office fit-out was an outstanding experience. The team's professionalism and the quality of their work were exceptional — and their easy-going attitude made the whole process smooth. Our space, just under 1,000 sq. metres, was delivered on time in only 8 weeks. A massive credit to Sabeesh, Unni, and the rest of the Vibgyor team.",
   },
   {
     id: 2,
-    author: "General Manager",
+    name: "General Manager",
     role: "",
-    company: "A Major Civil Contracting Company",
-    text: "“Vibgyor is one of our preferred contractors for fitout works. Our recent project with Vibgyor was the fit out works of Meeting Rooms and Spa for a 5 Star Hotel in Doha. The work was complicated and very detailed. Vibgyor, however, was always there for us. Their professional approach and flexibility to find timely solutions is greatly appreciated. The work was finished to a high standard and on time.”",
-  },
-  {
-    id: 3,
-    author: "General Manager",
-    role: "",
-    company: "A Major Civil Contracting Company",
-    text: "“A truly professional and reliable team. They understood our requirements perfectly. Execution was smooth and well managed. The finish and craftsmanship were excellent. Great communication throughout the project. We are very satisfied with the results.”",
-  },
+    company: "Major Civil Contracting Company, Doha",
+    text: "Vibgyor is one of our preferred contractors for fit-out works. Our most recent project — fit-out of Meeting Rooms and a Spa for a 5-star hotel in Doha — was highly complex and detailed. Vibgyor's professional approach and ability to find timely solutions throughout the project is greatly appreciated. The work was completed to a high standard and on time.",
+  }
 ];
 
 export function Testimonials() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeMobileIndex, setActiveMobileIndex] = useState(0);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const container = e.currentTarget;
+    const scrollPosition = container.scrollLeft;
+    const maxScroll = container.scrollWidth - container.offsetWidth;
+    if (maxScroll <= 0) return;
+    const newIndex = Math.round((scrollPosition / maxScroll) * (testimonials.length - 1));
+    if (newIndex !== activeMobileIndex) {
+      setActiveMobileIndex(newIndex);
+    }
+  };
 
   return (
-    <section className="bg-white pt-24 pb-12 overflow-hidden font-['Instrument_Sans']">
-      <div className="container mx-auto px-6">
-        {/* Title: The Voices Behind Our Work. */}
+    <section className="bg-[#F1F2F3] pt-16 pb-24 md:pt-20 md:pb-32 overflow-hidden font-['Instrument_Sans'] selection:bg-[#03AEF2] selection:text-white">
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
+        
+        {/* Header Section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
-          <h2 className="text-[40px] font-medium leading-[1.2] tracking-tight">
-            <span className="text-[#16232A] block">The Voices</span>
-            <span className="text-[#63757E] block">Behind Our Work.</span>
+          <h2 className="text-[32px] md:text-[48px] font-medium tracking-tight">
+            <span className="text-[#16232A]">The Voices </span>
+            <span className="text-[#63757E]">Behind Our Work.</span>
           </h2>
         </motion.div>
 
-        {/* Testimonial Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((t, index) => (
-            <motion.div
-              key={t.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.8 }}
-              className="bg-[#F0F1F3] rounded-[40px] p-10 flex flex-col h-full relative"
+        {/* Mobile: Swiper | Desktop: Grid */}
+        <div className="relative">
+          {/* Desktop/Tablet Grid */}
+          <div className="hidden md:grid grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-12 max-w-[1100px] mx-auto">
+            {testimonials.slice(0, 2).map((t, index) => (
+              <TestimonialCard key={t.id} t={t} index={index} />
+            ))}
+          </div>
+
+          {/* Mobile Horizontal Scroll */}
+          <div className="md:hidden">
+            <div 
+              onScroll={handleScroll}
+              className="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-8 no-scrollbar px-2"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
-              {/* Profile Bar */}
-              <div className="flex items-center gap-4 mb-8">
-                {/* Circle Avatar matching Figma */}
-                <div className="w-[49px] h-[49px] bg-white rounded-full flex items-center justify-center shrink-0 shadow-sm border border-white">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="8" r="4" fill="#C7D8E8" />
-                    <path d="M4 19C4 16.5 8 15 12 15C16 15 20 16.5 20 19V21H4V19Z" fill="#C7D8E8" />
-                  </svg>
+              {testimonials.map((t, index) => (
+                <div key={t.id} className="min-w-[85vw] snap-center">
+                  <TestimonialCard t={t} index={index} />
                 </div>
-                <div className="flex flex-col justify-center">
-                  <h4 className="font-['Lora'] text-[16px] font-medium text-[#16232A] leading-tight flex items-center gap-1">
-                    {t.author} {t.role && <span className="font-medium">{t.role}</span>}
-                  </h4>
-                  <p className="font-['Lora'] text-[15px] text-[#63757E] leading-tight mt-0.5">{t.company}</p>
-                </div>
-              </div>
-
-              {/* Quote Body */}
-              <blockquote className="font-['Lora'] text-[16px] leading-[1.45] text-[#16232A] flex-1 font-normal">
-                {t.text}
-              </blockquote>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Custom Pagination as specified in Figma (Ellipse + Rectangle) */}
-        <div className="flex justify-center items-center gap-2 mt-12">
-          {testimonials.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveIndex(i)}
-              className={`h-[4px] transition-all duration-300 rounded-full ${
-                i === activeIndex ? "w-[12px] bg-[#03AEF2]" : "w-[4px] bg-[#63757E]/40"
-              }`}
-              aria-label={`Go to testimonial ${i + 1}`}
-            />
-          ))}
+              ))}
+            </div>
+            
+            {/* Mobile Dots */}
+            <div className="flex justify-center gap-2">
+              {testimonials.map((_, i) => (
+                <div 
+                  key={i} 
+                  className={`h-1.5 rounded-full transition-all duration-300 ${activeMobileIndex === i ? 'w-6 bg-[#03AEF2]' : 'w-1.5 bg-[#63757E]/30'}`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function TestimonialCard({ t, index }: { t: any; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1 }}
+      className="bg-white rounded-[40px] p-8 md:p-12 flex flex-col h-full relative group hover:shadow-xl transition-shadow duration-500"
+    >
+      {/* Top Quote Icon */}
+      <div className="mb-6">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-[#16232A]">
+          <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C20.1215 16 21.017 16.8954 21.017 18V21C21.017 22.1046 20.1215 23 19.017 23H16.017C14.9124 23 14.017 22.1046 14.017 21ZM3 21L3 18C3 16.8954 3.89543 16 5 16H8C9.10457 16 10 16.8954 10 18V21C10 22.1046 9.10457 23 8 23H5C3.89543 23 3 22.1046 3 21ZM14.017 13V10C14.017 6.13401 17.151 3 21.017 3V5C18.2556 5 16.017 7.23858 16.017 10H19.017C20.1215 10 21.017 10.8954 21.017 12V13C21.017 14.1046 20.1215 15 19.017 15H16.017C14.9124 15 14.017 14.1046 14.017 13ZM3 13V10C3 6.13401 6.13401 3 10 3V5C7.23858 5 5 7.23858 5 10H8C9.10457 10 10 10.8954 10 12V13C10 14.1046 9.10457 15 8 15H5C3.89543 15 3 14.1046 3 13Z" fill="currentColor"/>
+        </svg>
+      </div>
+
+      {/* Testimonial Text */}
+      <p className="text-[15px] md:text-[16px] leading-relaxed text-[#16232A] mb-12 flex-1 font-normal opacity-90">
+        {t.text}
+      </p>
+
+      {/* Author Footer */}
+      <div className="flex items-center justify-between border-t border-[#63757E]/10 pt-8 mt-auto">
+        <div className="flex items-center gap-4">
+          {/* Avatar Placeholder Circle */}
+          <div className="w-12 h-12 rounded-full bg-[#F0F1F3] flex items-center justify-center shrink-0">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-[#C7D8E8]">
+              <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <h4 className="text-[15px] md:text-[16px] font-medium text-[#16232A] leading-tight">
+              {t.name} {t.role && <span className="font-normal opacity-60 ml-0.5">{t.role}</span>}
+            </h4>
+            <p className="text-[14px] text-[#63757E] leading-tight mt-1">{t.company}</p>
+          </div>
+        </div>
+
+        {/* Closing Quote Icon (Faded) */}
+        <div className="opacity-[0.08] hidden sm:block">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="rotate-180">
+            <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C20.1215 16 21.017 16.8954 21.017 18V21C21.017 22.1046 20.1215 23 19.017 23H16.017C14.9124 23 14.017 22.1046 14.017 21ZM3 21L3 18C3 16.8954 3.89543 16 5 16H8C9.10457 16 10 16.8954 10 18V21C10 22.1046 9.10457 23 8 23H5C3.89543 23 3 22.1046 3 21ZM14.017 13V10C14.017 6.13401 17.151 3 21.017 3V5C18.2556 5 16.017 7.23858 16.017 10H19.017C20.1215 10 21.017 10.8954 21.017 12V13C21.017 14.1046 20.1215 15 19.017 15H16.017C14.9124 15 14.017 14.1046 14.017 13ZM3 13V10C3 6.13401 6.13401 3 10 3V5C7.23858 5 5 7.23858 5 10H8C9.10457 10 10 10.8954 10 12V13C10 14.1046 9.10457 15 8 15H5C3.89543 15 3 14.1046 3 13Z" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+    </motion.div>
   );
 }

@@ -1,125 +1,176 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { VibgyorButton } from "./ui/VibgyorButton";
 
 export function AboutVision() {
+  const [openIndex, setOpenIndex] = useState<number | null>(1); // Index 01 (02 in display) is open by default
+
   const reasons = [
     {
       id: "01",
-      title: "Flexibility",
-      description: "Our success has been built on our ability to listen to the client and be flexible to change as and when the business demands."
+      title: "Client-First Flexibility",
+      description: "We listen before we build. We adapt to your requirements, timeline, and constraints — without compromising on quality or cutting corners."
     },
     {
       id: "02",
-      title: "Repeat clients",
-      description: "We have been able to establish a large base of repeat clientele by servicing clients repeatedly and receiving excellent customer feedback"
+      title: "Strong Repeat Client Base",
+      description: "A significant share of our work comes from returning clients and referrals — trust earned through consistent quality and transparent communication over 10+ years."
     },
     {
       id: "03",
-      title: "Strong Local Presence",
-      description: "Our network through the country with strong local teams helps us service our clients in all regions."
+      title: "Strong Local Expertise",
+      description: "Based in Doha, we understand Qatar's construction environment, regulations, and procurement pace. That local knowledge means fewer delays and fewer surprises."
+    },
+    {
+      id: "04",
+      title: "On Time. Within Budget.",
+      description: "We understand that delays have real costs. Our project management process is built around clear timelines, proactive scheduling, and disciplined budget control."
+    },
+    {
+      id: "05",
+      title: "Standardised Quality Systems",
+      description: "We operate with documented SOPs and quality checks across every project — ensuring consistent standards and full accountability at every stage of the build."
+    },
+    {
+      id: "06",
+      title: "Dedicated Project Teams",
+      description: "Each project gets its own dedicated team from day one. Your project lead and on-site crew are accountable, accessible, and committed to your outcomes."
     }
   ];
 
   return (
-    <section className="bg-white py-24 md:py-32 font-['Instrument_Sans'] overflow-hidden relative">
-      {/* Left Image: Mask group-2.jpg (Woman Standing) */}
-      <motion.div 
-        initial={{ opacity: 0, x: -50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="absolute left-0 top-[25%] md:top-[30%] lg:top-[35%] -translate-x-[60%] md:-translate-x-[55%] lg:-translate-x-[50%] w-[450px] md:w-[650px] lg:w-[750px] aspect-square pointer-events-none z-0"
-      >
-        <Image 
-          src="/images/hero whychooseus/Mask group-2.jpg" 
-          alt="Workplace Design" 
-          fill 
-          className="object-cover" 
-          style={{ clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)" }}
-        />
-      </motion.div>
-
-      {/* Right Image: Mask group-3.jpg (Woman Sitting) */}
-      <motion.div 
-        initial={{ opacity: 0, x: 50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-        className="absolute right-0 top-[55%] md:top-[50%] lg:top-[45%] translate-x-[60%] md:translate-x-[55%] lg:translate-x-[50%] w-[450px] md:w-[650px] lg:w-[750px] aspect-square pointer-events-none z-0"
-      >
-        <Image 
-          src="/images/hero whychooseus/Mask group-3.jpg" 
-          alt="Interior Transformation" 
-          fill 
-          className="object-cover"
-          style={{ clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)" }}
-        />
-      </motion.div>
-
-      <div className="container mx-auto px-8 max-w-[1280px] relative z-10">
+    <section className="bg-white pt-12 pb-12 lg:pt-16 lg:pb-16 font-['Instrument_Sans'] overflow-hidden relative selection:bg-[#03AEF2] selection:text-white">
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px] relative z-10">
         
-        {/* Top Section: Branding + Why Choose Us (Untouched) */}
-        <div className="flex flex-col lg:flex-row justify-between items-start mb-24 gap-16 lg:gap-32">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-32 items-start">
           
-          {/* Left: Branding */}
-          <div className="max-w-[400px] relative z-10">
+          {/* LEFT COLUMN: WHAT SETS US APART */}
+          <div className="w-full lg:w-[400px] shrink-0 lg:sticky lg:top-10">
             <motion.h2 
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-[40px] font-medium leading-[49px] text-[#16232A] mb-8"
+              className="text-3xl md:text-[40px] font-medium leading-[1.2] text-[#16232A] mb-8 tracking-tight"
             >
-              Vibgyor <br /> Engineering WLL
+              What Sets Us <br /> Apart.
             </motion.h2>
-            <VibgyorButton href="/about" variant="outline">Learn More</VibgyorButton>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <VibgyorButton href="/about" variant="outline">Learn More</VibgyorButton>
+            </motion.div>
           </div>
 
-          {/* Right: Why Choose Us List */}
-          <div className="flex-1 w-full lg:max-w-[650px] relative z-10">
-            <h4 className="text-[18px] font-medium text-[#16232A] mb-4">Why choose us</h4>
-            <div className="w-full h-px bg-[#63757E]/20 mb-8" />
-            
-            <div className="space-y-12">
+          {/* RIGHT COLUMN: INTERACTIVE ACCORDION */}
+          <div className="flex-1 w-full">
+            <div className="mb-10">
+              <span className="text-[18px] md:text-[20px] font-medium text-[#16232A]">Why Choose Us</span>
+              <div className="h-px w-full bg-[#63757E]/20 mt-6" />
+            </div>
+
+            <div className="w-full">
               {reasons.map((reason, index) => (
-                <div key={reason.id} className="relative">
-                  <div className="flex items-start gap-8">
-                    <span className="text-[18px] font-medium text-[#03AEF2] mt-1 shrink-0">{reason.id}</span>
-                    <div className="space-y-3">
-                      <h3 className="text-[28px] font-medium text-[#16232A] leading-none">{reason.title}</h3>
-                      <p className="text-[18px] text-[#63757E] font-normal leading-[26px]">
-                        {reason.description}
-                      </p>
+                <div 
+                  key={index} 
+                  className="border-b border-[#63757E]/20"
+                >
+                  <button 
+                    onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                    className="w-full py-8 md:py-10 flex items-start text-left group transition-all duration-300"
+                  >
+                    {/* ID */}
+                    <span className="text-[18px] md:text-[20px] font-medium leading-none mt-2 transition-colors duration-300 w-12 md:w-16 shrink-0 text-[#03AEF2]">
+                      {reason.id}
+                    </span>
+
+                    {/* TITLE & CONTENT */}
+                    <div className="flex-1 pr-8">
+                      <h3 className="text-[24px] md:text-[32px] font-medium text-[#16232A] leading-tight tracking-tight">
+                        {reason.title}
+                      </h3>
+                      
+                      <AnimatePresence>
+                        {openIndex === index && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                            animate={{ height: "auto", opacity: 1, marginTop: 24 }}
+                            exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                            transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+                            className="overflow-hidden"
+                          >
+                            <p className="text-[16px] md:text-[18px] text-[#63757E] leading-relaxed max-w-[549px] font-normal">
+                              {reason.description}
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                  </div>
-                  {index < reasons.length - 1 && (
-                    <div className="w-full h-px bg-[#63757E]/20 mt-10" />
-                  )}
+
+                    {/* ICON (Plus/Close) */}
+                    <div className="shrink-0 mt-3 md:mt-4">
+                      <div className="relative w-5 h-5 md:w-6 md:h-6 flex items-center justify-center">
+                        <div className={`absolute w-full h-[1.5px] bg-[#16232A] transition-transform duration-500 ${openIndex === index ? 'rotate-[135deg]' : 'rotate-0'}`} />
+                        <div className={`absolute w-[1.5px] h-full bg-[#16232A] transition-transform duration-500 ${openIndex === index ? 'rotate-[135deg]' : 'rotate-0'}`} />
+                      </div>
+                    </div>
+                  </button>
                 </div>
               ))}
             </div>
           </div>
+
         </div>
 
-        {/* Bottom Section: Vision Quote */}
-        <div className="relative z-10 flex flex-col items-center text-center max-w-[850px] mx-auto pt-20 pb-20 lg:pt-32 lg:pb-32">
-          <motion.h2 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-[28px] md:text-[36px] font-medium leading-[1.3] text-[#16232A] mb-12"
+        {/* BOTTOM SECTION: ABOUT US BANNER */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          whileHover="hover"
+          viewport={{ once: true }}
+          className="relative w-full mt-16 mb-16 overflow-hidden isolate min-h-[465px] flex flex-col items-center justify-center text-center px-6 cursor-pointer"
+        >
+          {/* Background Image Container for Scale Effect */}
+          <motion.div 
+            variants={{
+              hover: { scale: 1.05 }
+            }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="absolute inset-0 z-0"
           >
-            This isn’t just about design. <br />
-            It’s about purpose. Identity. Progress. <br />
-            You’re not simply shaping a space - <span className="text-[#63757E]">you’re <br className="hidden md:block"/>
-            shaping how people experience it. We <br className="hidden md:block"/>
-            make that vision real.</span>
-          </motion.h2>
-          
-          <VibgyorButton href="/about" variant="outline">About Us</VibgyorButton>
-        </div>
+            <Image 
+              src="/images/Group 426.webp" 
+              alt="Interior Storytelling" 
+              fill 
+              className="object-cover"
+              priority
+            />
+          </motion.div>
+
+          {/* Dark Overlay (Figma opacity: 0.73 base) */}
+          <motion.div 
+            variants={{
+              hover: { backgroundColor: "rgba(0, 0, 0, 0.55)" }
+            }}
+            transition={{ duration: 0.6 }}
+            className="absolute inset-0 bg-black/45 z-[1]" 
+          />
+
+          {/* Content */}
+          <div className="relative z-[2] max-w-[623px]">
+            <h2 className="text-[28px] md:text-[32px] font-medium leading-[39px] text-white mb-10">
+              Every space tells a story. We make sure yours says exactly the right thing.
+            </h2>
+            
+            <VibgyorButton href="/about" variant="light">About Us</VibgyorButton>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

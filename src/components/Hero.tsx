@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { VibgyorButton } from "./ui/VibgyorButton";
@@ -24,9 +24,25 @@ export function Hero() {
   const interiorY = useTransform(smoothProgress, [0, 0.45, 0.75, 1], [0, -20, -60, -100]);
   const interiorOpacity = useTransform(smoothProgress, [0.75, 0.95], [1, 0]);
 
-  // Content Fades
-  const headlineOpacity = useTransform(smoothProgress, [0, 0.15], [1, 0]);
-  const headlineY = useTransform(smoothProgress, [0, 0.15], [0, -50]);
+  // Content Fades - Responsive coordination
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const headlineOpacity = useTransform(
+    smoothProgress, 
+    isMobile ? [0.75, 0.95] : [0, 0.15], 
+    [1, 0]
+  );
+  const headlineY = useTransform(
+    smoothProgress, 
+    isMobile ? [0.75, 0.95] : [0, 0.15], 
+    [0, -50]
+  );
   
 
 
@@ -72,11 +88,11 @@ export function Hero() {
             className="absolute z-[60] flex flex-col pt-[168px] items-center text-center w-full pointer-events-none"
             style={{ y: headlineY, opacity: headlineOpacity, filter: useTransform(blur, (b) => `blur(${b})`) }}
           >
-            <h1 className="w-full max-w-[833px] text-[clamp(40px,7vw,75px)] font-bold text-[#16232A] leading-[1.2] mb-4">
-              Wide range of services!
+            <h1 className="w-full max-w-[900px] text-4xl md:text-[75px] font-bold text-[#16232A] leading-[1.1] mb-6 tracking-tight">
+              Your Vision. Our Craft.
             </h1>
-            <p className="text-[clamp(18px,2vw,24px)] font-normal text-[#16232A] opacity-80">
-              Vibgyor Engineering WLL
+            <p className="text-lg md:text-[24px] font-normal text-[#16232A] leading-[29px]">
+              Interior Fit-out · Civil Engineering · Carpentry
             </p>
             
             <div className="mt-12 pointer-events-auto">
@@ -92,26 +108,27 @@ export function Hero() {
             style={{ 
               left: '50%',
               x: '-50%',
-              top: '45%',
+              top: typeof window !== 'undefined' && window.innerWidth < 768 ? '55%' : '45%',
               scale: interiorScale,
               y: interiorY,
               originX: 0.5,
               originY: 1,
               opacity: interiorOpacity,
               filter: useTransform(blur, (b) => `blur(${b})`),
-              width: '1050px',
-              height: '700px'
+              width: typeof window !== 'undefined' && window.innerWidth < 768 ? '120vw' : '1050px',
+              height: typeof window !== 'undefined' && window.innerWidth < 768 ? '85vh' : '700px'
             }}
           >
-            <Image 
-              src="/images/Interior Img 1.png" 
-              alt="Luxury Interior" 
-              width={1050} 
-              height={700} 
-              className="object-contain drop-shadow-[0_40px_100px_rgba(0,0,0,0.15)]"
-              priority
-              quality={100}
-            />
+            <div className="relative w-full h-full flex items-center justify-center">
+              <Image 
+                src="/images/Interior Img 1.png" 
+                alt="Luxury Interior" 
+                fill
+                className="object-contain drop-shadow-[0_40px_100px_rgba(0,0,0,0.15)]"
+                priority
+                quality={100}
+              />
+            </div>
           </motion.div>
 
           {/* Dynamic Parallax Clouds */}

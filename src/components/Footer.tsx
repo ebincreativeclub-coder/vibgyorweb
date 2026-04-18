@@ -31,7 +31,7 @@ export function Footer() {
 
           {/* CTA Content - Guaranteed Visibility */}
           <div className="relative h-full flex flex-col items-center justify-center text-center px-6 z-20">
-            <h3 className="text-white text-[32px] md:text-[45px] font-medium leading-[1.15] mb-10 max-w-[501px] drop-shadow-lg">
+            <h3 className="text-white text-[28px] md:text-[40px] font-medium leading-[1.15] mb-10 max-w-[501px] drop-shadow-lg">
               Start Your Project With Us.
             </h3>
             
@@ -84,7 +84,7 @@ export function Footer() {
                 <div className="text-white text-[14px] leading-relaxed font-semibold">
                   <p>+974 44604655</p>
                   <p>+974 70689948</p>
-                  <p className="mt-2 text-[#63757E]/70 font-normal tracking-wide">+974 44513654</p>
+                  <p>+974 44513654</p>
                 </div>
               </div>
 
