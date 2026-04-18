@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 
@@ -36,26 +38,21 @@ export function VibgyorButton({
     case "outline":
       // Used in the Features section
       buttonStyles = "bg-transparent border border-[#16232A]/20 text-[#16232A] hover:border-[#16232A]";
-      circleStyles = "bg-[#16232A]/5 group-hover:bg-[#16232A]";
-      arrowStyles = "text-[#16232A] group-hover:text-white";
+      circleStyles = "bg-[#16232A]";
+      arrowStyles = "text-white";
       break;
   }
 
   return (
     <Link 
       href={href} 
-      className={`inline-flex items-center justify-between h-[39px] pl-6 pr-1 rounded-full group transition-all duration-300 hover:pr-2 ${buttonStyles} ${className}`}
+      className={`inline-flex items-center justify-between h-[39px] pl-6 pr-1 rounded-full group/btn transition-all duration-300 hover:pr-2 cursor-pointer ${buttonStyles} ${className}`}
     >
-      {/* mr-4 ensures space between text and circle 
-        whitespace-nowrap prevents text from breaking
-      */}
       <span className="text-[12px] font-medium whitespace-nowrap mr-4">
         {children}
       </span>
       
-      {/* shrink-0 guarantees the circle NEVER gets squished into an oval */}
-      <div className={`w-[31px] h-[31px] rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:rotate-45 ${circleStyles}`}>
-        {/* Using currentColor automatically inherits the text color defined in arrowStyles */}
+      <div className={`w-[31px] h-[31px] rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover/btn:rotate-45 ${circleStyles}`}>
         <svg width="11" height="11" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className={arrowStyles}>
           <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>

@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
 import Image from "next/image";
-import { RevealText, FadeUp, RevealStaggerGroup, RevealItem } from "./ui/Reveal";
+import { RevealText, FadeUp } from "./ui/Reveal";
 
 const processSteps = [
   {
@@ -32,124 +32,263 @@ const processSteps = [
   }
 ];
 
-export function OurProcess() {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
+// --- EXTRACTED COMPONENT ---
+// This fixes the Hook ordering error by putting useTransform at the top level of a component.
+interface ProcessCardProps {
+  step: typeof processSteps[0];
+  index: number;
+  totalSteps: number;
+  smoothProgress: MotionValue<number>;
+}
+
+const ProcessCard = ({ step, index, totalSteps, smoothProgress }: ProcessCardProps) => {
+  const scrubEnd = 0.85; // Finish all animations by 85% of scroll
+  const stepWindow = scrubEnd / totalSteps; 
+  const start = index * stepWindow;
+  const end = start + stepWindow;
+
+  // 1. SVG Ring Drawing
+  const ringProgress = useTransform(smoothProgress, [start, end], [0, 1]);
+
+  // 2. The Wave Elevation
+  const cardY = useTransform(smoothProgress, [start - 0.05, start, end, end + 0.05], [0, -16, -16, 0]);
+  const cardScale = useTransform(smoothProgress, [start - 0.05, start, end, end + 0.05], [0.98, 1.02, 1.02, 1]);
+
+  // 3. Opacity
+  const cardOpacity = useTransform(smoothProgress, [start - 0.1, start], [0.4, 1]);
+
+  // 4. Glow / Shadow
+  const boxShadow = useTransform(
+    smoothProgress, 
+    [start - 0.05, start, end, end + 0.05], 
+    [
+      "0px 4px 20px rgba(0,0,0,0.03)", 
+      "0px 30px 60px rgba(3, 174, 242, 0.15)", 
+      "0px 30px 60px rgba(3, 174, 242, 0.15)", 
+      "0px 8px 30px rgba(0,0,0,0.04)"
+    ]
+  );
+
+  // 5. Border Color
+  const borderColor = useTransform(
+    smoothProgress, 
+    [start - 0.05, start, end, end + 0.05], 
+    [
+      "rgba(22, 35, 42, 0.06)", 
+      "rgba(3, 174, 242, 0.6)", 
+      "rgba(3, 174, 242, 0.6)", 
+      "rgba(3, 174, 242, 0.2)"
+    ]
+  );
+
+  // 6. Background Blob Intensity
+  const blobOpacity = useTransform(smoothProgress, [start, start + 0.1, end - 0.1, end], [0, 1, 1, 0]);
 
   return (
-    <section className="bg-white py-24 md:py-32 font-['Instrument_Sans'] overflow-hidden">
-      <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
-        
-        {/* Header Section */}
-        <div className="flex flex-col lg:flex-row justify-between items-start mb-24 md:mb-32">
-          <FadeUp delay={0.1} className="lg:w-1/4 pt-2">
-            <span className="text-[20px] font-medium text-[#16232A]">Our Process</span>
-          </FadeUp>
+    <motion.div 
+      style={{ opacity: cardOpacity, y: cardY, scale: cardScale, boxShadow, borderColor }}
+      className="w-full lg:flex-1 bg-white border-[1.5px] rounded-[2.5rem] p-6 md:p-8 xl:p-10 flex flex-col relative overflow-hidden will-change-transform"
+    >
+      {/* Decorative Glowing Background Blob */}
+      <motion.div 
+        style={{ opacity: blobOpacity }}
+        className="absolute -top-20 -right-20 w-48 h-48 bg-[#03AEF2] blur-[90px] rounded-full pointer-events-none"
+      />
 
-          <div className="lg:w-3/4 max-w-[700px]">
-            <RevealText delay={0.2}>
-              <h2 className="text-3xl md:text-[40px] font-medium text-[#16232A] leading-[1.2] mb-6">
-                From Brief to Handover - <br />
-                <span className="text-[#63757E]">We Handle It All.</span>
-              </h2>
-            </RevealText>
-            
-            <FadeUp delay={0.3}>
-              <p className="text-lg md:text-[20px] font-medium text-[#16232A] leading-[1.3] max-w-[582px]">
-                A structured process means fewer surprises, faster delivery, and results you can count on every time.
-              </p>
-            </FadeUp>
+      {/* Header: Ring Indicator & Step Number */}
+      <div className="flex justify-between items-start mb-12 relative z-10">
+        <div className="relative w-[76px] h-[76px] flex items-center justify-center bg-white rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
+          {/* Background Track */}
+          <svg className="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 76 76">
+            <circle cx="38" cy="38" r="34" stroke="#F1F5F9" strokeWidth="4" fill="none" />
+          </svg>
+          
+          {/* Animated Blue Progress Ring */}
+          <svg className="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 76 76">
+            <motion.circle 
+              cx="38" cy="38" r="34" 
+              stroke="#03AEF2" 
+              strokeWidth="4" 
+              fill="none" 
+              strokeLinecap="round"
+              style={{ pathLength: ringProgress }} 
+            />
+          </svg>
+
+          {/* Icon */}
+          <div className="relative w-7 h-7">
+            <Image src={step.icon} alt={step.title} fill className="object-contain" />
           </div>
         </div>
 
-        {/* Desktop View */}
-        <RevealStaggerGroup className="hidden lg:flex justify-between items-start relative">
-          {/* Precise Dotted Connecting Line (Behind circles) */}
-          <div 
-            className="absolute top-[42.5px] left-[10%] right-[10%] h-[1px] z-0" 
-            style={{
-              backgroundImage: 'radial-gradient(circle, #03AEF2 1.5px, transparent 1.5px)',
-              backgroundSize: '12px 100%',
-              backgroundRepeat: 'repeat-x',
-              opacity: 0.6
-            }}
-          />
-          
-          {processSteps.map((step, index) => (
-            <RevealItem 
-              key={step.id}
-              className="relative z-10 flex flex-col items-center text-center w-1/4"
-            >
-              <div className="w-[85px] h-[85px] rounded-full border border-[#16232A] border-opacity-[0.15] bg-white flex items-center justify-center mb-10 transition-shadow duration-500 relative z-20">
-                <div className="relative w-9 h-9">
-                  <Image src={step.icon} alt={step.title} fill className="object-contain" />
-                </div>
-              </div>
-              
-              <h3 className="text-[24px] font-medium text-[#16232A] mb-5 tracking-tight">{step.title}</h3>
-              <p className="text-[14px] font-normal text-[#16232A] leading-[1.5] max-w-[245px] opacity-80 font-['Instrument_Sans']">
-                {step.description}
-              </p>
-            </RevealItem>
-          ))}
-        </RevealStaggerGroup>
-
-        {/* Mobile View (Accordion Style as in image) */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:hidden flex flex-col border-t border-[#16232A]/10"
-        >
-          {processSteps.map((step, index) => {
-            const isExpanded = expandedIndex === index;
-            return (
-              <div key={step.id} className="border-b border-[#16232A]/10">
-                <button 
-                  onClick={() => setExpandedIndex(isExpanded ? null : index)}
-                  className="w-full py-6 flex items-center justify-between text-left"
-                >
-                  <div className="flex items-center gap-6">
-                    <span className={`text-lg font-normal transition-colors duration-300 ${isExpanded ? 'text-[#03AEF2]' : 'text-[#63757E]'}`}>
-                      {step.id}
-                    </span>
-                    <h3 className="text-2xl md:text-3xl font-medium text-[#16232A]">{step.title}</h3>
-                  </div>
-                  <div className="relative w-6 h-6 flex items-center justify-center">
-                    <motion.div 
-                      animate={{ rotate: isExpanded ? 45 : 0 }}
-                      className="absolute w-full h-0.5 bg-[#16232A]"
-                    />
-                    <motion.div 
-                      animate={{ rotate: isExpanded ? 45 : 90 }}
-                      className="absolute w-full h-0.5 bg-[#16232A]"
-                    />
-                  </div>
-                </button>
-                
-                <AnimatePresence>
-                  {isExpanded && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pb-8 pl-14 md:pl-16 pr-4">
-                        <p className="text-base font-normal text-[#16232A] leading-relaxed opacity-70">
-                          {step.description}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
-        </motion.div>
-
+        {/* Faded Step Number Watermark */}
+        <span className="text-[48px] font-light text-[#16232A]/5 leading-none tracking-tighter">
+          {step.id}
+        </span>
       </div>
+      
+      {/* Text Content */}
+      <div className="mt-auto relative z-10">
+        <span className="inline-block text-[#03AEF2] text-xs font-semibold tracking-widest uppercase mb-4">
+          Step {step.id}
+        </span>
+        <h3 className="text-[24px] font-medium text-[#16232A] mb-4 tracking-tight leading-tight">
+          {step.title}
+        </h3>
+        <p className="text-[15px] font-normal text-[#63757E] leading-[1.6]">
+          {step.description}
+        </p>
+      </div>
+    </motion.div>
+  );
+};
+
+
+export function OurProcess() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
+
+  // SCROLL ENGINE
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, { 
+    stiffness: 100, 
+    damping: 30, 
+    restDelta: 0.001 
+  });
+
+  return (
+    <section ref={containerRef} className="relative bg-[#FAFCFF] font-['Instrument_Sans']">
+      
+      {/* PART 1: Header — Scrolls naturally, never clipped */}
+      <div className="pt-24 md:pt-32 pb-12 md:pb-16">
+        <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
+          <div className="flex flex-col lg:flex-row justify-between items-start">
+            <FadeUp delay={0.1} className="lg:w-1/4 pt-2">
+              <span className="text-[20px] font-medium text-[#16232A]">Our Process</span>
+            </FadeUp>
+
+            <div className="lg:w-3/4 max-w-[700px]">
+              <RevealText delay={0.2}>
+                <h2 className="text-[36px] md:text-[54px] font-medium text-[#16232A] leading-[1.1] mb-6">
+                  From Brief to Handover - <br />
+                  <span className="text-[#63757E]">We Handle It All.</span>
+                </h2>
+              </RevealText>
+              
+              <FadeUp delay={0.3}>
+                <p className="text-lg md:text-[20px] font-medium text-[#16232A] leading-[1.3] max-w-[582px]">
+                  A structured process means fewer surprises, faster delivery, and results you can count on every time.
+                </p>
+              </FadeUp>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* PART 2: Desktop Card Scrub Zone (Unchanged) */}
+      <div className="hidden lg:block relative h-[400vh]">
+        <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+          <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px] w-full">
+            <div className="flex flex-row gap-6 items-stretch w-full pb-10">
+              {processSteps.map((step, index) => (
+                <ProcessCard 
+                  key={step.id} 
+                  step={step} 
+                  index={index} 
+                  totalSteps={processSteps.length}
+                  smoothProgress={smoothProgress} 
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* PART 3: Mobile Vertical Flow — The "Best Mobile Design" approach */}
+      <div className="lg:hidden pb-24 px-6 relative h-[600vh]">
+        <div className="sticky top-0 h-screen flex flex-col justify-center">
+          <div className="relative flex flex-col gap-16">
+            {/* Vertical Connecting Line (Background Track) */}
+            <div className="absolute left-[38px] top-10 bottom-10 w-[1px] bg-[#16232A]/5" />
+            
+            {/* DRAWING LINE: The "Progress" effect for mobile */}
+            <motion.div 
+              style={{ 
+                scaleY: smoothProgress,
+                originY: 0,
+                boxShadow: '0 0 10px rgba(3, 174, 242, 0.3)'
+              }}
+              className="absolute left-[38px] top-10 bottom-10 w-[2px] bg-[#03AEF2] z-0"
+            />
+            {processSteps.map((step) => (
+              <div key={step.id} className="relative">
+                <MobileProcessCard step={step} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
     </section>
+  );
+}
+
+// --- MOBILE SPECIFIC COMPONENT ---
+// Uses scroll-linked "scrubbing" so it reverses perfectly on scroll-up
+function MobileProcessCard({ step }: { step: typeof processSteps[0] }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start 90%", "center center"]
+  });
+
+  const pathLength = useSpring(scrollYProgress, { 
+    stiffness: 100, 
+    damping: 30, 
+    restDelta: 0.001 
+  });
+
+  const nodeOpacity = useTransform(scrollYProgress, [0, 1], [0.4, 1]);
+  const nodeScale = useTransform(scrollYProgress, [0, 1], [0.96, 1]);
+
+  return (
+    <motion.div 
+      ref={cardRef}
+      style={{ opacity: nodeOpacity, scale: nodeScale }}
+      className="flex gap-6 items-start"
+    >
+      {/* Icon Ring with local "scrub" logic */}
+      <div className="flex-shrink-0 relative w-[76px] h-[76px] flex items-center justify-center bg-white rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-[#03AEF2]/10 z-10">
+        <svg className="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 76 76">
+          <circle cx="38" cy="38" r="34" stroke="#F1F5F9" strokeWidth="4" fill="none" />
+          <motion.circle 
+            cx="38" cy="38" r="34" 
+            stroke="#03AEF2" strokeWidth="4" fill="none" strokeLinecap="round"
+            style={{ pathLength }}
+          />
+        </svg>
+        <div className="relative w-7 h-7">
+          <Image src={step.icon} alt={step.title} fill className="object-contain" />
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 pt-2">
+        <span className="text-[#03AEF2] text-[10px] font-semibold tracking-widest uppercase mb-2 block">
+          Step {step.id}
+        </span>
+        <h3 className="text-[20px] font-medium text-[#16232A] mb-3 leading-tight uppercase font-['Instrument_Sans'] tracking-tight">
+          {step.title}
+        </h3>
+        <p className="text-[14px] font-normal text-[#63757E] leading-relaxed max-w-xs">
+          {step.description}
+        </p>
+      </div>
+    </motion.div>
   );
 }

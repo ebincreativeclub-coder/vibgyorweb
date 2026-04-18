@@ -57,7 +57,7 @@ export function Testimonials() {
         {/* Header Section */}
         <div className="text-center mb-12 md:mb-16">
           <RevealText>
-            <h2 className="text-[32px] md:text-[48px] font-medium tracking-tight">
+            <h2 className="text-[32px] md:text-[54px] font-medium tracking-tight leading-[1.1]">
               <span className="text-[#16232A]">The Voices </span>
               <span className="text-[#63757E]">Behind Our Work.</span>
             </h2>

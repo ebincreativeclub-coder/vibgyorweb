@@ -43,110 +43,139 @@ export function AboutVision() {
   ];
 
   return (
-    <section className="bg-white pt-12 pb-12 lg:pt-16 lg:pb-16 font-['Instrument_Sans'] overflow-hidden relative selection:bg-[#03AEF2] selection:text-white">
+    <section className="bg-white pt-16 pb-12 lg:pt-24 lg:pb-16 font-['Instrument_Sans'] overflow-hidden relative selection:bg-[#03AEF2] selection:text-white">
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px] relative z-10">
         
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-32 items-start">
-          
-          {/* LEFT COLUMN: WHAT SETS US APART */}
-          <div className="w-full lg:w-[400px] shrink-0 lg:sticky lg:top-10">
-            <RevealText delay={0.1}>
-              <h2 className="text-3xl md:text-[40px] font-medium leading-[1.2] text-[#16232A] mb-8 tracking-tight">
-                What Sets Us <br /> Apart.
+        {/* TOP HEADER: Full Width Split */}
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 lg:mb-24 gap-10">
+          <div className="lg:w-1/2">
+            <FadeUp delay={0.1}>
+              <span className="text-[20px] font-medium text-[#16232A] mb-6 block">
+                Why Choose Us
+              </span>
+            </FadeUp>
+            <RevealText delay={0.2}>
+              <h2 className="text-[36px] md:text-[54px] font-medium leading-[1.1] text-[#16232A] tracking-tight">
+                What Sets Us <br className="hidden md:block"/> Apart.
               </h2>
             </RevealText>
+          </div>
 
-            <FadeUp delay={0.2}>
+          <div className="lg:w-1/3 flex flex-col items-start lg:items-end text-left lg:text-right">
+            <FadeUp delay={0.3}>
+              <p className="text-[16px] md:text-[18px] text-[#63757E] mb-8 leading-relaxed max-w-[400px]">
+                We don't just build spaces - we build trust through transparency, precision, and a relentless focus on your goals.
+              </p>
               <VibgyorButton href="/about" variant="outline">Learn More</VibgyorButton>
             </FadeUp>
           </div>
-
-          {/* RIGHT COLUMN: INTERACTIVE ACCORDION */}
-          <div className="flex-1 w-full">
-            <FadeUp delay={0.1} className="mb-10">
-              <span className="text-[18px] md:text-[20px] font-medium text-[#16232A]">Why Choose Us</span>
-              <div className="h-px w-full bg-[#63757E]/20 mt-6" />
-            </FadeUp>
-
-            <RevealStaggerGroup className="w-full">
-              {reasons.map((reason, index) => (
-                <RevealItem 
-                  key={index} 
-                  className="border-b border-[#63757E]/20"
-                >
-                  <button 
-                    onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                    className="w-full py-8 md:py-10 flex items-start text-left group transition-all duration-300"
-                  >
-                    {/* ID */}
-                    <span className="text-[18px] md:text-[20px] font-medium leading-none mt-2 transition-colors duration-300 w-12 md:w-16 shrink-0 text-[#03AEF2]">
-                      {reason.id}
-                    </span>
-
-                    {/* TITLE & CONTENT */}
-                    <div className="flex-1 pr-8">
-                      <h3 className="text-[24px] md:text-[32px] font-medium text-[#16232A] leading-tight tracking-tight">
-                        {reason.title}
-                      </h3>
-                      
-                      <AnimatePresence>
-                        {openIndex === index && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                            animate={{ height: "auto", opacity: 1, marginTop: 24 }}
-                            exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                            transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
-                            className="overflow-hidden"
-                          >
-                            <p className="text-[16px] md:text-[18px] text-[#63757E] leading-relaxed max-w-[549px] font-normal">
-                              {reason.description}
-                            </p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-
-                    {/* ICON (Plus/Close) */}
-                    <div className="shrink-0 mt-3 md:mt-4">
-                      <div className="relative w-5 h-5 md:w-6 md:h-6 flex items-center justify-center">
-                        <div className={`absolute w-full h-[1.5px] bg-[#16232A] transition-transform duration-500 ${openIndex === index ? 'rotate-[135deg]' : 'rotate-0'}`} />
-                        <div className={`absolute w-[1.5px] h-full bg-[#16232A] transition-transform duration-500 ${openIndex === index ? 'rotate-[135deg]' : 'rotate-0'}`} />
-                      </div>
-                    </div>
-                  </button>
-                </RevealItem>
-              ))}
-            </RevealStaggerGroup>
-          </div>
-
         </div>
 
-        {/* BOTTOM SECTION: ABOUT US BANNER */}
+        {/* FULL WIDTH EDITORIAL ACCORDION */}
+        <div className="w-full border-t border-[#16232A]/10">
+          <RevealStaggerGroup className="w-full flex flex-col">
+            {reasons.map((reason, index) => {
+              const isOpen = openIndex === index;
+
+              return (
+                <RevealItem key={reason.id}>
+                  <div className={`border-b transition-colors duration-500 ${isOpen ? 'border-[#03AEF2]' : 'border-[#16232A]/10'}`}>
+                    <button 
+                      onClick={() => setOpenIndex(isOpen ? null : index)}
+                      className="w-full py-8 md:py-12 flex flex-col md:grid md:grid-cols-[auto_1fr_auto] gap-4 md:gap-12 lg:gap-20 items-start md:items-center text-left group transition-all duration-300"
+                    >
+                      {/* Column 1: Number */}
+                      <span className={`text-[20px] md:text-[24px] font-light transition-colors duration-300 w-12 md:w-16 shrink-0 ${isOpen ? 'text-[#03AEF2]' : 'text-[#63757E] group-hover:text-[#16232A]'}`}>
+                        {reason.id}
+                      </span>
+
+                      {/* Column 2: Title */}
+                      <h3 className={`text-[28px] md:text-[40px] lg:text-[48px] font-medium leading-none tracking-tight transition-all duration-500 ${isOpen ? 'text-[#03AEF2] md:translate-x-4' : 'text-[#16232A] group-hover:translate-x-2'}`}>
+                        {reason.title}
+                      </h3>
+
+                      {/* Column 3: Icon (Absolute on mobile, grid on desktop) */}
+                      <div className="absolute right-0 top-10 md:relative md:top-0 md:right-0 shrink-0 ml-auto">
+                        <div className="relative w-6 h-6 md:w-8 md:h-8 flex items-center justify-center">
+                          <div className={`absolute w-full h-[1.5px] transition-all duration-500 ${isOpen ? 'rotate-[135deg] bg-[#03AEF2]' : 'rotate-0 bg-[#16232A] group-hover:bg-[#03AEF2]'}`} />
+                          <div className={`absolute w-[1.5px] h-full transition-all duration-500 ${isOpen ? 'rotate-[135deg] bg-[#03AEF2]' : 'rotate-0 bg-[#16232A] group-hover:bg-[#03AEF2]'}`} />
+                        </div>
+                      </div>
+                    </button>
+
+                    {/* Expandable Content (Aligns perfectly with the title on desktop) */}
+                    <AnimatePresence>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                          className="overflow-hidden md:grid md:grid-cols-[auto_1fr_auto] md:gap-12 lg:gap-20"
+                        >
+                          {/* Empty div to offset the text and align it with the Title */}
+                          <div className="hidden md:block w-16 shrink-0" />
+                          
+                          <div className="pb-10 md:pb-14 pr-8 md:pr-0 md:pl-4 overflow-hidden">
+                            <motion.div
+                              initial={{ opacity: 0, y: "20%" }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.8, delay: 0.15, ease: [0.33, 1, 0.68, 1] }}
+                            >
+                              <p className="text-[16px] md:text-[20px] text-[#63757E] leading-relaxed max-w-[700px] font-normal">
+                                {reason.description}
+                              </p>
+                            </motion.div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </RevealItem>
+              );
+            })}
+          </RevealStaggerGroup>
+        </div>
+
+        {/* BOTTOM SECTION: ABOUT US BANNER (UNCHANGED) */}
         <RevealImage 
           delay={0.2}
-          className="relative w-full mt-16 mb-16 overflow-hidden isolate min-h-[465px] flex flex-col items-center justify-center text-center px-6 cursor-pointer"
+          className="relative w-full mt-24 mb-16 overflow-hidden rounded-[2.5rem] isolate min-h-[465px] flex flex-col items-center justify-center text-center px-6 cursor-pointer"
         >
-          {/* Background Image Container for Scale Effect */}
+          {/* Animated Background & Overlay Wrapper */}
           <motion.div 
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="absolute inset-0 z-0"
+            whileHover="hover"
+            initial="initial"
+            className="absolute inset-0"
           >
-            <Image 
-              src="/images/Group 426.webp" 
-              alt="Interior Storytelling" 
-              fill 
-              className="object-cover"
-              priority
+            {/* The Image Container */}
+            <motion.div 
+              variants={{
+                initial: { scale: 1 },
+                hover: { scale: 1.1 }
+              }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute inset-0 z-0"
+            >
+              <Image 
+                src="/images/Group 426.webp" 
+                alt="Interior Storytelling" 
+                fill 
+                className="object-cover"
+                priority
+              />
+            </motion.div>
+
+            {/* The Overlay */}
+            <motion.div 
+              variants={{
+                initial: { opacity: 1 },
+                hover: { opacity: 0.65 }
+              }}
+              transition={{ duration: 0.8 }}
+              className="absolute inset-0 bg-black/45 z-[1]" 
             />
           </motion.div>
-
-          {/* Dark Overlay (Figma opacity: 0.73 base) */}
-          <motion.div 
-            whileHover={{ backgroundColor: "rgba(0, 0, 0, 0.55)" }}
-            transition={{ duration: 0.6 }}
-            className="absolute inset-0 bg-black/45 z-[1]" 
-          />
 
           {/* Content */}
           <div className="relative z-[2] max-w-[623px]">

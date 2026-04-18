@@ -25,7 +25,7 @@ export function PortfolioGallery() {
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
         <div className="flex flex-col items-center text-center mb-16 md:mb-24 mx-auto w-full">
           <RevealText delay={0.1}>
-            <h2 className="text-3xl md:text-4xl lg:text-[40px] font-medium leading-tight mb-4">
+            <h2 className="text-[36px] md:text-[54px] font-medium leading-[1.1] mb-6">
               Real spaces. <span className="text-[#63757E]">Real transformations.</span>
             </h2>
           </RevealText>

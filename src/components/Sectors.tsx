@@ -85,7 +85,7 @@ export function Sectors() {
           </FadeUp>
           
           <RevealText delay={0.2}>
-            <h2 className="text-3xl md:text-[40px] font-medium text-[#16232A] leading-tight mb-8 max-w-[802px]">
+            <h2 className="text-[36px] md:text-[54px] font-medium text-[#16232A] leading-[1.1] mb-8 max-w-[1100px]">
               Built for Qatar&apos;s <span className="text-[#63757E]">Most Demanding Sectors.</span>
             </h2>
           </RevealText>
@@ -141,26 +141,12 @@ export function Sectors() {
           </div>
         </div>
 
-        {/* Desktop: Grid Design */}
-        <RevealStaggerGroup className="hidden md:grid relative border-[0.5px] border-[#63757E]/30 grid-cols-2 lg:grid-cols-3">
+        {/* Desktop: Grid Design with Magnetic & Glassmorphic Interaction */}
+        <RevealStaggerGroup className="hidden md:grid relative border-[0.5px] border-[#16232A]/10 grid-cols-2 lg:grid-cols-3 overflow-hidden rounded-[2.5rem]">
           {sectors.map((sector, index) => (
-            <RevealItem 
-              key={index}
-              className={`group p-8 md:p-10 lg:p-12 border-[0.5px] border-[#63757E]/30 transition-colors duration-500 hover:bg-[#F9FBFC]`}
-            >
-              <div className="mb-6 w-fit text-[#63757E] group-hover:text-[#03AEF2] transition-colors duration-500">
-                <sector.icon size={32} />
-              </div>
-              <h3 className="text-[22px] font-semibold text-[#16232A] mb-3 tracking-tight">
-                {sector.title}
-              </h3>
-              <p className="text-base font-normal text-[#16232A] leading-relaxed opacity-70">
-                {sector.description}
-              </p>
-            </RevealItem>
+            <SectorCard key={index} sector={sector} />
           ))}
         </RevealStaggerGroup>
-
       </div>
 
       <style jsx global>{`
@@ -169,5 +155,71 @@ export function Sectors() {
         }
       `}</style>
     </section>
+  );
+}
+
+// --- EXTRACTED MAGNETIC CARD COMPONENT ---
+function SectorCard({ sector }: { sector: typeof sectors[0] }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left - rect.width / 2) * 0.15;
+    const y = (e.clientY - rect.top - rect.height / 2) * 0.15;
+    setMousePos({ x, y });
+  };
+
+  return (
+    <RevealItem 
+      className="group relative h-full"
+    >
+      <div 
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => {
+          setIsHovered(false);
+          setMousePos({ x: 0, y: 0 });
+        }}
+        className="h-full p-10 lg:p-14 border-[0.5px] border-[#16232A]/10 transition-all duration-700 hover:bg-[#F9FDFF] relative overflow-hidden flex flex-col cursor-crosshair"
+      >
+        {/* Hover Glow Effect */}
+        <motion.div 
+          animate={{ 
+            opacity: isHovered ? 1 : 0,
+            scale: isHovered ? 1.5 : 1,
+            x: mousePos.x * 2,
+            y: mousePos.y * 2
+          }}
+          className="absolute -top-1/2 -right-1/2 w-full h-full bg-[#03AEF2] blur-[120px] rounded-full opacity-0 pointer-events-none transition-opacity duration-700"
+        />
+
+        {/* Content Wrapper with Magnetic Physics */}
+        <motion.div 
+          animate={{ x: mousePos.x, y: mousePos.y }}
+          transition={{ type: "spring", stiffness: 150, damping: 25, mass: 0.1 }}
+          className="relative z-10 flex flex-col h-full"
+        >
+          {/* Icon with Circle Base */}
+          <div className="mb-10 relative">
+            <div className="w-16 h-16 rounded-2xl bg-[#F8FAFB] group-hover:bg-[#03AEF2] flex items-center justify-center text-[#63757E] group-hover:text-white transition-all duration-500 shadow-sm group-hover:shadow-[0_10px_30px_rgba(3,174,242,0.3)] group-hover:-translate-y-1">
+              <sector.icon size={28} />
+            </div>
+          </div>
+
+          <h3 className="text-[24px] font-semibold text-[#16232A] mb-4 tracking-tight leading-tight">
+            {sector.title}
+          </h3>
+          
+          <p className="text-[15px] font-normal text-[#16232A]/70 leading-relaxed mb-8">
+            {sector.description}
+          </p>
+
+        </motion.div>
+      </div>
+    </RevealItem>
   );
 }
