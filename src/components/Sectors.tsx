@@ -50,14 +50,10 @@ export function Sectors() {
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const container = e.currentTarget;
     const scrollPosition = container.scrollLeft;
-    const maxScroll = container.scrollWidth - container.offsetWidth;
+    const itemWidth = container.offsetWidth * 0.75 + 20; // 75vw + gap
+    const newIndex = Math.round(scrollPosition / itemWidth);
     
-    if (maxScroll <= 0) return;
-
-    // Use a ratio to map scroll position to index (0 to sectors.length - 1)
-    const newIndex = Math.round((scrollPosition / maxScroll) * (sectors.length - 1));
-    
-    if (newIndex !== activeMobileIndex) {
+    if (newIndex !== activeMobileIndex && newIndex >= 0 && newIndex < sectors.length) {
       setActiveMobileIndex(newIndex);
     }
   };
@@ -113,7 +109,7 @@ export function Sectors() {
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="min-w-[260px] w-[75vw] snap-start p-8 border-[0.5px] border-[#63757E]/30 bg-[#F9FBFC] rounded-2xl flex flex-col shrink-0"
+                className="min-w-[260px] w-[75vw] snap-start snap-always p-8 border-[0.5px] border-[#63757E]/30 bg-[#F9FBFC] rounded-2xl flex flex-col shrink-0"
               >
                 <div className="mb-6 w-fit text-[#03AEF2]">
                   <sector.icon size={40} />
