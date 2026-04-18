@@ -142,11 +142,11 @@ export function AboutVision() {
           delay={0.2}
           className="relative w-full mt-24 mb-16 overflow-hidden rounded-[2.5rem] isolate min-h-[465px] flex flex-col items-center justify-center text-center px-6 cursor-pointer"
         >
-          {/* Animated Background & Overlay Wrapper */}
+          {/* Unified Interaction Parent: Wraps EVERYTHING */}
           <motion.div 
             whileHover="hover"
             initial="initial"
-            className="absolute inset-0"
+            className="absolute inset-0 flex flex-col items-center justify-center"
           >
             {/* The Image Container */}
             <motion.div 
@@ -175,16 +175,16 @@ export function AboutVision() {
               transition={{ duration: 0.8 }}
               className="absolute inset-0 bg-black/45 z-[1]" 
             />
-          </motion.div>
 
-          {/* Content */}
-          <div className="relative z-[2] max-w-[623px]">
-            <h2 className="text-[28px] md:text-[32px] font-medium leading-[39px] text-white mb-10">
-              Every space tells a story. We make sure yours says exactly the right thing.
-            </h2>
-            
-            <VibgyorButton href="/about" variant="light">About Us</VibgyorButton>
-          </div>
+            {/* Content: Now inside the interaction parent */}
+            <div className="relative z-[2] max-w-[623px]">
+              <h2 className="text-[28px] md:text-[32px] font-medium leading-[39px] text-white mb-10">
+                Every space tells a story. We make sure yours says exactly the right thing.
+              </h2>
+              
+              <VibgyorButton href="/about" variant="light">About Us</VibgyorButton>
+            </div>
+          </motion.div>
         </RevealImage>
       </div>
     </section>
