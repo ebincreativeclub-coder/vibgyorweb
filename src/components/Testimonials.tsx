@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const testimonials = [
   {
@@ -22,17 +22,32 @@ const testimonials = [
 
 export function Testimonials() {
   const [activeMobileIndex, setActiveMobileIndex] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const container = e.currentTarget;
-    const scrollPosition = container.scrollLeft;
-    const maxScroll = container.scrollWidth - container.offsetWidth;
-    if (maxScroll <= 0) return;
-    const newIndex = Math.round((scrollPosition / maxScroll) * (testimonials.length - 1));
-    if (newIndex !== activeMobileIndex) {
-      setActiveMobileIndex(newIndex);
-    }
-  };
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const options = {
+      root: container,
+      rootMargin: "0px -20% 0px -20%",
+      threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = parseInt(entry.target.getAttribute("data-index") || "0");
+          setActiveMobileIndex(index);
+        }
+      });
+    }, options);
+
+    const cards = container.querySelectorAll(".testimonial-card-mobile");
+    cards.forEach((card) => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section className="bg-[#F1F2F3] pt-16 pb-24 md:pt-20 md:pb-32 overflow-hidden font-['Instrument_Sans'] selection:bg-[#03AEF2] selection:text-white">
@@ -63,12 +78,12 @@ export function Testimonials() {
           {/* Mobile Horizontal Scroll */}
           <div className="md:hidden">
             <div 
-              onScroll={handleScroll}
+              ref={scrollContainerRef}
               className="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-8 no-scrollbar px-2"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {testimonials.map((t, index) => (
-                <div key={t.id} className="min-w-[85vw] snap-center">
+                <div key={t.id} data-index={index} className="testimonial-card-mobile min-w-[85vw] snap-center snap-always">
                   <TestimonialCard t={t} index={index} />
                 </div>
               ))}

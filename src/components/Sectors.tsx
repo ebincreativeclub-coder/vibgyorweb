@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { 
   RiHotelLine, 
@@ -46,17 +46,32 @@ const sectors = [
 
 export function Sectors() {
   const [activeMobileIndex, setActiveMobileIndex] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const container = e.currentTarget;
-    const scrollPosition = container.scrollLeft;
-    const itemWidth = container.offsetWidth * 0.75 + 20; // 75vw + gap
-    const newIndex = Math.round(scrollPosition / itemWidth);
-    
-    if (newIndex !== activeMobileIndex && newIndex >= 0 && newIndex < sectors.length) {
-      setActiveMobileIndex(newIndex);
-    }
-  };
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const options = {
+      root: container,
+      rootMargin: "0px -20% 0px -20%", // Focus on the middle 60% of the container
+      threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = parseInt(entry.target.getAttribute("data-index") || "0");
+          setActiveMobileIndex(index);
+        }
+      });
+    }, options);
+
+    const cards = container.querySelectorAll(".sector-card-mobile");
+    cards.forEach((card) => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section className="bg-white pt-24 pb-12 md:pt-32 md:pb-16 font-['Instrument_Sans'] selection:bg-[#03AEF2] selection:text-white overflow-hidden">
@@ -95,7 +110,7 @@ export function Sectors() {
         {/* Mobile: Horizontal Swiper with Peek and Hidden Scrollbar */}
         <div className="md:hidden">
           <div 
-            onScroll={handleScroll}
+            ref={scrollContainerRef}
             className="flex items-stretch overflow-x-auto snap-x snap-mandatory gap-5 pb-8 no-scrollbar px-6"
             style={{ 
               scrollbarWidth: 'none', 
@@ -106,10 +121,11 @@ export function Sectors() {
             {sectors.map((sector, index) => (
               <motion.div 
                 key={index}
+                data-index={index}
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="min-w-[260px] w-[75vw] snap-start snap-always p-8 border-[0.5px] border-[#63757E]/30 bg-[#F9FBFC] rounded-2xl flex flex-col shrink-0"
+                className="sector-card-mobile min-w-[260px] w-[75vw] snap-start snap-always p-8 border-[0.5px] border-[#63757E]/30 bg-[#F9FBFC] rounded-2xl flex flex-col shrink-0"
               >
                 <div className="mb-6 w-fit text-[#03AEF2]">
                   <sector.icon size={40} />
