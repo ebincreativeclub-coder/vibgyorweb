@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
+import { RevealText, FadeUp, RevealStaggerGroup, RevealItem } from "./ui/Reveal";
 import { 
   RiHotelLine, 
   RiBuilding4Line, 
@@ -72,39 +73,28 @@ export function Sectors() {
 
     return () => observer.disconnect();
   }, []);
-
   return (
     <section className="bg-white pt-24 pb-12 md:pt-32 md:pb-16 font-['Instrument_Sans'] selection:bg-[#03AEF2] selection:text-white overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
-        
-        {/* Header Section ... [existing code] */}
+        {/* Header Section */}
         <div className="flex flex-col items-center text-center mb-16 md:mb-24">
-          <motion.span 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-[18px] md:text-[20px] font-medium text-[#16232A] mb-8 tracking-tight"
-          >
-            Who We Work With
-          </motion.span>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl md:text-[40px] font-medium text-[#16232A] leading-tight mb-8 max-w-[802px]"
-          >
-            Built for Qatar&apos;s <span className="text-[#63757E]">Most Demanding Sectors.</span>
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-lg md:text-[20px] font-medium text-[#16232A] leading-relaxed max-w-[674px] opacity-80"
-          >
-            From five-star hotels to high-performance offices, we understand what each industry needs — and we build to that standard.
-          </motion.p>
+          <FadeUp delay={0.1}>
+            <span className="block text-[18px] md:text-[20px] font-medium text-[#16232A] mb-8 tracking-tight">
+              Who We Work With
+            </span>
+          </FadeUp>
+          
+          <RevealText delay={0.2}>
+            <h2 className="text-3xl md:text-[40px] font-medium text-[#16232A] leading-tight mb-8 max-w-[802px]">
+              Built for Qatar&apos;s <span className="text-[#63757E]">Most Demanding Sectors.</span>
+            </h2>
+          </RevealText>
+          
+          <FadeUp delay={0.3}>
+            <p className="text-lg md:text-[20px] font-medium text-[#16232A] leading-relaxed max-w-[674px] opacity-80">
+              From five-star hotels to high-performance offices, we understand what each industry needs — and we build to that standard.
+            </p>
+          </FadeUp>
         </div>
 
         {/* Mobile: Horizontal Swiper with Peek and Hidden Scrollbar */}
@@ -122,9 +112,10 @@ export function Sectors() {
               <motion.div 
                 key={index}
                 data-index={index}
-                initial={{ opacity: 0, x: 20 }}
+                initial={{ opacity: 0, x: 40 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 1.2, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="sector-card-mobile min-w-[260px] w-[75vw] snap-start snap-always p-8 border-[0.5px] border-[#63757E]/30 bg-[#F9FBFC] rounded-2xl flex flex-col shrink-0"
               >
                 <div className="mb-6 w-fit text-[#03AEF2]">
@@ -151,14 +142,10 @@ export function Sectors() {
         </div>
 
         {/* Desktop: Grid Design */}
-        <div className="hidden md:grid relative border-[0.5px] border-[#63757E]/30 grid-cols-2 lg:grid-cols-3">
+        <RevealStaggerGroup className="hidden md:grid relative border-[0.5px] border-[#63757E]/30 grid-cols-2 lg:grid-cols-3">
           {sectors.map((sector, index) => (
-            <motion.div 
+            <RevealItem 
               key={index}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
               className={`group p-8 md:p-10 lg:p-12 border-[0.5px] border-[#63757E]/30 transition-colors duration-500 hover:bg-[#F9FBFC]`}
             >
               <div className="mb-6 w-fit text-[#63757E] group-hover:text-[#03AEF2] transition-colors duration-500">
@@ -170,9 +157,9 @@ export function Sectors() {
               <p className="text-base font-normal text-[#16232A] leading-relaxed opacity-70">
                 {sector.description}
               </p>
-            </motion.div>
+            </RevealItem>
           ))}
-        </div>
+        </RevealStaggerGroup>
 
       </div>
 

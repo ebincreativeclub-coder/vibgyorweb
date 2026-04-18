@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { RevealText, FadeUp, RevealStaggerGroup, RevealItem } from "./ui/Reveal";
 
 const processSteps = [
   {
@@ -40,22 +41,28 @@ export function OurProcess() {
         
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row justify-between items-start mb-24 md:mb-32">
-          <div className="lg:w-1/4 pt-2">
+          <FadeUp delay={0.1} className="lg:w-1/4 pt-2">
             <span className="text-[20px] font-medium text-[#16232A]">Our Process</span>
-          </div>
+          </FadeUp>
+
           <div className="lg:w-3/4 max-w-[700px]">
-            <h2 className="text-3xl md:text-[40px] font-medium text-[#16232A] leading-[1.2] mb-6">
-              From Brief to Handover - <br />
-              <span className="text-[#63757E]">We Handle It All.</span>
-            </h2>
-            <p className="text-lg md:text-[20px] font-medium text-[#16232A] leading-[1.3] max-w-[582px]">
-              A structured process means fewer surprises, faster delivery, and results you can count on every time.
-            </p>
+            <RevealText delay={0.2}>
+              <h2 className="text-3xl md:text-[40px] font-medium text-[#16232A] leading-[1.2] mb-6">
+                From Brief to Handover - <br />
+                <span className="text-[#63757E]">We Handle It All.</span>
+              </h2>
+            </RevealText>
+            
+            <FadeUp delay={0.3}>
+              <p className="text-lg md:text-[20px] font-medium text-[#16232A] leading-[1.3] max-w-[582px]">
+                A structured process means fewer surprises, faster delivery, and results you can count on every time.
+              </p>
+            </FadeUp>
           </div>
         </div>
 
         {/* Desktop View */}
-        <div className="hidden lg:flex justify-between items-start relative">
+        <RevealStaggerGroup className="hidden lg:flex justify-between items-start relative">
           {/* Precise Dotted Connecting Line (Behind circles) */}
           <div 
             className="absolute top-[42.5px] left-[10%] right-[10%] h-[1px] z-0" 
@@ -68,12 +75,8 @@ export function OurProcess() {
           />
           
           {processSteps.map((step, index) => (
-            <motion.div 
+            <RevealItem 
               key={step.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
               className="relative z-10 flex flex-col items-center text-center w-1/4"
             >
               <div className="w-[85px] h-[85px] rounded-full border border-[#16232A] border-opacity-[0.15] bg-white flex items-center justify-center mb-10 transition-shadow duration-500 relative z-20">
@@ -86,12 +89,18 @@ export function OurProcess() {
               <p className="text-[14px] font-normal text-[#16232A] leading-[1.5] max-w-[245px] opacity-80 font-['Instrument_Sans']">
                 {step.description}
               </p>
-            </motion.div>
+            </RevealItem>
           ))}
-        </div>
+        </RevealStaggerGroup>
 
         {/* Mobile View (Accordion Style as in image) */}
-        <div className="lg:hidden flex flex-col border-t border-[#16232A]/10">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="lg:hidden flex flex-col border-t border-[#16232A]/10"
+        >
           {processSteps.map((step, index) => {
             const isExpanded = expandedIndex === index;
             return (
@@ -138,7 +147,7 @@ export function OurProcess() {
               </div>
             );
           })}
-        </div>
+        </motion.div>
 
       </div>
     </section>

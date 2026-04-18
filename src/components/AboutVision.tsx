@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { VibgyorButton } from "./ui/VibgyorButton";
+import { RevealText, FadeUp, RevealStaggerGroup, RevealItem, RevealImage } from "./ui/Reveal";
 
 export function AboutVision() {
   const [openIndex, setOpenIndex] = useState<number | null>(0); // Client-First Flexibility is open by default
@@ -49,35 +50,27 @@ export function AboutVision() {
           
           {/* LEFT COLUMN: WHAT SETS US APART */}
           <div className="w-full lg:w-[400px] shrink-0 lg:sticky lg:top-10">
-            <motion.h2 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-[40px] font-medium leading-[1.2] text-[#16232A] mb-8 tracking-tight"
-            >
-              What Sets Us <br /> Apart.
-            </motion.h2>
+            <RevealText delay={0.1}>
+              <h2 className="text-3xl md:text-[40px] font-medium leading-[1.2] text-[#16232A] mb-8 tracking-tight">
+                What Sets Us <br /> Apart.
+              </h2>
+            </RevealText>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
+            <FadeUp delay={0.2}>
               <VibgyorButton href="/about" variant="outline">Learn More</VibgyorButton>
-            </motion.div>
+            </FadeUp>
           </div>
 
           {/* RIGHT COLUMN: INTERACTIVE ACCORDION */}
           <div className="flex-1 w-full">
-            <div className="mb-10">
+            <FadeUp delay={0.1} className="mb-10">
               <span className="text-[18px] md:text-[20px] font-medium text-[#16232A]">Why Choose Us</span>
               <div className="h-px w-full bg-[#63757E]/20 mt-6" />
-            </div>
+            </FadeUp>
 
-            <div className="w-full">
+            <RevealStaggerGroup className="w-full">
               {reasons.map((reason, index) => (
-                <div 
+                <RevealItem 
                   key={index} 
                   className="border-b border-[#63757E]/20"
                 >
@@ -121,26 +114,21 @@ export function AboutVision() {
                       </div>
                     </div>
                   </button>
-                </div>
+                </RevealItem>
               ))}
-            </div>
+            </RevealStaggerGroup>
           </div>
 
         </div>
 
         {/* BOTTOM SECTION: ABOUT US BANNER */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          whileHover="hover"
-          viewport={{ once: true }}
+        <RevealImage 
+          delay={0.2}
           className="relative w-full mt-16 mb-16 overflow-hidden isolate min-h-[465px] flex flex-col items-center justify-center text-center px-6 cursor-pointer"
         >
           {/* Background Image Container for Scale Effect */}
           <motion.div 
-            variants={{
-              hover: { scale: 1.05 }
-            }}
+            whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="absolute inset-0 z-0"
           >
@@ -155,9 +143,7 @@ export function AboutVision() {
 
           {/* Dark Overlay (Figma opacity: 0.73 base) */}
           <motion.div 
-            variants={{
-              hover: { backgroundColor: "rgba(0, 0, 0, 0.55)" }
-            }}
+            whileHover={{ backgroundColor: "rgba(0, 0, 0, 0.55)" }}
             transition={{ duration: 0.6 }}
             className="absolute inset-0 bg-black/45 z-[1]" 
           />
@@ -170,7 +156,7 @@ export function AboutVision() {
             
             <VibgyorButton href="/about" variant="light">About Us</VibgyorButton>
           </div>
-        </motion.div>
+        </RevealImage>
       </div>
     </section>
   );

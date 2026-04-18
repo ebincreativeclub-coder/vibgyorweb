@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
 import { VibgyorButton } from "./ui/VibgyorButton";
+import { RevealText, FadeUp, RevealImage } from "./ui/Reveal";
 
 export function PortfolioGallery() {
   const [galleryIndex, setGalleryIndex] = useState(2);
@@ -23,16 +24,21 @@ export function PortfolioGallery() {
     <section className="bg-[#16232A] text-white pt-24 pb-40 md:pt-32 md:pb-48 font-['Instrument_Sans'] overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
         <div className="flex flex-col items-center text-center mb-16 md:mb-24 mx-auto w-full">
-          <h2 className="text-3xl md:text-4xl lg:text-[40px] font-medium leading-tight mb-4">
-            Real spaces. <span className="text-[#63757E]">Real transformations.</span>
-          </h2>
-          <p className="text-sm md:text-lg lg:text-[20px] font-normal text-white/80 leading-relaxed max-w-[582px]">
-            Explore the projects that showcase our expertise in interior design, fit-out, and contracting
-          </p>
+          <RevealText delay={0.1}>
+            <h2 className="text-3xl md:text-4xl lg:text-[40px] font-medium leading-tight mb-4">
+              Real spaces. <span className="text-[#63757E]">Real transformations.</span>
+            </h2>
+          </RevealText>
+          <FadeUp delay={0.2}>
+            <p className="text-sm md:text-lg lg:text-[20px] font-normal text-white/80 leading-relaxed max-w-[582px]">
+              Explore the projects that showcase our expertise in interior design, fit-out, and contracting
+            </p>
+          </FadeUp>
         </div>
 
-        <motion.div 
-          className="relative w-full h-[450px] md:h-[650px] flex items-center justify-center"
+        <RevealImage delay={0.1} className="relative w-full h-[450px] md:h-[650px] flex items-center justify-center">
+          <motion.div 
+          className="absolute inset-0 w-full h-full flex items-center justify-center"
           style={{ touchAction: "pan-y" }}
           onPanEnd={(e, info) => {
             const swipe = Math.abs(info.offset.x) > 30 || Math.abs(info.velocity.x) > 400;
@@ -81,11 +87,12 @@ export function PortfolioGallery() {
               );
             })}
           </div>
-        </motion.div>
+          </motion.div>
+        </RevealImage>
         
-        <div className="flex justify-center mt-16 md:mt-24">
+        <FadeUp delay={0.2} className="flex justify-center mt-16 md:mt-24">
           <VibgyorButton href="/projects">View All Projects</VibgyorButton>
-        </div>
+        </FadeUp>
       </div>
     </section>
   );

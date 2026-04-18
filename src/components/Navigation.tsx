@@ -50,18 +50,18 @@ export function Navigation() {
       <motion.nav 
         animate={{ 
           y: isVisible ? 0 : -100,
-          backgroundColor: "rgba(255, 255, 255, 0)",
-          backdropFilter: "none",
-          boxShadow: "none"
+          backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.15)" : "rgba(255, 255, 255, 0)",
+          backdropFilter: isScrolled ? "blur(16px)" : "blur(0px)",
+          boxShadow: isScrolled ? "0 4px 30px rgba(0,0,0,0.02)" : "none"
         }}
         transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
         className={`fixed top-0 left-0 w-full z-[200] transition-all duration-300 ${
           isScrolled ? "py-4" : "py-6 md:py-8"
         }`}
       >
-        <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px] flex items-center justify-between relative">
+        <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px] flex items-center justify-between relative h-full">
           
-          {/* Logo */}
+          {/* Logo - Left */}
           <Link href="/" className="relative z-[210] flex items-center transition-transform hover:scale-105">
             <svg width="100" height="38" viewBox="0 0 113 43" fill="none" className="md:w-[113px] md:h-[43px]">
               <path d="M23.5955 9.78414C20.0973 13.1838 17.3255 17.3068 14.9226 21.5667C13.4844 19.7479 12.1711 17.8158 10.6573 16.0565C10.0356 15.3301 8.25451 13.16 7.53975 12.7878C5.00616 11.472 2.12682 14.2703 2.5394 16.9615C2.69339 17.9528 6.09863 20.7987 6.99352 21.8019C10.114 25.2938 12.4675 29.4556 14.8006 33.5161L15.1609 33.4774C18.569 25.8833 22.4449 18.4827 27.207 11.6834L28.5988 12.6807L28.5523 31.2566L14.6611 39.7348L13.9493 39.7586L0 31.0631L0.0610153 12.892L14.0975 4.18457L14.8848 4.31853L23.5984 9.78711L23.5955 9.78414Z" fill="#03AEF2"/>
@@ -76,43 +76,45 @@ export function Navigation() {
             </svg>
           </Link>
   
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-[40px]">
+          {/* Desktop Navigation - Absolute Middle */}
+          <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-[40px]">
             {navLinks.map((link) => (
               <NavLink key={link.name} href={link.href}>{link.name}</NavLink>
             ))}
-            
-            {/* Call Now Button (Desktop only in header) */}
+          </div>
+
+          <div className="flex items-center gap-6">
+            {/* Call Now Button - Restricted to Right */}
             <Link 
               href="tel:+97444604655" 
-              className="px-8 py-2.5 bg-[#03AEF2] text-white font-semibold rounded-full shadow-lg transition-all hover:opacity-90 active:scale-95 text-[14px]"
+              className="hidden lg:flex px-8 py-2.5 bg-[#03AEF2] text-white font-semibold rounded-full shadow-lg transition-all hover:opacity-90 active:scale-95 text-[14px]"
             >
               Call Now
             </Link>
-          </div>
 
-          {/* Hamburger Menu Toggle (Mobile only) */}
-          <button 
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden relative z-[210] w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none"
-            aria-label="Toggle Menu"
-          >
-            <motion.span 
-              animate={isOpen ? { y: 8, rotate: 45 } : { y: 0, rotate: 0 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
-              className="w-8 h-0.5 bg-[#16232A] rounded-full"
-            />
-            <motion.span 
-              animate={isOpen ? { rotate: -45 } : { rotate: 0 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
-              className="w-8 h-0.5 bg-[#16232A] rounded-full"
-            />
-            <motion.span 
-              animate={isOpen ? { y: -8, rotate: 45 } : { y: 0, rotate: 0 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
-              className="w-8 h-0.5 bg-[#16232A] rounded-full"
-            />
-          </button>
+            {/* Hamburger Menu Toggle (Mobile only) */}
+            <button 
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden relative z-[210] w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none"
+              aria-label="Toggle Menu"
+            >
+              <motion.span 
+                animate={isOpen ? { y: 8, rotate: 45 } : { y: 0, rotate: 0 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                className="w-8 h-0.5 bg-[#16232A] rounded-full"
+              />
+              <motion.span 
+                animate={isOpen ? { rotate: -45 } : { rotate: 0 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                className="w-8 h-0.5 bg-[#16232A] rounded-full"
+              />
+              <motion.span 
+                animate={isOpen ? { y: -8, rotate: 45 } : { y: 0, rotate: 0 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                className="w-8 h-0.5 bg-[#16232A] rounded-full"
+              />
+            </button>
+          </div>
         </div>
       </motion.nav>
 

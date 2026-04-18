@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
+import { RevealText, RevealStaggerGroup, RevealItem } from "./ui/Reveal";
 
 const testimonials = [
   {
@@ -54,26 +55,23 @@ export function Testimonials() {
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
         
         {/* Header Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12 md:mb-16"
-        >
-          <h2 className="text-[32px] md:text-[48px] font-medium tracking-tight">
-            <span className="text-[#16232A]">The Voices </span>
-            <span className="text-[#63757E]">Behind Our Work.</span>
-          </h2>
-        </motion.div>
+        <div className="text-center mb-12 md:mb-16">
+          <RevealText>
+            <h2 className="text-[32px] md:text-[48px] font-medium tracking-tight">
+              <span className="text-[#16232A]">The Voices </span>
+              <span className="text-[#63757E]">Behind Our Work.</span>
+            </h2>
+          </RevealText>
+        </div>
 
         {/* Mobile: Swiper | Desktop: Grid */}
         <div className="relative">
           {/* Desktop/Tablet Grid */}
-          <div className="hidden md:grid grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-12 max-w-[1100px] mx-auto">
+          <RevealStaggerGroup className="hidden md:grid grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-12 max-w-[1100px] mx-auto">
             {testimonials.slice(0, 2).map((t, index) => (
               <TestimonialCard key={t.id} t={t} index={index} />
             ))}
-          </div>
+          </RevealStaggerGroup>
 
           {/* Mobile Horizontal Scroll */}
           <div className="md:hidden">
@@ -107,13 +105,7 @@ export function Testimonials() {
 
 function TestimonialCard({ t, index }: { t: any; index: number }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      className="bg-white rounded-[40px] p-8 md:p-12 flex flex-col h-full relative group hover:shadow-xl transition-shadow duration-500"
-    >
+    <RevealItem className="bg-white rounded-[40px] p-8 md:p-12 flex flex-col h-full relative group hover:shadow-xl transition-shadow duration-500">
       {/* Top Quote Icon */}
       <div className="mb-6">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-[#16232A]">
@@ -150,6 +142,6 @@ function TestimonialCard({ t, index }: { t: any; index: number }) {
           </svg>
         </div>
       </div>
-    </motion.div>
+    </RevealItem>
   );
 }
