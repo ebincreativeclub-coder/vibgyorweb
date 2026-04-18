@@ -44,7 +44,7 @@ export function Hero() {
   const mistOpacity = useTransform(smoothProgress, [0.7, 0.8], [1, 1]); // Keep it solid
 
   return (
-    <section ref={containerRef} className="relative w-full h-[350vh] bg-white overflow-visible font-['Instrument_Sans']">
+    <section ref={containerRef} className="relative w-full h-[400vh] bg-white overflow-visible font-['Instrument_Sans']">
       <div className="sticky top-0 w-full h-screen overflow-hidden flex justify-center">
         
         {/* Background Layer with scaling gradient and blur */}
@@ -149,10 +149,10 @@ export function Hero() {
 
         {/* Cinematic Large Logo Transition - Sharp and High Fidelity */}
         <motion.div 
-          className="absolute inset-x-0 top-0 h-screen z-[200] flex items-center justify-center pointer-events-none"
+          className="absolute inset-x-0 top-0 h-screen z-[500] flex items-center justify-center pointer-events-none"
           style={{ 
-            opacity: useTransform(smoothProgress, [0.82, 0.9, 0.96, 1], [0, 1, 1, 0]),
-            scale: useTransform(smoothProgress, [0.82, 1], [0.85, 1.1])
+            opacity: useTransform(smoothProgress, [0.75, 0.88, 1], [0, 1, 1]),
+            scale: useTransform(smoothProgress, [0.75, 1], [0.9, 1.05])
           }}
         >
           <div className="w-[320px] md:w-[480px] lg:w-[600px]">
@@ -172,7 +172,7 @@ export function Hero() {
       </div>
       
       {/* Scroll buffer for section pinning */}
-      <div className="h-[250vh]" />
+      <div className="h-[300vh]" />
     </section>
   );
 }

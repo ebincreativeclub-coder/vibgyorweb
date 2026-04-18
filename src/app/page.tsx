@@ -2,6 +2,8 @@ import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
 import { ServicesPortfolio } from "@/components/ServicesPortfolio";
+import { OurProcess } from "@/components/OurProcess";
+import { PortfolioGallery } from "@/components/PortfolioGallery";
 import { AboutVision } from "@/components/AboutVision";
 import { Testimonials } from "@/components/Testimonials";
 import { Companies } from "@/components/Companies";
@@ -14,6 +16,8 @@ export default function Home() {
       <Hero />
       <Features />
       <ServicesPortfolio />
+      <OurProcess />
+      <PortfolioGallery />
       <AboutVision />
       <Testimonials />
       <Companies />
