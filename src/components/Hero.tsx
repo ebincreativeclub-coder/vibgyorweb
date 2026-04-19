@@ -91,8 +91,8 @@ export function Hero() {
             <h1 className="w-full max-w-[900px] text-4xl md:text-display font-bold text-[#16232A] mb-6">
               Your Vision. Our Craft.
             </h1>
-            <p className="text-lg md:text-h4 font-normal text-[#16232A]">
-              Interior Fit-out · Civil Engineering · Carpentry
+            <p className="text-ui-xs md:text-ui font-medium text-[#16232A]/60 uppercase tracking-[0.3em] px-4">
+              Interior Fit-out &nbsp; | &nbsp; Civil Engineering &nbsp; | &nbsp; Carpentry
             </p>
             
             <div className="mt-12 pointer-events-auto">
