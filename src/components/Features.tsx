@@ -36,12 +36,12 @@ function Counter({ value, suffix }: { value: string, suffix: string }) {
     >
       <span
         ref={numberRef}
-        className="text-[56px] md:text-[64px] font-normal text-[#16232A] leading-none tracking-tight"
+        className="text-5xl md:text-h1 font-normal text-[#16232A]"
         style={{ fontVariantNumeric: "tabular-nums" }}
       >
         0
       </span>
-      <span className="text-[40px] md:text-[48px] font-normal text-[#03AEF2] leading-none">
+      <span className="text-h3 md:text-h1 font-normal text-[#03AEF2]">
         {suffix}
       </span>
     </motion.div>
@@ -56,19 +56,19 @@ export function Features() {
     { number: "300", suffix: "+", label: "Projects Completed" },
   ];
   return (
-    <section className="bg-white py-16 md:py-24 font-['Instrument_Sans']">
+    <section className="bg-white py-16 md:py-24">
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
         {/* Top Text Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 mb-20 md:mb-24 items-start">
           <RevealText delay={0.1}>
-            <h2 className="text-[40px] md:text-[56px] lg:text-[64px] font-medium text-[#16232A] leading-[1.1] tracking-tight">
+            <h2 className="text-h3 md:text-5xl lg:text-h1 font-medium text-[#16232A]">
               We Build Spaces <br />
               <span className="text-[#63757E]">That Work.</span>
             </h2>
           </RevealText>
 
           <FadeUp delay={0.2} className="flex flex-col">
-            <p className="text-lg md:text-[20px] font-normal text-[#16232A] leading-[1.5] mb-6 md:mb-8 max-w-[594px]">
+            <p className="text-body-md md:text-body-lg font-normal text-[#16232A] mb-6 md:mb-8 max-w-[594px]">
               Vibgyor Engineering W.L.L is a Doha-based interior fit-out and civil engineering company with over 10 years of experience delivering exceptional spaces for Qatar's leading businesses, hotels, and institutions. From first brief to final handover — we handle it all.
             </p>
             
@@ -86,7 +86,7 @@ export function Features() {
               className="flex flex-col items-center lg:items-start text-center lg:text-left"
             >
               <Counter value={stat.number} suffix={stat.suffix} />
-              <span className="text-xs md:text-sm font-semibold text-[#16232A] opacity-60 uppercase tracking-[0.15em] leading-tight">
+              <span className="text-ui-xs md:text-ui font-semibold text-[#16232A] opacity-60 uppercase tracking-[0.15em] leading-tight">
                 {stat.label}
               </span>
             </RevealItem>

@@ -43,19 +43,19 @@ export function AboutVision() {
   ];
 
   return (
-    <section className="bg-white pt-16 pb-12 lg:pt-24 lg:pb-16 font-['Instrument_Sans'] overflow-hidden relative selection:bg-[#03AEF2] selection:text-white">
+    <section className="bg-[#16232A] text-white pt-16 pb-12 lg:pt-24 lg:pb-16 overflow-hidden relative selection:bg-[#03AEF2] selection:text-white">
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px] relative z-10">
         
         {/* TOP HEADER: Full Width Split */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 lg:mb-24 gap-10">
           <div className="lg:w-1/2">
             <FadeUp delay={0.1}>
-              <span className="text-[20px] font-medium text-[#16232A] mb-6 block">
+              <span className="text-body-lg font-medium text-white mb-6 block">
                 Why Choose Us
               </span>
             </FadeUp>
             <RevealText delay={0.2}>
-              <h2 className="text-[36px] md:text-[54px] font-medium leading-[1.1] text-[#16232A] tracking-tight">
+              <h2 className="text-3xl md:text-h2 font-medium text-white">
                 What Sets Us <br className="hidden md:block"/> Apart.
               </h2>
             </RevealText>
@@ -63,77 +63,146 @@ export function AboutVision() {
 
           <div className="lg:w-1/3 flex flex-col items-start lg:items-end text-left lg:text-right">
             <FadeUp delay={0.3}>
-              <p className="text-[16px] md:text-[18px] text-[#63757E] mb-8 leading-relaxed max-w-[400px]">
+              <p className="text-body md:text-body-md text-white/70 mb-8 max-w-[400px]">
                 We don't just build spaces - we build trust through transparency, precision, and a relentless focus on your goals.
               </p>
-              <VibgyorButton href="/about" variant="outline">Learn More</VibgyorButton>
+              <VibgyorButton href="/about" variant="light">Learn More</VibgyorButton>
             </FadeUp>
           </div>
         </div>
 
-        {/* FULL WIDTH EDITORIAL ACCORDION */}
-        <div className="w-full border-t border-[#16232A]/10">
-          <RevealStaggerGroup className="w-full flex flex-col">
-            {reasons.map((reason, index) => {
-              const isOpen = openIndex === index;
+        {/* INDEPENDENT 2-COLUMN ACCORDION */}
+        <div className="w-full mt-4 md:mt-8">
+          <RevealStaggerGroup className="w-full flex flex-col md:flex-row gap-x-12 lg:gap-x-20">
+            
+            {/* LEFT COLUMN */}
+            <div className="flex-1 flex flex-col">
+              {reasons.slice(0, 3).map((reason, idx) => {
+                const index = idx;
+                const isOpen = openIndex === index;
 
-              return (
-                <RevealItem key={reason.id}>
-                  <div className={`border-b transition-colors duration-500 ${isOpen ? 'border-[#03AEF2]' : 'border-[#16232A]/10'}`}>
-                    <button 
-                      onClick={() => setOpenIndex(isOpen ? null : index)}
-                      className="w-full py-8 md:py-12 flex flex-col md:grid md:grid-cols-[auto_1fr_auto] gap-4 md:gap-12 lg:gap-20 items-start md:items-center text-left group transition-all duration-300"
-                    >
-                      {/* Column 1: Number */}
-                      <span className={`text-[20px] md:text-[24px] font-light transition-colors duration-300 w-12 md:w-16 shrink-0 ${isOpen ? 'text-[#03AEF2]' : 'text-[#63757E] group-hover:text-[#16232A]'}`}>
-                        {reason.id}
-                      </span>
-
-                      {/* Column 2: Title */}
-                      <h3 className={`text-[28px] md:text-[40px] lg:text-[48px] font-medium leading-none tracking-tight transition-all duration-500 ${isOpen ? 'text-[#03AEF2] md:translate-x-4' : 'text-[#16232A] group-hover:translate-x-2'}`}>
-                        {reason.title}
-                      </h3>
-
-                      {/* Column 3: Icon (Hidden on mobile to avoid heading clutter, visible on desktop) */}
-                      <div className="hidden md:flex relative shrink-0 ml-auto">
-                        <div className="relative w-8 h-8 flex items-center justify-center">
-                          <div className={`absolute w-full h-[1.5px] transition-all duration-500 ${isOpen ? 'rotate-[135deg] bg-[#03AEF2]' : 'rotate-0 bg-[#16232A] group-hover:bg-[#03AEF2]'}`} />
-                          <div className={`absolute w-[1.5px] h-full transition-all duration-500 ${isOpen ? 'rotate-[135deg] bg-[#03AEF2]' : 'rotate-0 bg-[#16232A] group-hover:bg-[#03AEF2]'}`} />
-                        </div>
-                      </div>
-                    </button>
-
-                    {/* Expandable Content (Aligns perfectly with the title on desktop) */}
-                    <AnimatePresence>
-                      {isOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                          className="overflow-hidden md:grid md:grid-cols-[auto_1fr_auto] md:gap-12 lg:gap-20"
-                        >
-                          {/* Empty div to offset the text and align it with the Title */}
-                          <div className="hidden md:block w-16 shrink-0" />
+                return (
+                  <RevealItem key={reason.id}>
+                    <div className={`border-t transition-colors duration-500 ${isOpen ? 'border-t-[#03AEF2]' : 'border-white/10'}`}>
+                      <button 
+                        onClick={() => setOpenIndex(isOpen ? null : index)}
+                        className="w-full py-8 md:py-10 flex flex-col gap-4 items-start text-left group transition-all duration-300"
+                      >
+                        <div className="flex items-center justify-between w-full">
+                          {/* Column 1: Number */}
+                          <span className={`text-body-lg md:text-h4 font-light transition-colors duration-300 shrink-0 ${isOpen ? 'text-[#03AEF2]' : 'text-[#63757E] group-hover:text-[#03AEF2]'}`}>
+                            {reason.id}
+                          </span>
                           
-                          <div className="pb-10 md:pb-14 pr-8 md:pr-0 md:pl-4 overflow-hidden">
-                            <motion.div
-                              initial={{ opacity: 0, y: "20%" }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.8, delay: 0.15, ease: [0.33, 1, 0.68, 1] }}
-                            >
-                              <p className="text-[16px] md:text-[20px] text-[#63757E] leading-relaxed max-w-[700px] font-normal">
-                                {reason.description}
-                              </p>
-                            </motion.div>
+                          {/* Icon */}
+                          <div className="relative shrink-0">
+                            <div className="relative w-6 h-6 flex items-center justify-center">
+                              <div className={`absolute w-full h-[1.5px] transition-all duration-500 ${isOpen ? 'rotate-[135deg] bg-[#03AEF2]' : 'bg-white group-hover:bg-[#03AEF2]'}`} />
+                              <div className={`absolute w-[1.5px] h-full transition-all duration-500 ${isOpen ? 'rotate-[135deg] bg-[#03AEF2]' : 'bg-white group-hover:bg-[#03AEF2]'}`} />
+                            </div>
                           </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </RevealItem>
-              );
-            })}
+                        </div>
+
+                        {/* Column 2: Title */}
+                        <h3 className={`text-2xl md:text-h4 lg:text-h4 font-medium transition-all duration-500 ${isOpen ? 'text-[#03AEF2]' : 'text-white group-hover:tracking-wider'}`}>
+                          {reason.title}
+                        </h3>
+                      </button>
+
+                      {/* Expandable Content */}
+                      <AnimatePresence>
+                        {isOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pb-10 pt-2 lg:pb-12 overflow-hidden">
+                              <motion.div
+                                initial={{ opacity: 0, y: "20%" }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.15, ease: [0.33, 1, 0.68, 1] }}
+                              >
+                                <p className="text-body md:text-body-lg text-white/70 max-w-full font-normal">
+                                  {reason.description}
+                                </p>
+                              </motion.div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </RevealItem>
+                );
+              })}
+            </div>
+
+            {/* RIGHT COLUMN */}
+            <div className="flex-1 flex flex-col">
+              {reasons.slice(3, 6).map((reason, idx) => {
+                const index = idx + 3;
+                const isOpen = openIndex === index;
+
+                return (
+                  <RevealItem key={reason.id}>
+                    <div className={`border-t transition-colors duration-500 ${isOpen ? 'border-t-[#03AEF2]' : 'border-white/10'}`}>
+                      <button 
+                        onClick={() => setOpenIndex(isOpen ? null : index)}
+                        className="w-full py-8 md:py-10 flex flex-col gap-4 items-start text-left group transition-all duration-300"
+                      >
+                        <div className="flex items-center justify-between w-full">
+                          {/* Column 1: Number */}
+                          <span className={`text-body-lg md:text-h4 font-light transition-colors duration-300 shrink-0 ${isOpen ? 'text-[#03AEF2]' : 'text-[#63757E] group-hover:text-[#03AEF2]'}`}>
+                            {reason.id}
+                          </span>
+                          
+                          {/* Icon */}
+                          <div className="relative shrink-0">
+                            <div className="relative w-6 h-6 flex items-center justify-center">
+                              <div className={`absolute w-full h-[1.5px] transition-all duration-500 ${isOpen ? 'rotate-[135deg] bg-[#03AEF2]' : 'bg-white group-hover:bg-[#03AEF2]'}`} />
+                              <div className={`absolute w-[1.5px] h-full transition-all duration-500 ${isOpen ? 'rotate-[135deg] bg-[#03AEF2]' : 'bg-white group-hover:bg-[#03AEF2]'}`} />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Column 2: Title */}
+                        <h3 className={`text-2xl md:text-h4 lg:text-h4 font-medium transition-all duration-500 ${isOpen ? 'text-[#03AEF2]' : 'text-white group-hover:tracking-wider'}`}>
+                          {reason.title}
+                        </h3>
+                      </button>
+
+                      {/* Expandable Content */}
+                      <AnimatePresence>
+                        {isOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pb-10 pt-2 lg:pb-12 overflow-hidden">
+                              <motion.div
+                                initial={{ opacity: 0, y: "20%" }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.15, ease: [0.33, 1, 0.68, 1] }}
+                              >
+                                <p className="text-body md:text-body-lg text-white/70 max-w-full font-normal">
+                                  {reason.description}
+                                </p>
+                              </motion.div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </RevealItem>
+                );
+              })}
+            </div>
+
           </RevealStaggerGroup>
         </div>
 
@@ -178,7 +247,7 @@ export function AboutVision() {
 
             {/* Content: Now inside the interaction parent */}
             <div className="relative z-[2] max-w-[623px]">
-              <h2 className="text-[28px] md:text-[32px] font-medium leading-[39px] text-white mb-10">
+              <h2 className="text-2xl md:text-3xl lg:text-h3 font-medium text-white mb-10">
                 Every space tells a story. We make sure yours says exactly the right thing.
               </h2>
               

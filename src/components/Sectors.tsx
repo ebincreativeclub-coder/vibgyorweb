@@ -74,24 +74,24 @@ export function Sectors() {
     return () => observer.disconnect();
   }, []);
   return (
-    <section className="bg-white pt-24 pb-12 md:pt-32 md:pb-16 font-['Instrument_Sans'] selection:bg-[#03AEF2] selection:text-white overflow-hidden">
+    <section className="bg-white pt-24 pb-12 md:pt-32 md:pb-16 selection:bg-[#03AEF2] selection:text-white overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
         {/* Header Section */}
         <div className="flex flex-col items-center text-center mb-16 md:mb-24">
           <FadeUp delay={0.1}>
-            <span className="block text-[18px] md:text-[20px] font-medium text-[#16232A] mb-8 tracking-tight">
+            <span className="block text-body-md md:text-body-lg font-medium text-[#16232A] mb-8 tracking-tight">
               Who We Work With
             </span>
           </FadeUp>
           
           <RevealText delay={0.2}>
-            <h2 className="text-[36px] md:text-[54px] font-medium text-[#16232A] leading-[1.1] mb-8 max-w-[1100px]">
+            <h2 className="text-3xl md:text-h2 font-medium text-[#16232A] mb-8 max-w-[1100px]">
               Built for Qatar&apos;s <span className="text-[#63757E]">Most Demanding Sectors.</span>
             </h2>
           </RevealText>
           
           <FadeUp delay={0.3}>
-            <p className="text-lg md:text-[20px] font-medium text-[#16232A] leading-relaxed max-w-[674px] opacity-80">
+            <p className="text-body-md md:text-body-lg font-medium text-[#16232A] max-w-[674px] opacity-80">
               From five-star hotels to high-performance offices, we understand what each industry needs — and we build to that standard.
             </p>
           </FadeUp>
@@ -121,10 +121,10 @@ export function Sectors() {
                 <div className="mb-6 w-fit text-[#03AEF2]">
                   <sector.icon size={40} />
                 </div>
-                <h3 className="text-[24px] font-semibold text-[#16232A] mb-4 tracking-tight">
+                <h3 className="text-h4 font-semibold text-[#16232A] mb-4 tracking-tight">
                   {sector.title}
                 </h3>
-                <p className="text-base font-normal text-[#16232A] leading-relaxed opacity-70 mb-4 flex-1">
+                <p className="text-body font-normal text-[#16232A] opacity-70 mb-4 flex-1">
                   {sector.description}
                 </p>
               </motion.div>
@@ -210,11 +210,11 @@ function SectorCard({ sector }: { sector: typeof sectors[0] }) {
             </div>
           </div>
 
-          <h3 className="text-[24px] font-semibold text-[#16232A] mb-4 tracking-tight leading-tight">
+          <h3 className="text-h4 font-semibold text-[#16232A] mb-4 leading-tight">
             {sector.title}
           </h3>
           
-          <p className="text-[15px] font-normal text-[#16232A]/70 leading-relaxed mb-8">
+          <p className="text-body-sm font-normal text-[#16232A]/70 leading-relaxed mb-8">
             {sector.description}
           </p>
 

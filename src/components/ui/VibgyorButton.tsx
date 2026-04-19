@@ -48,7 +48,7 @@ export function VibgyorButton({
       href={href} 
       className={`inline-flex items-center justify-between h-[39px] pl-6 pr-1 rounded-full group/btn transition-all duration-300 hover:pr-2 cursor-pointer ${buttonStyles} ${className}`}
     >
-      <span className="text-[12px] font-medium whitespace-nowrap mr-4">
+      <span className="text-ui-xs font-medium whitespace-nowrap mr-4">
         {children}
       </span>
       

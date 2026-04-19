@@ -12,8 +12,46 @@
   --color-foreground: var(--foreground);
   --color-brand-primary: var(--brand-primary);
   --color-brand-secondary: var(--brand-secondary);
+  
   --font-instrument: var(--font-instrument-sans);
   --font-lora: var(--font-lora);
+
+  /* Typography Scale */
+  --text-display: 4.6875rem; /* 75px */
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.02em;
+
+  --text-h2: 3.375rem; /* 54px */
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.02em;
+
+  --text-h1: 4rem; /* 64px */
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.02em;
+
+  --text-h3: 2.5rem; /* 40px */
+  --text-h3--line-height: 1.125;
+  --text-h3--letter-spacing: -0.01em;
+
+  --text-h4: 1.5rem; /* 24px */
+  --text-h4--line-height: 1.25;
+  --text-h4--letter-spacing: -0.01em;
+
+  --text-body-lg: 1.25rem; /* 20px */
+  --text-body-lg--line-height: 1.5;
+
+  --text-body-md: 1.125rem; /* 18px */
+  --text-body-md--line-height: 1.6;
+
+  --text-body: 1rem; /* 16px */
+  --text-body--line-height: 1.625;
+
+  --text-body-sm: 0.9375rem; /* 15px */
+  --text-body-sm--line-height: 1.6;
+
+  --text-ui: 0.875rem; /* 14px */
+  --text-ui-xs: 0.75rem; /* 12px */
+  --text-ui-tiny: 0.625rem; /* 10px */
 }
 
 body {

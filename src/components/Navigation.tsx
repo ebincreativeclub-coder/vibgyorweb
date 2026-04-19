@@ -87,7 +87,7 @@ export function Navigation() {
             {/* Call Now Button - Restricted to Right */}
             <Link 
               href="tel:+97444604655" 
-              className="hidden lg:flex px-8 py-2.5 bg-[#03AEF2] text-white font-semibold rounded-full shadow-lg transition-all hover:opacity-90 active:scale-95 text-[14px]"
+              className="hidden lg:flex px-8 py-2.5 bg-[#03AEF2] text-white font-semibold rounded-full shadow-lg transition-all hover:opacity-90 active:scale-95 text-ui"
             >
               Call Now
             </Link>
@@ -140,7 +140,7 @@ export function Navigation() {
                   <Link 
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-[32px] font-medium text-[#16232A] hover:text-[#03AEF2] transition-colors"
+                    className="text-3xl font-medium text-[#16232A] hover:text-[#03AEF2] transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -157,7 +157,7 @@ export function Navigation() {
                <Link 
                 href="tel:+97444604655" 
                 onClick={() => setIsOpen(false)}
-                className="w-full py-5 bg-[#03AEF2] text-white font-semibold rounded-full shadow-lg text-center text-[18px]"
+                className="w-full py-5 bg-[#03AEF2] text-white font-semibold rounded-full shadow-lg text-center text-body-md"
               >
                 Call Now
               </Link>
@@ -183,7 +183,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
   return (
     <Link 
       href={href} 
-      className="text-[16px] font-medium text-[#16232A] hover:text-[#03AEF2] transition-colors relative group whitespace-nowrap"
+      className="text-body font-medium text-[#16232A] hover:text-[#03AEF2] transition-colors relative group whitespace-nowrap"
     >
       {children}
       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#03AEF2] transition-all group-hover:w-full" />

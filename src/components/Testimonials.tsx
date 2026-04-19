@@ -51,13 +51,13 @@ export function Testimonials() {
   }, []);
 
   return (
-    <section className="bg-[#F1F2F3] pt-16 pb-24 md:pt-20 md:pb-32 overflow-hidden font-['Instrument_Sans'] selection:bg-[#03AEF2] selection:text-white">
+    <section className="bg-[#F1F2F3] pt-16 pb-24 md:pt-20 md:pb-32 overflow-hidden selection:bg-[#03AEF2] selection:text-white">
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
         
         {/* Header Section */}
         <div className="text-center mb-12 md:mb-16">
           <RevealText>
-            <h2 className="text-[32px] md:text-[54px] font-medium tracking-tight leading-[1.1]">
+            <h2 className="text-3xl md:text-h2 font-medium">
               <span className="text-[#16232A]">The Voices </span>
               <span className="text-[#63757E]">Behind Our Work.</span>
             </h2>
@@ -114,7 +114,7 @@ function TestimonialCard({ t, index }: { t: any; index: number }) {
       </div>
 
       {/* Testimonial Text */}
-      <p className="text-[15px] md:text-[16px] leading-relaxed text-[#16232A] mb-12 flex-1 font-normal opacity-90">
+      <p className="text-body-sm md:text-body text-[#16232A] mb-12 flex-1 font-normal opacity-90">
         {t.text}
       </p>
 
@@ -128,10 +128,10 @@ function TestimonialCard({ t, index }: { t: any; index: number }) {
             </svg>
           </div>
           <div>
-            <h4 className="text-[15px] md:text-[16px] font-medium text-[#16232A] leading-tight">
+            <h4 className="text-body-sm md:text-body font-medium text-[#16232A] leading-tight">
               {t.name} {t.role && <span className="font-normal opacity-60 ml-0.5">{t.role}</span>}
             </h4>
-            <p className="text-[14px] text-[#63757E] leading-tight mt-1">{t.company}</p>
+            <p className="text-ui text-[#63757E] leading-tight mt-1">{t.company}</p>
           </div>
         </div>
 

@@ -60,7 +60,7 @@ export function Hero() {
   const mistOpacity = useTransform(smoothProgress, [0.6, 0.75], [1, 1]); // Keep it solid
 
   return (
-    <section ref={containerRef} className="relative w-full h-[550vh] bg-white overflow-visible font-['Instrument_Sans']">
+    <section ref={containerRef} className="relative w-full h-[550vh] bg-white overflow-visible">
       <div className="sticky top-0 w-full h-screen overflow-hidden flex justify-center">
         
         {/* Background Layer with scaling gradient and blur */}
@@ -88,10 +88,10 @@ export function Hero() {
             className="absolute z-[60] flex flex-col pt-[168px] items-center text-center w-full pointer-events-none"
             style={{ y: headlineY, opacity: headlineOpacity, filter: useTransform(blur, (b) => `blur(${b})`) }}
           >
-            <h1 className="w-full max-w-[900px] text-4xl md:text-[75px] font-bold text-[#16232A] leading-[1.1] mb-6 tracking-tight">
+            <h1 className="w-full max-w-[900px] text-4xl md:text-display font-bold text-[#16232A] mb-6">
               Your Vision. Our Craft.
             </h1>
-            <p className="text-lg md:text-[24px] font-normal text-[#16232A] leading-[29px]">
+            <p className="text-lg md:text-h4 font-normal text-[#16232A]">
               Interior Fit-out · Civil Engineering · Carpentry
             </p>
             

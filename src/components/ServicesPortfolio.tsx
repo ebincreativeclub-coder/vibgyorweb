@@ -15,12 +15,12 @@ export function ServicesPortfolio() {
   ];
 
   return (
-    <section className="bg-[#16232A] text-white pt-16 pb-0 md:pt-20 md:pb-0 font-['Instrument_Sans'] overflow-hidden">
+    <section className="bg-[#16232A] text-white pt-16 pb-0 md:pt-20 md:pb-0 overflow-hidden">
       
       {/* 1. HEADER SECTION */}
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 md:mb-20 gap-6">
-          <h2 className="text-3xl md:text-4xl lg:text-[40px] font-medium leading-tight">
+          <h2 className="text-3xl md:text-h3 font-medium">
             How Vibgyor <span className="text-[#63757E]">Can Help You</span>
           </h2>
           <VibgyorButton href="/services">Explore Services</VibgyorButton>
@@ -59,7 +59,7 @@ export function ServicesPortfolio() {
                   </div>
                 </div>
                 <div className="w-[70%] md:w-[60%] flex justify-center text-center">
-                  <h3 className="text-2xl sm:text-3xl md:text-5xl lg:text-[64px] font-medium leading-tight md:leading-[1.2] text-white">
+                  <h3 className="text-2xl sm:text-3xl md:text-5xl lg:text-h1 font-medium text-white">
                     {service.title}
                   </h3>
                 </div>
