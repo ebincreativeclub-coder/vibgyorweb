@@ -60,7 +60,7 @@ export function Hero() {
   const mistOpacity = useTransform(smoothProgress, [0.6, 0.75], [1, 1]); // Keep it solid
 
   return (
-    <section ref={containerRef} className="relative w-full h-[550vh] bg-white overflow-visible">
+    <section ref={containerRef} className="relative w-full h-[320vh] md:h-[550vh] bg-white overflow-visible">
       <div className="sticky top-0 w-full h-screen overflow-hidden flex justify-center">
         
         {/* Background Layer with scaling gradient and blur */}
@@ -91,7 +91,7 @@ export function Hero() {
             <h1 className="w-full max-w-[900px] text-4xl md:text-display font-bold text-[#16232A] mb-6">
               Your Vision. Our Craft.
             </h1>
-            <p className="text-ui-xs md:text-ui font-medium text-[#16232A]/60 uppercase tracking-[0.3em] px-4">
+            <p className="text-[10px] xs:text-ui-xs md:text-ui font-medium text-[#16232A]/60 tracking-[0.15em] md:tracking-[0.3em] px-4 whitespace-nowrap">
               Interior Fit-out &nbsp; | &nbsp; Civil Engineering &nbsp; | &nbsp; Carpentry
             </p>
             
@@ -189,7 +189,7 @@ export function Hero() {
       </div>
       
       {/* Scroll buffer for section pinning */}
-      <div className="h-[450vh]" />
+      <div className="h-[220vh] md:h-[450vh]" />
     </section>
   );
 }

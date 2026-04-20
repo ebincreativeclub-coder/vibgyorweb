@@ -45,7 +45,8 @@ export function ServicesPortfolio() {
               key={service.id}
               onMouseEnter={() => setActiveService(index)}
               onMouseLeave={() => setActiveService(null)}
-              className="group relative border-b border-[#63757E] border-opacity-50 min-h-[140px] md:min-h-[200px] lg:min-h-[289px] flex items-center cursor-pointer overflow-hidden transition-all duration-500 py-6"
+              onClick={() => setActiveService(index)}
+              className="group relative border-b border-[#63757E] border-opacity-50 min-h-[200px] md:min-h-[240px] lg:min-h-[289px] flex items-center cursor-pointer overflow-hidden transition-all duration-500 py-6"
             >
               <div className={`absolute inset-0 z-0 pointer-events-none transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
                 <Image src={bgImage} alt={service.title} fill className="object-cover" />
@@ -54,7 +55,7 @@ export function ServicesPortfolio() {
 
               <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px] relative z-10 w-full flex items-center justify-between">
                 <div className="w-[15%] md:w-[20%] flex justify-start">
-                  <div className="w-8 h-8 md:w-[29px] md:h-[29px] rounded-full border-[0.5px] border-[#63757E] flex items-center justify-center text-xs shrink-0 font-normal text-[#63757E] transition-colors duration-500 group-hover:border-white group-hover:text-white">
+                  <div className={`w-8 h-8 md:w-[29px] md:h-[29px] rounded-full border-[0.5px] flex items-center justify-center text-xs shrink-0 font-normal transition-colors duration-500 ${isActive ? 'border-white text-white' : 'border-[#63757E] text-[#63757E]'} group-hover:border-white group-hover:text-white`}>
                     {service.id}
                   </div>
                 </div>
