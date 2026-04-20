@@ -20,9 +20,9 @@ export function Hero() {
   });
 
   // Smooth Continuous Motion (Refined scaling to stay within professional bounds)
-  const interiorScale = useTransform(smoothProgress, [0, 0.4, 0.7, 0.85], [1, 1.2, 1.25, 1.25]);
-  const interiorY = useTransform(smoothProgress, [0, 0.45, 0.65, 0.85], [0, -20, -60, -100]);
-  const interiorOpacity = useTransform(smoothProgress, [0.65, 0.85], [1, 0]);
+  const interiorScale = useTransform(smoothProgress, [0, 0.35, 0.6, 0.75], [1, 1.2, 1.25, 1.25]);
+  const interiorY = useTransform(smoothProgress, [0, 0.4, 0.6, 0.75], [0, -20, -60, -80]);
+  const interiorOpacity = useTransform(smoothProgress, [0.55, 0.75], [1, 0]);
 
   // Content Fades - Responsive coordination
   const [isMobile, setIsMobile] = useState(false);
@@ -35,32 +35,32 @@ export function Hero() {
 
   const headlineOpacity = useTransform(
     smoothProgress, 
-    isMobile ? [0.65, 0.85] : [0, 0.15], 
+    isMobile ? [0.55, 0.75] : [0, 0.12], 
     [1, 0]
   );
   const headlineY = useTransform(
     smoothProgress, 
-    isMobile ? [0.65, 0.85] : [0, 0.15], 
+    isMobile ? [0.55, 0.75] : [0, 0.12], 
     [0, -50]
   );
   
 
 
   // Cloud Parallax (Fly-past effect)
-  const cloud1X = useTransform(smoothProgress, [0, 0.85], ["0%", "-150%"]);
-  const cloud2X = useTransform(smoothProgress, [0, 0.85], ["0%", "150%"]);
-  const cloud3Y = useTransform(smoothProgress, [0, 0.85], ["0%", "-100%"]);
-  const cloudScale = useTransform(smoothProgress, [0, 0.85], [1, 1.5]);
+  const cloud1X = useTransform(smoothProgress, [0, 0.75], ["0%", "-150%"]);
+  const cloud2X = useTransform(smoothProgress, [0, 0.75], ["0%", "150%"]);
+  const cloud3Y = useTransform(smoothProgress, [0, 0.75], ["0%", "-100%"]);
+  const cloudScale = useTransform(smoothProgress, [0, 0.75], [1, 1.5]);
 
   // Background Gradient Shift
-  const bgScale = useTransform(smoothProgress, [0, 0.85], [1, 1.2]);
+  const bgScale = useTransform(smoothProgress, [0, 0.75], [1, 1.2]);
   // Cinematic 'Mist Wash' & 'Lens Blur' Transition
-  const blur = useTransform(smoothProgress, [0.6, 0.85], ["0px", "15px"]);
-  const mistY = useTransform(smoothProgress, [0.65, 0.85], ["0%", "-65%"]);
-  const mistOpacity = useTransform(smoothProgress, [0.6, 0.75], [1, 1]); // Keep it solid
+  const blur = useTransform(smoothProgress, [0.55, 0.75], ["0px", "15px"]);
+  const mistY = useTransform(smoothProgress, [0.6, 0.8], ["0%", "-65%"]);
+  const mistOpacity = useTransform(smoothProgress, [0.55, 0.7], [1, 1]); // Keep it solid
 
   return (
-    <section ref={containerRef} className="relative w-full h-[320vh] md:h-[550vh] bg-white overflow-visible">
+    <section ref={containerRef} className="relative w-full h-[400vh] md:h-[480vh] bg-white overflow-visible">
       <div className="sticky top-0 w-full h-screen overflow-hidden flex justify-center">
         
         {/* Background Layer with scaling gradient and blur */}
@@ -168,8 +168,8 @@ export function Hero() {
         <motion.div 
           className="absolute inset-x-0 top-0 h-screen z-[500] flex items-center justify-center pointer-events-none"
           style={{ 
-            opacity: useTransform(smoothProgress, [0.75, 0.9, 1], [0, 1, 1]),
-            scale: useTransform(smoothProgress, [0.75, 1], [0.9, 1.05])
+            opacity: useTransform(smoothProgress, [0.7, 0.8], [0, 1]),
+            scale: useTransform(smoothProgress, [0.7, 0.8], [0.95, 1])
           }}
         >
           <div className="w-[320px] md:w-[480px] lg:w-[600px]">
@@ -189,7 +189,7 @@ export function Hero() {
       </div>
       
       {/* Scroll buffer for section pinning */}
-      <div className="h-[220vh] md:h-[450vh]" />
+      <div className="h-[300vh] md:h-[380vh]" />
     </section>
   );
 }
