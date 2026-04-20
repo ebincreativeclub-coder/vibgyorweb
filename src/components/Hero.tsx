@@ -14,8 +14,9 @@ export function Hero() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
+    stiffness: 70,    // Smoother, less jumpy tracking
     damping: 30,
+    mass: 0.5,        // Feels lighter/zippier but still fluid
     restDelta: 0.001
   });
 
@@ -87,8 +88,9 @@ export function Hero() {
             style={{ 
               opacity: blurOpacity,
               background: 'linear-gradient(213.25deg, #E2F2FF 39.76%, #03AEF2 123.2%)',
-              filter: 'blur(15px)',
-              scale: 1.1 // Prevent edge artifacts during blur
+              filter: 'blur(20px)', // Slightly deeper blur
+              scale: 1.1,
+              transform: 'translate3d(0,0,0)' // Force GPU layer
             }}
           />
         </motion.div>
@@ -133,7 +135,8 @@ export function Hero() {
               opacity: interiorOpacity,
               width: typeof window !== 'undefined' && window.innerWidth < 768 ? '120vw' : '1050px',
               height: typeof window !== 'undefined' && window.innerWidth < 768 ? '85vh' : '700px',
-              willChange: 'transform, opacity'
+              willChange: 'transform, opacity',
+              transform: 'translate3d(0,0,0)'
             }}
           >
             <div className="relative w-full h-full flex items-center justify-center">
