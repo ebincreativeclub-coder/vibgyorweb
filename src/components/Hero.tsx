@@ -87,7 +87,7 @@ export function Hero() {
           
           {/* Headline */}
           <motion.div 
-            className="absolute z-[60] flex flex-col pt-[168px] items-center text-center w-full pointer-events-none will-change-transform"
+            className="absolute z-[60] flex flex-col pt-[100px] items-center text-center w-full pointer-events-none"
             style={{ y: headlineY, opacity: headlineOpacity }}
           >
             <h1 className="w-full max-w-[900px] text-4xl md:text-display font-bold text-[#16232A] mb-6">
@@ -108,7 +108,7 @@ export function Hero() {
             style={{ 
               left: '50%',
               x: '-50%',
-              top: isMobile ? '55%' : '45%',
+              top: isMobile ? '35%' : '25%',
               scale: interiorScale,
               y: interiorY,
               originX: 0.5,
