@@ -16,7 +16,7 @@ export function Footer() {
           {/* Background Image with Darker Overlay for Visibility */}
           <div className="absolute inset-0">
             <Image
-              src="/images/Group 366.jpg"
+              src="/images/common/cta-banner.jpg"
               alt="Start your project"
               fill
               className="object-cover object-center"
@@ -55,7 +55,7 @@ export function Footer() {
             {/* Brand Logo */}
             <div className="relative w-[240px] md:w-[320px] h-[86px] md:h-[116px]">
               <Image 
-                src="/images/Group 175.svg" 
+                src="/images/common/logo-full.svg" 
                 alt="Vibgyor logo" 
                 fill
                 className="object-contain object-left"

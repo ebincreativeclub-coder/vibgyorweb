@@ -227,7 +227,7 @@ export function AboutVision() {
               className="absolute inset-0 z-0"
             >
               <Image 
-                src="/images/Group 426.webp" 
+                src="/images/about/Group 426.webp" 
                 alt="Interior Storytelling" 
                 fill 
                 className="object-cover"

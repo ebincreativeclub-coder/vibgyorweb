@@ -121,7 +121,7 @@ export function Hero() {
           >
             <div className="relative w-full h-full flex items-center justify-center">
               <Image 
-                src="/images/Interior Img 1.png" 
+                src="/images/hero/Interior Img 1.png" 
                 alt="Luxury Interior" 
                 fill
                 className="object-contain drop-shadow-[0_40px_100px_rgba(0,0,0,0.15)]"
@@ -133,24 +133,24 @@ export function Hero() {
 
           {/* Dynamic Parallax Clouds */}
           <motion.div className="absolute z-40" style={{ left: '10%', top: '30%', width: '40%', height: '30%', x: cloud1X, scale: cloudScale, filter: useTransform(blur, (b) => `blur(${b})`) }}>
-            <Image src="/images/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-80" />
+            <Image src="/images/hero/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-80" />
           </motion.div>
           <motion.div className="absolute z-40" style={{ right: '5%', top: '50%', width: '45%', height: '40%', x: cloud2X, scale: cloudScale, filter: useTransform(blur, (b) => `blur(${b})`) }}>
-            <Image src="/images/Cloud-2 2.png" alt="Cloud" fill className="object-contain opacity-90" />
+            <Image src="/images/hero/Cloud-2 2.png" alt="Cloud" fill className="object-contain opacity-90" />
           </motion.div>
           <motion.div className="absolute z-20" style={{ left: '60%', top: '20%', width: '35%', height: '30%', y: cloud3Y, scale: cloudScale, filter: useTransform(blur, (b) => `blur(${b})`) }}>
-            <Image src="/images/Cloud-3 1.png" alt="Cloud" fill className="object-contain opacity-60" />
+            <Image src="/images/hero/Cloud-3 1.png" alt="Cloud" fill className="object-contain opacity-60" />
           </motion.div>
 
           {/* Group 390 (Bottom Cloud Bank - Mostly submerged in mist for soft transition) */}
           <motion.div className="absolute z-[110]" style={{ left: '547px', bottom: '-180px', width: '802px', height: '471px', transform: 'rotate(-180deg)', y: mistY }}>
-            <Image src="/images/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-70" />
+            <Image src="/images/hero/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-70" />
           </motion.div>
           <motion.div className="absolute z-[110]" style={{ left: '298px', bottom: '-220px', width: '802px', height: '471px', transform: 'rotate(-180deg)', y: mistY }}>
-            <Image src="/images/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-80" />
+            <Image src="/images/hero/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-80" />
           </motion.div>
           <motion.div className="absolute z-[110]" style={{ left: '-249px', bottom: '-160px', width: '802px', height: '471px', transform: 'rotate(-180deg)', y: mistY }}>
-            <Image src="/images/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-75" />
+            <Image src="/images/hero/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-75" />
           </motion.div>
 
         </div>
