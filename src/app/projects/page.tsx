@@ -10,7 +10,7 @@ export default function ProjectsPage() {
       <Navigation />
       
       <section className="pt-40 pb-20 container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
-        <RevealText>
+        <RevealText profile="title">
           <h1 className="text-display font-bold mb-8">Our Portfolio</h1>
         </RevealText>
         <FadeUp delay={0.2}>

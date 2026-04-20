@@ -1,39 +1,38 @@
 "use client";
 
-import { useRef, useState, useEffect, useMemo } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { VibgyorButton } from "./ui/VibgyorButton";
 
 export function Hero() {
   const containerRef = useRef<HTMLElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  // Lighter spring for mobile — less physics overhead
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: isMobile ? 150 : 100,
-    damping: isMobile ? 40 : 30,
+    stiffness: 100,
+    damping: 30,
     restDelta: 0.001
   });
 
-  // ─── INTERIOR IMAGE ────────────────────────────────────────
+  // Smooth Continuous Motion (Refined scaling to stay within professional bounds)
   const interiorScale = useTransform(smoothProgress, [0, 0.35, 0.6, 0.75], [1, 1.2, 1.25, 1.25]);
   const interiorY = useTransform(smoothProgress, [0, 0.4, 0.6, 0.75], [0, -20, -60, -80]);
   const interiorOpacity = useTransform(smoothProgress, [0.55, 0.75], [1, 0]);
 
-  // ─── HEADLINE ──────────────────────────────────────────────
+  // Content Fades - Responsive coordination
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   const headlineOpacity = useTransform(
     smoothProgress, 
     isMobile ? [0.55, 0.75] : [0, 0.12], 
@@ -44,51 +43,67 @@ export function Hero() {
     isMobile ? [0.55, 0.75] : [0, 0.12], 
     [0, -50]
   );
+  
 
-  // ─── CLOUD PARALLAX ────────────────────────────────────────
+
+  // Cloud Parallax (Fly-past effect)
   const cloud1X = useTransform(smoothProgress, [0, 0.75], ["0%", "-150%"]);
   const cloud2X = useTransform(smoothProgress, [0, 0.75], ["0%", "150%"]);
   const cloud3Y = useTransform(smoothProgress, [0, 0.75], ["0%", "-100%"]);
   const cloudScale = useTransform(smoothProgress, [0, 0.75], [1, 1.5]);
 
-  // ─── BACKGROUND ────────────────────────────────────────────
+  // Background Gradient Shift
   const bgScale = useTransform(smoothProgress, [0, 0.75], [1, 1.2]);
-  const bgOpacity = useTransform(smoothProgress, [0.9, 1], [1, 0]);
-
-  // ─── MIST TRANSITION ──────────────────────────────────────
+  
+  // PERFORMANCE FIX: Replace dynamic blur filter string with opacity cross-fade
+  // Browsers (especially Safari) struggle to recalculate blur radii at 60fps.
+  const blurOpacity = useTransform(smoothProgress, [0.55, 0.75], [0, 1]);
+  
   const mistY = useTransform(smoothProgress, [0.6, 0.8], ["0%", "-65%"]);
-
-  // ─── WHITE WASH (replaces per-element blur — single GPU-composited layer) ───
-  // Instead of blurring 6+ elements individually (kills iOS),
-  // we overlay a single white div that fades in. Same visual effect, zero CPU blur cost.
-  const washOpacity = useTransform(smoothProgress, [0.55, 0.78], [0, 1]);
-
-  // ─── LOGO REVEAL ───────────────────────────────────────────
-  const logoOpacity = useTransform(smoothProgress, [0.7, 0.8], [0, 1]);
-  const logoScale = useTransform(smoothProgress, [0.7, 0.8], [0.95, 1]);
+  const mistOpacity = useTransform(smoothProgress, [0.55, 0.7], [1, 1]); // Keep it solid
 
   return (
     <section ref={containerRef} className="relative w-full h-[400vh] md:h-[480vh] bg-white overflow-visible">
       <div className="sticky top-0 w-full h-screen overflow-hidden flex justify-center">
         
-        {/* Background Layer — GPU-composited (only transform + opacity) */}
+        {/* Background Layer with scaling gradient and blur */}
         <motion.div 
-          className="absolute inset-0 z-0 will-change-transform"
-          style={{ scale: bgScale, opacity: bgOpacity }}
+          className="absolute inset-0 z-0"
+          style={{ 
+            scale: bgScale,
+            opacity: useTransform(smoothProgress, [0.9, 1], [1, 0])
+          }}
         >
+          {/* Base Sharp Layer */}
           <div 
             className="absolute inset-0" 
-            style={{ background: 'linear-gradient(213.25deg, #E2F2FF 39.76%, #03AEF2 123.2%)' }}
+            style={{ 
+              background: 'linear-gradient(213.25deg, #E2F2FF 39.76%, #03AEF2 123.2%)' 
+            }}
+          />
+          {/* Hardware Accelerated Blur Layer (iOS Fix) */}
+          <motion.div 
+            className="absolute inset-0 will-change-opacity" 
+            style={{ 
+              opacity: blurOpacity,
+              background: 'linear-gradient(213.25deg, #E2F2FF 39.76%, #03AEF2 123.2%)',
+              filter: 'blur(15px)',
+              scale: 1.1 // Prevent edge artifacts during blur
+            }}
           />
         </motion.div>
 
         {/* Content Container */}
         <div className="relative w-full max-w-[1280px] h-full mx-auto">
           
-          {/* Headline */}
+          {/* Initial Headline (Wide range of services!) */}
           <motion.div 
-            className="absolute z-[60] flex flex-col pt-[100px] items-center text-center w-full pointer-events-none"
-            style={{ y: headlineY, opacity: headlineOpacity }}
+            className="absolute z-[60] flex flex-col pt-[168px] items-center text-center w-full pointer-events-none will-change-transform will-change-opacity"
+            style={{ 
+              y: headlineY, 
+              opacity: headlineOpacity,
+              // Apply fixed blur here if needed, or maintain clarity for text
+            }}
           >
             <h1 className="w-full max-w-[900px] text-4xl md:text-display font-bold text-[#16232A] mb-6">
               Your Vision. Our Craft.
@@ -102,92 +117,78 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* Main Interior Showroom Image — GPU layer (transform + opacity only) */}
+
+
+          {/* Main Interior Showroom Image (The focal point of zoom) */}
           <motion.div 
-            className="absolute z-30 will-change-transform"
+            className="absolute z-30"
             style={{ 
               left: '50%',
               x: '-50%',
-              top: isMobile ? '35%' : '25%',
+              top: typeof window !== 'undefined' && window.innerWidth < 768 ? '55%' : '45%',
               scale: interiorScale,
               y: interiorY,
               originX: 0.5,
               originY: 1,
               opacity: interiorOpacity,
-              width: isMobile ? '120vw' : '1050px',
-              height: isMobile ? '85vh' : '700px'
+              width: typeof window !== 'undefined' && window.innerWidth < 768 ? '120vw' : '1050px',
+              height: typeof window !== 'undefined' && window.innerWidth < 768 ? '85vh' : '700px',
+              willChange: 'transform, opacity'
             }}
           >
             <div className="relative w-full h-full flex items-center justify-center">
-              {/* The GPU-friendly fake shadow */}
-              <div className="absolute top-[10%] w-[80%] h-[80%] bg-black/15 blur-[40px] rounded-[100px] pointer-events-none translate-y-10 will-change-transform" />
-              
               <Image 
                 src="/images/hero/Interior Img 1.png" 
                 alt="Luxury Interior" 
                 fill
-                className="object-contain"
+                className="object-contain drop-shadow-[0_40px_100px_rgba(0,0,0,0.15)]"
                 priority
-                quality={85}
+                quality={100}
               />
             </div>
           </motion.div>
 
-          {/* Parallax Clouds — GPU layers (transform + opacity only, NO blur) */}
-          <motion.div 
-            className="absolute z-40" 
-            style={{ left: '10%', top: '30%', width: '40%', height: '30%', x: cloud1X, scale: cloudScale }}
-          >
+          {/* Dynamic Parallax Clouds */}
+          <motion.div className="absolute z-40 will-change-transform" style={{ left: '10%', top: '30%', width: '40%', height: '30%', x: cloud1X, scale: cloudScale }}>
             <Image src="/images/hero/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-80" />
           </motion.div>
-          <motion.div 
-            className="absolute z-40" 
-            style={{ right: '5%', top: '50%', width: '45%', height: '40%', x: cloud2X, scale: cloudScale }}
-          >
+          <motion.div className="absolute z-40 will-change-transform" style={{ right: '5%', top: '50%', width: '45%', height: '40%', x: cloud2X, scale: cloudScale }}>
             <Image src="/images/hero/Cloud-2 2.png" alt="Cloud" fill className="object-contain opacity-90" />
           </motion.div>
-          <motion.div 
-            className="absolute z-20" 
-            style={{ left: '60%', top: '20%', width: '35%', height: '30%', y: cloud3Y, scale: cloudScale }}
-          >
+          <motion.div className="absolute z-20 will-change-transform" style={{ left: '60%', top: '20%', width: '35%', height: '30%', y: cloud3Y, scale: cloudScale }}>
             <Image src="/images/hero/Cloud-3 1.png" alt="Cloud" fill className="object-contain opacity-60" />
           </motion.div>
 
-          {/* Bottom Cloud Bank */}
-          <motion.div className="absolute z-[110] will-change-transform" style={{ left: '547px', bottom: '-180px', width: '802px', height: '471px', transform: 'rotate(-180deg)', y: mistY }}>
+          {/* Group 390 (Bottom Cloud Bank - Mostly submerged in mist for soft transition) */}
+          <motion.div className="absolute z-[110]" style={{ left: '547px', bottom: '-180px', width: '802px', height: '471px', transform: 'rotate(-180deg)', y: mistY }}>
             <Image src="/images/hero/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-70" />
           </motion.div>
-          <motion.div className="absolute z-[110] will-change-transform" style={{ left: '298px', bottom: '-220px', width: '802px', height: '471px', transform: 'rotate(-180deg)', y: mistY }}>
+          <motion.div className="absolute z-[110]" style={{ left: '298px', bottom: '-220px', width: '802px', height: '471px', transform: 'rotate(-180deg)', y: mistY }}>
             <Image src="/images/hero/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-80" />
           </motion.div>
-          <motion.div className="absolute z-[110] will-change-transform" style={{ left: '-249px', bottom: '-160px', width: '802px', height: '471px', transform: 'rotate(-180deg)', y: mistY }}>
+          <motion.div className="absolute z-[110]" style={{ left: '-249px', bottom: '-160px', width: '802px', height: '471px', transform: 'rotate(-180deg)', y: mistY }}>
             <Image src="/images/hero/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-75" />
           </motion.div>
 
         </div>
 
-        {/* Bottom Mist Gradient */}
+        {/* Bottom Mist/Gradient (Rectangle 350) - Moved outside container to cover full 100vw */}
         <motion.div 
-          className="absolute inset-x-0 bottom-[-65vh] z-[120] h-[100vh] pointer-events-none will-change-transform" 
+          className="absolute inset-x-0 bottom-[-65vh] z-[120] h-[100vh] pointer-events-none" 
           style={{ 
             background: 'linear-gradient(0deg, #FFFFFF 30.38%, rgba(255, 255, 255, 0) 92.42%)',
             y: mistY
           }} 
         />
 
-        {/* ──── iOS-SAFE WHITE WASH ────────────────────────────────
-             This single white overlay replaces ALL per-element blur() filters.
-             On iOS Safari, animating opacity of a solid div is ~60fps.
-             Animating filter:blur() on 6 elements is ~8fps. ──────────── */}
+        {/* Cinematic Large Logo Transition - Sharp and High Fidelity */}
         <motion.div 
-          className="absolute inset-0 z-[130] pointer-events-none bg-white will-change-[opacity]"
-          style={{ opacity: washOpacity }}
-        />
-
-        {/* Large Logo Transition */}
-        <motion.div 
-          className="absolute inset-x-0 top-0 h-screen z-[500] flex items-center justify-center pointer-events-none will-change-transform"
-          style={{ opacity: logoOpacity, scale: logoScale }}
+          className="absolute inset-x-0 top-0 h-screen z-[500] flex items-center justify-center pointer-events-none will-change-transform will-change-opacity"
+          style={{ 
+            opacity: useTransform(smoothProgress, [0.7, 0.8], [0, 1]),
+            scale: useTransform(smoothProgress, [0.7, 0.8], [0.95, 1]),
+            translateZ: 0
+          }}
         >
           <div className="w-[320px] md:w-[480px] lg:w-[600px]">
             <svg viewBox="0 0 113 43" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto drop-shadow-2xl">
