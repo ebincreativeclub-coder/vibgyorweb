@@ -1,19 +1,16 @@
-import { Navigation } from "@/components/Navigation";
-import { Hero } from "@/components/Hero";
-import { Features } from "@/components/Features";
-import { ServicesPortfolio } from "@/components/ServicesPortfolio";
-import { OurProcess } from "@/components/OurProcess";
-import { Sectors } from "@/components/Sectors";
-import { PortfolioGallery } from "@/components/PortfolioGallery";
-import { AboutVision } from "@/components/AboutVision";
-import { Testimonials } from "@/components/Testimonials";
-import { Companies } from "@/components/Companies";
-import { Footer } from "@/components/Footer";
+import { Hero } from "@/components/home/Hero";
+import { Features } from "@/components/sections/Features";
+import { ServicesPortfolio } from "@/components/sections/ServicesPortfolio";
+import { OurProcess } from "@/components/sections/OurProcess";
+import { Sectors } from "@/components/sections/Sectors";
+import { PortfolioGallery } from "@/components/sections/PortfolioGallery";
+import { AboutVision } from "@/components/home/AboutVision";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { Companies } from "@/components/home/Companies";
 
 export default function Home() {
   return (
     <main className="relative">
-      <Navigation />
       <Hero />
       <Features />
       <ServicesPortfolio />
@@ -23,7 +20,6 @@ export default function Home() {
       <AboutVision />
       <Testimonials />
       <Companies />
-      <Footer />
     </main>
   );
 }

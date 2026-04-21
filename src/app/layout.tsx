@@ -27,6 +27,8 @@ export const metadata: Metadata = {
   description: "Boutique contracting firm specializing in workspace design and interior transformation.",
 };
 
+import { Navigation } from "@/components/layout/Navigation";
+import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/ui/SmoothScroll";
 
 export default function RootLayout({
@@ -41,7 +43,9 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <SmoothScroll>
+          <Navigation />
           {children}
+          <Footer />
         </SmoothScroll>
       </body>
     </html>

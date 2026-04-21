@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { VibgyorButton } from "./ui/VibgyorButton";
+import { VibgyorButton } from "../ui/VibgyorButton";
 
 export function ServicesPortfolio() {
   const [activeService, setActiveService] = useState<number | null>(1);

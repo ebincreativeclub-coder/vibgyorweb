@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { RevealImage, FadeUp } from "./ui/Reveal";
+import { RevealImage, FadeUp } from "../ui/Reveal";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();

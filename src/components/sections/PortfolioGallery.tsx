@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useAnimationFrame, useMotionValueEvent } from "framer-motion";
 import Image from "next/image";
-import { VibgyorButton } from "./ui/VibgyorButton";
-import { RevealText, FadeUp } from "./ui/Reveal";
+import { VibgyorButton } from "../ui/VibgyorButton";
+import { RevealText, FadeUp } from "../ui/Reveal";
 
 export function PortfolioGallery() {
   const galleryItems = [

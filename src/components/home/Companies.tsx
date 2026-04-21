@@ -3,17 +3,17 @@
 import { motion, useAnimationFrame, useMotionValue } from "framer-motion";
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
-import { FadeUp } from "./ui/Reveal";
+import { FadeUp } from "../ui/Reveal";
 
 const brands = [
   { id: 1, src: "/images/brands/Alfardan@3x.png", alt: "Alfardan" },
   { id: 2, src: "/images/brands/Asteco@3x.png", alt: "Asteco" },
-  { id: 3, src: "/images/brands/Banana Island Resort Doha@3x.png", alt: "Banana Island" },
-  { id: 4, src: "/images/brands/Doha Festival City@3x.png", alt: "Doha Festival City" },
+  { id: 3, src: "/images/brands/Banana Island@3x.png", alt: "Banana Island" },
+  { id: 4, src: "/images/brands/Daha Festival city@3x.png", alt: "Doha Festival City" },
   { id: 5, src: "/images/brands/HBK@3x.png", alt: "HBK" },
   { id: 6, src: "/images/brands/Hyatt@3x.png", alt: "Hyatt" },
-  { id: 7, src: "/images/brands/KONE@3x.png", alt: "KONE" },
-  { id: 8, src: "/images/brands/MELIA@3x.png", alt: "MELIA" },
+  { id: 7, src: "/images/brands/Kone@3x.png", alt: "KONE" },
+  { id: 8, src: "/images/brands/Melia@3x.png", alt: "MELIA" },
   { id: 9, src: "/images/brands/QAFAC@3x.png", alt: "QAFAC" },
   { id: 10, src: "/images/brands/Wyndham@3x.png", alt: "Wyndham" },
 ];
@@ -90,9 +90,9 @@ export function Companies() {
             {[...brands, ...brands, ...brands].map((brand, idx) => (
               <div
                 key={`${brand.id}-${idx}`}
-                className="w-[180px] md:w-[260px] h-[75px] md:h-[105px] px-4 py-2 border border-[#63757E]/15 rounded-[60px] flex items-center justify-center bg-white shrink-0 hover:border-[#63757E]/40 hover:shadow-sm transition-all duration-300 group select-none"
+                className="w-[180px] md:w-[260px] h-[75px] md:h-[105px] px-2 py-1 border border-[#63757E]/15 rounded-[60px] flex items-center justify-center bg-white shrink-0 hover:border-[#63757E]/40 hover:shadow-sm transition-all duration-300 group select-none"
               >
-                <div className="relative w-[85%] h-[85%] flex items-center justify-center pointer-events-none">
+                <div className="relative w-full h-full flex items-center justify-center pointer-events-none">
                   <Image
                     src={brand.src}
                     alt={brand.alt}

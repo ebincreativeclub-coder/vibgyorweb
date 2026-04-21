@@ -1,13 +1,10 @@
 "use client";
 
-import { Navigation } from "@/components/Navigation";
-import { Footer } from "@/components/Footer";
 import { RevealText, FadeUp } from "@/components/ui/Reveal";
 
 export default function AboutPage() {
   return (
     <main className="bg-[#16232A] min-h-screen text-white">
-      <Navigation />
       
       {/* Skeleton Content */}
       <section className="pt-40 pb-20 container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
@@ -25,7 +22,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Footer />
     </main>
   );
 }

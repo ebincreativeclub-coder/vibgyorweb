@@ -1,13 +1,10 @@
 "use client";
 
-import { Navigation } from "@/components/Navigation";
-import { Footer } from "@/components/Footer";
 import { RevealText, FadeUp } from "@/components/ui/Reveal";
 
 export default function ContactPage() {
   return (
     <main className="bg-white min-h-screen text-[#16232A]">
-      <Navigation />
       
       <section className="pt-40 pb-20 container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
@@ -60,7 +57,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <Footer />
     </main>
   );
 }

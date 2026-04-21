@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { VibgyorButton } from "./ui/VibgyorButton";
+import { VibgyorButton } from "../ui/VibgyorButton";
 
 export function Hero() {
   const containerRef = useRef<HTMLElement>(null);
@@ -110,7 +110,7 @@ export function Hero() {
             <h1 className="w-full max-w-[900px] text-4xl md:text-display font-bold text-[#16232A] mb-6">
               Your Vision. Our Craft.
             </h1>
-            <p className="text-[10px] xs:text-ui-xs md:text-ui font-medium text-[#16232A]/60 tracking-[0.15em] md:tracking-[0.3em] px-4 whitespace-nowrap">
+            <p className="text-ui-xs md:text-ui font-medium text-[#16232A]/60 tracking-[0.15em] md:tracking-[0.3em] px-4 whitespace-nowrap text-center">
               Interior Fit-out &nbsp; | &nbsp; Civil Engineering &nbsp; | &nbsp; Carpentry
             </p>
             

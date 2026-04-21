@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { VibgyorButton } from "./ui/VibgyorButton";
-import { RevealText, FadeUp, RevealStaggerGroup, RevealItem, RevealImage } from "./ui/Reveal";
+import { VibgyorButton } from "../ui/VibgyorButton";
+import { RevealText, FadeUp, RevealStaggerGroup, RevealItem, RevealImage } from "../ui/Reveal";
 
 export function AboutVision() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // Client-First open by default
+  const [openIndex, setOpenIndex] = useState<number | null>(null); // Start with all closed
 
   const reasons = [
     {

@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
 import Image from "next/image";
-import { RevealText, FadeUp } from "./ui/Reveal";
+import { RevealText, FadeUp } from "../ui/Reveal";
 
 const processSteps = [
   {

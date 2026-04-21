@@ -2,8 +2,8 @@
 
 import { useRef, useEffect } from "react";
 import { motion, useInView, animate } from "framer-motion";
-import { VibgyorButton } from "./ui/VibgyorButton";
-import { RevealText, FadeUp, RevealStaggerGroup, RevealItem } from "./ui/Reveal";
+import { VibgyorButton } from "../ui/VibgyorButton";
+import { RevealText, FadeUp, RevealStaggerGroup, RevealItem } from "../ui/Reveal";
 
 function Counter({ value, suffix }: { value: string, suffix: string }) {
   const containerRef = useRef<HTMLDivElement>(null);

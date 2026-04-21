@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
-import { RevealText, RevealStaggerGroup, RevealItem } from "./ui/Reveal";
+import { RevealText, RevealStaggerGroup, RevealItem } from "../ui/Reveal";
 
 const testimonials = [
   {

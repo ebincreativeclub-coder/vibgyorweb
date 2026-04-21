@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { RevealText, FadeUp, RevealStaggerGroup, RevealItem } from "./ui/Reveal";
+import { RevealText, FadeUp, RevealStaggerGroup, RevealItem } from "../ui/Reveal";
 import { 
   RiHotelLine, 
   RiBuilding4Line, 
@@ -48,6 +48,44 @@ const sectors = [
 export function Sectors() {
   const [activeMobileIndex, setActiveMobileIndex] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const isScrollingProgrammatically = useRef(false);
+
+  const scrollToIndex = (index: number) => {
+    if (!scrollContainerRef.current) return;
+    const container = scrollContainerRef.current;
+    const cards = container.querySelectorAll(".sector-card-mobile");
+    const targetCard = cards[index] as HTMLElement;
+    
+    if (targetCard) {
+      // Lock out the observer so intermediate cards don't flash active
+      isScrollingProgrammatically.current = true;
+      setActiveMobileIndex(index);
+
+      // Temporarily disable CSS snap to allow fluid glide
+      container.style.scrollSnapType = "none";
+      
+      const targetScrollPos = targetCard.offsetLeft - (container.offsetWidth - targetCard.offsetWidth) / 2;
+      const distance = Math.abs(targetScrollPos - container.scrollLeft);
+      // Scale duration based on distance for consistent perceived speed
+      const duration = Math.min(0.8, Math.max(0.4, distance / 1000));
+      
+      import("framer-motion").then(({ animate }) => {
+        animate(container.scrollLeft, targetScrollPos, {
+          duration,
+          ease: [0.25, 0.1, 0.25, 1], // Smooth cubic-bezier matching native swipe deceleration
+          onUpdate: (latest) => {
+            container.scrollLeft = latest;
+          },
+          onComplete: () => {
+            container.style.scrollSnapType = "x mandatory";
+            setTimeout(() => {
+              isScrollingProgrammatically.current = false;
+            }, 100);
+          }
+        });
+      });
+    }
+  };
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -55,11 +93,14 @@ export function Sectors() {
 
     const options = {
       root: container,
-      rootMargin: "0px -20% 0px -20%", // Focus on the middle 60% of the container
+      rootMargin: "0px -20% 0px -20%",
       threshold: 0.5
     };
 
     const observer = new IntersectionObserver((entries) => {
+      // Skip observer updates during programmatic scroll
+      if (isScrollingProgrammatically.current) return;
+      
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const index = parseInt(entry.target.getAttribute("data-index") || "0");
@@ -97,7 +138,7 @@ export function Sectors() {
           </FadeUp>
         </div>
 
-        {/* Mobile: Horizontal Swiper with Peek and Hidden Scrollbar */}
+        {/* Mobile: Horizontal Swiper with Butter-Smooth Entrance & Physics */}
         <div className="md:hidden">
           <div 
             ref={scrollContainerRef}
@@ -105,39 +146,73 @@ export function Sectors() {
             style={{ 
               scrollbarWidth: 'none', 
               msOverflowStyle: 'none',
-              WebkitOverflowScrolling: 'touch'
+              WebkitOverflowScrolling: 'touch',
+              perspective: '1000px'
             }}
           >
-            {sectors.map((sector, index) => (
-              <motion.div 
-                key={index}
-                data-index={index}
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 1.2, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="sector-card-mobile min-w-[260px] w-[75vw] snap-start snap-always p-8 border-[0.5px] border-[#63757E]/30 bg-[#F9FBFC] rounded-2xl flex flex-col shrink-0"
-              >
-                <div className="mb-6 w-fit text-[#03AEF2]">
-                  <sector.icon size={40} />
-                </div>
-                <h3 className="text-h4 font-semibold text-[#16232A] mb-4 tracking-tight">
-                  {sector.title}
-                </h3>
-                <p className="text-body font-normal text-[#16232A] opacity-70 mb-4 flex-1">
-                  {sector.description}
-                </p>
-              </motion.div>
-            ))}
+            {sectors.map((sector, index) => {
+              const isActive = activeMobileIndex === index;
+              
+              return (
+                <motion.div 
+                  key={index}
+                  data-index={index}
+                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                  whileInView={{ 
+                    opacity: 1, 
+                    y: 0, 
+                    scale: isActive ? 1 : 0.92,
+                    transition: { 
+                      duration: 0.6, 
+                      ease: "easeOut" 
+                    } 
+                  }}
+                  animate={{ 
+                    scale: isActive ? 1 : 0.92,
+                    y: isActive ? 0 : 10,
+                    opacity: isActive ? 1 : 0.6,
+                    borderColor: isActive ? "rgba(3, 174, 242, 0.5)" : "rgba(99, 117, 126, 0.1)"
+                  }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 260, 
+                    damping: 25,
+                    mass: 0.8
+                  }}
+                  viewport={{ once: true, margin: "200px" }}
+                  className="sector-card-mobile min-w-[280px] w-[80vw] snap-center snap-always p-8 border-[0.5px] bg-[#F9FBFC] rounded-3xl flex flex-col shrink-0 shadow-[0_4px_25px_rgba(0,0,0,0.03)]"
+                >
+                  <div className={`mb-6 w-fit transition-colors duration-500 ${isActive ? 'text-[#03AEF2]' : 'text-[#63757E]'}`}>
+                    <sector.icon size={44} />
+                  </div>
+                  <h3 className={`text-h4 font-semibold mb-4 tracking-tight transition-colors duration-500 ${isActive ? 'text-[#16232A]' : 'text-[#16232A]/80'}`}>
+                    {sector.title}
+                  </h3>
+                  <p className="text-body font-normal text-[#16232A] opacity-70 mb-4 flex-1 leading-relaxed">
+                    {sector.description}
+                  </p>
+                </motion.div>
+              );
+            })}
           </div>
-          {/* Mobile Navigation Dots */}
-          <div className="flex justify-center gap-2 mt-4">
-            {sectors.map((_, i) => (
-              <div 
-                key={i} 
-                className={`h-1.5 rounded-full transition-all duration-300 ${activeMobileIndex === i ? 'w-6 bg-[#03AEF2]' : 'w-1.5 bg-[#63757E]/30'}`}
-              />
-            ))}
+          
+          {/* Mobile Navigation Dots with Spring Physics */}
+          <div className="flex justify-center items-center gap-3 mt-4">
+            {sectors.map((_, i) => {
+              const isActive = activeMobileIndex === i;
+              return (
+                <motion.div 
+                  key={i} 
+                  onClick={() => scrollToIndex(i)}
+                  animate={{ 
+                    width: isActive ? 32 : 8,
+                    backgroundColor: isActive ? "#03AEF2" : "rgba(99, 117, 126, 0.2)"
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  className="h-2 rounded-full cursor-pointer touch-manipulation"
+                />
+              );
+            })}
           </div>
         </div>
 
