@@ -18,7 +18,7 @@ const brands = [
   { id: 10, src: "/images/brands/Wyndham@3x.png", alt: "Wyndham" },
 ];
 
-export function Companies() {
+export function Companies({ showBackground = true }: { showBackground?: boolean }) {
   const [isDragging, setIsDragging] = useState(false);
   const marqueeRef = useRef<HTMLDivElement>(null);
   const baseX = useMotionValue(0);
@@ -64,10 +64,10 @@ export function Companies() {
   }, [baseX]);
 
   return (
-    <section className="bg-[#F1F2F3] pt-0 pb-24 md:pb-32 overflow-hidden font-['Instrument_Sans'] selection:bg-[#03AEF2] selection:text-white">
+    <section className={`${showBackground ? 'bg-[#F1F2F3]' : 'bg-transparent'} pt-14 pb-16 md:pb-24 overflow-hidden font-['Instrument_Sans'] selection:bg-[#03AEF2] selection:text-white`}>
       <div className="text-center">
         <FadeUp>
-          <h4 className="text-[18px] md:text-[20px] font-medium text-[#16232A] mb-12 tracking-tight">
+          <h4 className="text-[18px] md:text-[20px] font-medium text-[#16232A] mb-8 md:mb-10 tracking-tight">
             Trusted by the 150+ companies
           </h4>
         </FadeUp>

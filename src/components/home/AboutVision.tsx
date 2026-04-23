@@ -6,7 +6,11 @@ import Image from "next/image";
 import { VibgyorButton } from "../ui/VibgyorButton";
 import { RevealText, FadeUp, RevealStaggerGroup, RevealItem, RevealImage } from "../ui/Reveal";
 
-export function AboutVision() {
+interface AboutVisionProps {
+  showBanner?: boolean;
+}
+
+export function AboutVision({ showBanner = true }: AboutVisionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null); // Start with all closed
 
   const reasons = [
@@ -66,7 +70,9 @@ export function AboutVision() {
               <p className="text-body md:text-body-md text-white/70 mb-8 max-w-[400px]">
                 We don't just build spaces - we build trust through transparency, precision, and a relentless focus on your goals.
               </p>
-              <VibgyorButton href="/about" variant="light">Learn More</VibgyorButton>
+              {!showBanner && (
+                <VibgyorButton href="/about" variant="light">Learn More</VibgyorButton>
+              )}
             </FadeUp>
           </div>
         </div>
@@ -206,55 +212,57 @@ export function AboutVision() {
           </RevealStaggerGroup>
         </div>
 
-        {/* BOTTOM SECTION: ABOUT US BANNER (UNCHANGED) */}
-        <RevealImage 
-          delay={0.2}
-          className="relative w-full mt-24 mb-16 overflow-hidden rounded-[2.5rem] isolate min-h-[465px] flex flex-col items-center justify-center text-center px-6 cursor-pointer"
-        >
-          {/* Unified Interaction Parent: Wraps EVERYTHING */}
-          <motion.div 
-            whileHover="hover"
-            initial="initial"
-            className="absolute inset-0 flex flex-col items-center justify-center"
+        {/* BOTTOM SECTION: ABOUT US BANNER (CONDITIONALLY RENDERED) */}
+        {showBanner && (
+          <RevealImage 
+            delay={0.2}
+            className="relative w-full mt-24 mb-16 overflow-hidden rounded-[2.5rem] isolate min-h-[465px] flex flex-col items-center justify-center text-center px-6 cursor-pointer"
           >
-            {/* The Image Container */}
+            {/* Unified Interaction Parent: Wraps EVERYTHING */}
             <motion.div 
-              variants={{
-                initial: { scale: 1 },
-                hover: { scale: 1.1 }
-              }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute inset-0 z-0"
+              whileHover="hover"
+              initial="initial"
+              className="absolute inset-0 flex flex-col items-center justify-center"
             >
-              <Image 
-                src="/images/about/Group 426.webp" 
-                alt="Interior Storytelling" 
-                fill 
-                className="object-cover"
-                priority
+              {/* The Image Container */}
+              <motion.div 
+                variants={{
+                  initial: { scale: 1 },
+                  hover: { scale: 1.1 }
+                }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 z-0"
+              >
+                <Image 
+                  src="/images/about/Group 426.webp" 
+                  alt="Interior Storytelling" 
+                  fill 
+                  className="object-cover"
+                  priority
+                />
+              </motion.div>
+
+              {/* The Overlay */}
+              <motion.div 
+                variants={{
+                  initial: { opacity: 1 },
+                  hover: { opacity: 0.65 }
+                }}
+                transition={{ duration: 0.8 }}
+                className="absolute inset-0 bg-black/45 z-[1]" 
               />
+
+              {/* Content: Now inside the interaction parent */}
+              <div className="relative z-[2] max-w-[623px]">
+                <h2 className="text-2xl md:text-3xl lg:text-h3 font-medium text-white mb-10">
+                  Every space tells a story. We make sure yours says exactly the right thing.
+                </h2>
+                
+                <VibgyorButton href="/about" variant="light">About Us</VibgyorButton>
+              </div>
             </motion.div>
-
-            {/* The Overlay */}
-            <motion.div 
-              variants={{
-                initial: { opacity: 1 },
-                hover: { opacity: 0.65 }
-              }}
-              transition={{ duration: 0.8 }}
-              className="absolute inset-0 bg-black/45 z-[1]" 
-            />
-
-            {/* Content: Now inside the interaction parent */}
-            <div className="relative z-[2] max-w-[623px]">
-              <h2 className="text-2xl md:text-3xl lg:text-h3 font-medium text-white mb-10">
-                Every space tells a story. We make sure yours says exactly the right thing.
-              </h2>
-              
-              <VibgyorButton href="/about" variant="light">About Us</VibgyorButton>
-            </div>
-          </motion.div>
-        </RevealImage>
+          </RevealImage>
+        )}
       </div>
     </section>
   );

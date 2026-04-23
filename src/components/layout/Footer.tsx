@@ -53,12 +53,13 @@ export function Footer() {
           {/* Column 1: Logo, Description & Socials */}
           <FadeUp delay={0.1} className="flex flex-col space-y-10 max-w-full lg:max-w-[440px]">
             {/* Brand Logo */}
-            <div className="relative w-[240px] md:w-[320px] h-[86px] md:h-[116px]">
+            <div className="relative w-[200px] md:w-[280px]">
               <Image 
-                src="/images/common/logo-full.svg" 
+                src="/images/common/logo new.svg" 
                 alt="Vibgyor logo" 
-                fill
-                className="object-contain object-left"
+                width={280}
+                height={100}
+                className="w-full h-auto"
                 priority 
               />
             </div>
@@ -91,7 +92,7 @@ export function Footer() {
           <FadeUp delay={0.2} className="lg:pt-8 min-w-[140px]">
             <h5 className="lg:hidden text-[#63757E] text-[12px] uppercase tracking-widest font-normal mb-6">Explore</h5>
             <div className="flex flex-col space-y-2">
-              {['Services', 'About', 'Contact', 'Downloads'].map((item) => (
+              {['About', 'Services', 'Projects', 'Contact'].map((item) => (
                 <Link 
                   key={item}
                   href={`/${item.toLowerCase()}`}
