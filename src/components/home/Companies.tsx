@@ -6,16 +6,16 @@ import { useRef, useState, useEffect } from "react";
 import { FadeUp } from "../ui/Reveal";
 
 const brands = [
-  { id: 1, src: "/images/brands/Alfardan@3x.png", alt: "Alfardan" },
-  { id: 2, src: "/images/brands/Asteco@3x.png", alt: "Asteco" },
-  { id: 3, src: "/images/brands/Banana Island@3x.png", alt: "Banana Island" },
-  { id: 4, src: "/images/brands/Daha Festival city@3x.png", alt: "Doha Festival City" },
-  { id: 5, src: "/images/brands/HBK@3x.png", alt: "HBK" },
-  { id: 6, src: "/images/brands/Hyatt@3x.png", alt: "Hyatt" },
-  { id: 7, src: "/images/brands/Kone@3x.png", alt: "KONE" },
-  { id: 8, src: "/images/brands/Melia@3x.png", alt: "MELIA" },
-  { id: 9, src: "/images/brands/QAFAC@3x.png", alt: "QAFAC" },
-  { id: 10, src: "/images/brands/Wyndham@3x.png", alt: "Wyndham" },
+  { id: 1, src: "/images/brands/alfardan.png", alt: "Alfardan" },
+  { id: 2, src: "/images/brands/asteco.png", alt: "Asteco" },
+  { id: 3, src: "/images/brands/banana_island.png", alt: "Banana Island" },
+  { id: 4, src: "/images/brands/doha_festival_city.png", alt: "Doha Festival City" },
+  { id: 5, src: "/images/brands/hbk.png", alt: "HBK" },
+  { id: 6, src: "/images/brands/hyatt.png", alt: "Hyatt" },
+  { id: 7, src: "/images/brands/kone.png", alt: "KONE" },
+  { id: 8, src: "/images/brands/melia.png", alt: "MELIA" },
+  { id: 9, src: "/images/brands/qafac.png", alt: "QAFAC" },
+  { id: 10, src: "/images/brands/wyndham.png", alt: "Wyndham" },
 ];
 
 export function Companies({ showBackground = true }: { showBackground?: boolean }) {
