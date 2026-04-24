@@ -1,11 +1,15 @@
 "use client";
 
-import { ComingSoon } from "@/components/ui/ComingSoon";
+import { ProjectsHero } from "@/components/sections/ProjectsHero";
+import { ProjectsGrid } from "@/components/sections/ProjectsGrid";
+import { Companies } from "@/components/home/Companies";
 
 export default function ProjectsPage() {
   return (
     <main className="bg-white">
-      <ComingSoon pageName="Portfolio" />
+      <ProjectsHero />
+      <ProjectsGrid />
+      <Companies />
     </main>
   );
 }
