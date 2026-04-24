@@ -18,7 +18,13 @@ const brands = [
   { id: 10, src: "/images/brands/wyndham.png", alt: "Wyndham" },
 ];
 
-export function Companies({ showBackground = true }: { showBackground?: boolean }) {
+export function Companies({ 
+  showBackground = true, 
+  compact = false 
+}: { 
+  showBackground?: boolean;
+  compact?: boolean;
+}) {
   const [isDragging, setIsDragging] = useState(false);
   const marqueeRef = useRef<HTMLDivElement>(null);
   const baseX = useMotionValue(0);
@@ -64,10 +70,14 @@ export function Companies({ showBackground = true }: { showBackground?: boolean 
   }, [baseX]);
 
   return (
-    <section className={`${showBackground ? 'bg-[#F1F2F3]' : 'bg-transparent'} pt-14 pb-16 md:pb-24 overflow-hidden font-['Instrument_Sans'] selection:bg-[#03AEF2] selection:text-white`}>
+    <section className={`
+      ${showBackground ? 'bg-[#F1F2F3]' : 'bg-transparent'} 
+      ${compact ? 'pt-6 pb-12 md:pb-16' : 'pt-14 pb-16 md:pb-24'} 
+      overflow-hidden font-['Instrument_Sans'] selection:bg-[#03AEF2] selection:text-white
+    `}>
       <div className="text-center">
         <FadeUp>
-          <h4 className="text-[18px] md:text-[20px] font-medium text-[#16232A] mb-8 md:mb-10 tracking-tight">
+          <h4 className={`text-[18px] md:text-[20px] font-medium text-[#16232A] tracking-tight ${compact ? 'mb-6' : 'mb-8 md:mb-10'}`}>
             Trusted by the 150+ companies
           </h4>
         </FadeUp>

@@ -46,7 +46,7 @@ export function ProjectsGrid() {
   ];
 
   return (
-    <section className="bg-white pb-24 md:pb-32 lg:pb-40">
+    <section className="bg-white pb-12 md:pb-20">
       <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-[1440px]">
         
         {/* Category Filter Bar */}

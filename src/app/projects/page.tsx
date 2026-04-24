@@ -9,7 +9,7 @@ export default function ProjectsPage() {
     <main className="bg-white">
       <ProjectsHero />
       <ProjectsGrid />
-      <Companies />
+      <Companies showBackground={false} compact={true} />
     </main>
   );
 }
