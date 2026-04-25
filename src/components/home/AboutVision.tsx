@@ -216,13 +216,13 @@ export function AboutVision({ showBanner = true }: AboutVisionProps) {
         {showBanner && (
           <RevealImage 
             delay={0.2}
-            className="relative w-full mt-24 mb-16 overflow-hidden rounded-[2.5rem] isolate min-h-[465px] flex flex-col items-center justify-center text-center px-6 cursor-pointer"
+            className="relative w-full mt-24 mb-16 overflow-hidden rounded-[2.5rem] isolate min-h-[465px] flex flex-col items-center justify-center text-center px-6 cursor-pointer transform-gpu"
           >
             {/* Unified Interaction Parent: Wraps EVERYTHING */}
             <motion.div 
               whileHover="hover"
               initial="initial"
-              className="absolute inset-0 flex flex-col items-center justify-center"
+              className="absolute inset-0 flex flex-col items-center justify-center will-change-transform"
             >
               {/* The Image Container */}
               <motion.div 
@@ -231,7 +231,7 @@ export function AboutVision({ showBanner = true }: AboutVisionProps) {
                   hover: { scale: 1.1 }
                 }}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 z-0"
+                className="absolute inset-0 z-0 will-change-transform"
               >
                 <Image 
                   src="/images/about/Group 426.webp" 

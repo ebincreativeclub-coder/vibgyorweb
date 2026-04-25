@@ -48,9 +48,10 @@ export function ServicesPortfolio() {
               onClick={() => setActiveService(index)}
               className="group relative border-b border-[#63757E] border-opacity-50 min-h-[200px] md:min-h-[240px] lg:min-h-[289px] flex items-center cursor-pointer overflow-hidden transition-all duration-500 py-6"
             >
-              <div className={`absolute inset-0 z-0 pointer-events-none transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
+              <div className={`absolute inset-0 z-0 pointer-events-none transition-opacity duration-500 transform-gpu ${isActive ? 'opacity-100' : 'opacity-0'}`}>
                 <Image src={bgImage} alt={service.title} fill className="object-cover" />
-                <div className="absolute inset-0 bg-[#16232A]/50 mix-blend-multiply" />
+                {/* Replaced mix-blend-multiply with standard alpha for better Safari performance */}
+                <div className="absolute inset-0 bg-[#16232A]/70" />
               </div>
 
               <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px] relative z-10 w-full flex items-center justify-between">

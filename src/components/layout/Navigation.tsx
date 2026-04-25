@@ -56,7 +56,7 @@ export function Navigation() {
           boxShadow: isScrolled ? "0 4px 30px rgba(0,0,0,0.02)" : "none"
         }}
         transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
-        className={`fixed top-0 left-0 w-full z-[200] transition-all duration-300 ${
+        className={`fixed top-0 left-0 w-full z-[200] transition-all duration-300 transform-gpu ${
           isScrolled ? "py-4" : "py-6 md:py-8"
         }`}
       >

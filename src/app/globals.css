@@ -59,7 +59,17 @@ body {
   color: var(--foreground);
   font-family: var(--font-instrument), var(--font-sans), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  /* Safari performance boost */
+  -webkit-tap-highlight-color: transparent;
+}
+
+.gpu-boost {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 @layer utilities {

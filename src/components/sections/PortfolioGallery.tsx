@@ -104,7 +104,7 @@ export function PortfolioGallery() {
           onDragEnd={() => setIsDragging(false)}
           onHoverStart={() => setIsPaused(true)}
           onHoverEnd={() => setIsPaused(false)}
-          className="flex w-max cursor-grab active:cursor-grabbing px-4 md:px-8"
+          className="flex w-max cursor-grab active:cursor-grabbing px-4 md:px-8 will-change-transform transform-gpu"
         >
           {/* We render 4 identical sets side-by-side to guarantee buffer in both directions */}
           
@@ -139,7 +139,7 @@ export function PortfolioGallery() {
 // --- WIDE CARD COMPONENT ---
 function GalleryCard({ item }: { item: any }) {
   return (
-    <div className="relative shrink-0 w-[85vw] sm:w-[600px] md:w-[700px] lg:w-[800px] aspect-[4/3] md:aspect-video rounded-[32px] overflow-hidden group/card bg-[#1A1A1A] shadow-2xl pointer-events-none">
+    <div className="relative shrink-0 w-[85vw] sm:w-[600px] md:w-[700px] lg:w-[800px] aspect-[4/3] md:aspect-video rounded-[32px] overflow-hidden group/card bg-[#1A1A1A] shadow-2xl pointer-events-none transform-gpu isolate">
       
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">

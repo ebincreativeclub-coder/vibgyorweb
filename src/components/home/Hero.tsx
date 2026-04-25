@@ -1,216 +1,220 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { VibgyorButton } from "../ui/VibgyorButton";
 
+const slides = [
+  {
+    image: "/images/hero new slide/image 66.jpg",
+    title: "Interior Fit-out",
+    headline: "Spaces That\nInspire.",
+    description: "Interiors that reflect your brand and elevate your business."
+  },
+  {
+    image: "/images/hero new slide/image 66-2.jpg",
+    title: "Carpentry & Joinery",
+    headline: "Crafted with\nPrecision.",
+    description: "Bespoke woodwork built to your exact specifications."
+  },
+  {
+    image: "/images/hero new slide/image 66-3.jpg",
+    title: "Civil Engineering",
+    headline: "Built to\nLast.",
+    description: "Reliable civil works delivered on time and to the highest standard."
+  }
+];
+
 export function Hero() {
-  const containerRef = useRef<HTMLElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const slideDuration = 6000;
 
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 70,    // Smoother, less jumpy tracking
-    damping: 30,
-    mass: 0.5,        // Feels lighter/zippier but still fluid
-    restDelta: 0.001
-  });
-
-  // Smooth Continuous Motion (Refined scaling to stay within professional bounds)
-  const interiorScale = useTransform(smoothProgress, [0, 0.35, 0.6, 0.75], [1, 1.2, 1.25, 1.25]);
-  const interiorY = useTransform(smoothProgress, [0, 0.4, 0.6, 0.75], [0, -20, -60, -80]);
-  const interiorOpacity = useTransform(smoothProgress, [0.55, 0.75], [1, 0]);
-
-  // Content Fades - Responsive coordination
-  const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
+    const timer = setInterval(() => {
+      setDirection(1);
+      setCurrentIndex((prev) => (prev + 1) % slides.length);
+    }, slideDuration);
 
-  const headlineOpacity = useTransform(
-    smoothProgress, 
-    isMobile ? [0.55, 0.75] : [0, 0.12], 
-    [1, 0]
-  );
-  const headlineY = useTransform(
-    smoothProgress, 
-    isMobile ? [0.55, 0.75] : [0, 0.12], 
-    [0, -50]
-  );
+    return () => clearInterval(timer);
+  }, [currentIndex]);
+
+  // Ultra-Premium Parallax Slide
+  const slideVariants = {
+    enter: (dir: number) => ({
+      x: dir > 0 ? "100%" : "-100%",
+      scale: 1.05,
+      opacity: 1,
+      zIndex: 2,
+    }),
+    center: {
+      x: 0,
+      scale: 1,
+      opacity: 1,
+      zIndex: 2,
+    },
+    exit: (dir: number) => ({
+      x: dir < 0 ? "15%" : "-15%", 
+      scale: 0.95, // 3D push-back effect
+      opacity: 0.4, 
+      zIndex: 1,
+    }),
+  };
+
+  // Aggressive 'Snap-then-Coast' Easing for Text (Apple-style)
+  const premiumEase = [0.075, 0.82, 0.165, 1] as const;
   
+  const textContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.12, delayChildren: 0.2 }
+    },
+    exit: {
+      opacity: 0,
+      transition: { staggerChildren: 0.05, staggerDirection: -1, duration: 0.4 }
+    }
+  };
 
-
-  // Cloud Parallax (Fly-past effect)
-  const cloud1X = useTransform(smoothProgress, [0, 0.75], ["0%", "-150%"]);
-  const cloud2X = useTransform(smoothProgress, [0, 0.75], ["0%", "150%"]);
-  const cloud3Y = useTransform(smoothProgress, [0, 0.75], ["0%", "-100%"]);
-  const cloudScale = useTransform(smoothProgress, [0, 0.75], [1, 1.5]);
-
-  // Background Gradient Shift
-  const bgScale = useTransform(smoothProgress, [0, 0.75], [1, 1.2]);
-  
-  // PERFORMANCE FIX: Replace dynamic blur filter string with opacity cross-fade
-  // Browsers (especially Safari) struggle to recalculate blur radii at 60fps.
-  const blurOpacity = useTransform(smoothProgress, [0.55, 0.75], [0, 1]);
-  
-  const mistY = useTransform(smoothProgress, [0.6, 0.8], ["0%", "-65%"]);
-  const mistOpacity = useTransform(smoothProgress, [0.55, 0.7], [1, 1]); // Keep it solid
+  const textItemVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 1.4, ease: premiumEase } 
+    },
+    exit: { 
+      opacity: 0, 
+      y: -30, 
+      transition: { duration: 0.6, ease: [0.7, 0, 0.84, 0] as const } 
+    }
+  };
 
   return (
-    <section ref={containerRef} className="relative w-full h-[400vh] md:h-[480vh] bg-white overflow-visible">
-      <div className="sticky top-0 w-full h-screen overflow-hidden flex justify-center">
+    <section className="relative w-full h-[90vh] md:h-screen bg-[#f8fbff] flex flex-col pt-[80px] md:pt-[100px] pb-6 px-4 md:px-6 lg:px-8">
+      <div className="relative flex-1 w-full mx-auto rounded-[30px] md:rounded-[40px] overflow-hidden group shadow-[0_20px_50px_rgba(0,0,0,0.1)] bg-[#061014]">
         
-        {/* Background Layer with scaling gradient and blur */}
-        <motion.div 
-          className="absolute inset-0 z-0"
-          style={{ 
-            scale: bgScale,
-            opacity: useTransform(smoothProgress, [0.9, 1], [1, 0])
-          }}
-        >
-          {/* Base Sharp Layer */}
-          <div 
-            className="absolute inset-0" 
-            style={{ 
-              background: 'linear-gradient(213.25deg, #E2F2FF 39.76%, #03AEF2 123.2%)' 
-            }}
-          />
-          {/* Hardware Accelerated Blur Layer (iOS Fix) */}
-          <motion.div 
-            className="absolute inset-0 will-change-opacity" 
-            style={{ 
-              opacity: blurOpacity,
-              background: 'linear-gradient(213.25deg, #E2F2FF 39.76%, #03AEF2 123.2%)',
-              filter: 'blur(20px)', // Slightly deeper blur
-              scale: 1.1,
-              transform: 'translate3d(0,0,0)' // Force GPU layer
-            }}
-          />
-        </motion.div>
-
-        {/* Content Container */}
-        <div className="relative w-full max-w-[1280px] h-full mx-auto">
-          
-          {/* Initial Headline (Wide range of services!) */}
-          <motion.div 
-            className="absolute z-[60] flex flex-col pt-[168px] items-center text-center w-full pointer-events-none will-change-transform will-change-opacity"
-            style={{ 
-              y: headlineY, 
-              opacity: headlineOpacity,
-              // Apply fixed blur here if needed, or maintain clarity for text
-            }}
+        {/* --- 1. SLIDING BACKGROUNDS --- */}
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.div
+            key={currentIndex}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 1.4, ease: premiumEase }}
+            className="absolute inset-0"
           >
-            <h1 className="w-full max-w-[900px] text-4xl md:text-display font-bold text-[#16232A] mb-6">
-              Your Vision. Our Craft.
-            </h1>
-            <p className="text-ui-xs md:text-ui font-medium text-[#16232A]/60 tracking-[0.15em] md:tracking-[0.3em] px-4 whitespace-nowrap text-center">
-              Interior Fit-out &nbsp; | &nbsp; Civil Engineering &nbsp; | &nbsp; Carpentry
-            </p>
-            
-            <div className="mt-12 pointer-events-auto">
-              <VibgyorButton href="/services" variant="dark">Explore Services</VibgyorButton>
-            </div>
-          </motion.div>
-
-
-
-          {/* Main Interior Showroom Image (The focal point of zoom) */}
-          <motion.div 
-            className="absolute z-30"
-            style={{ 
-              left: '50%',
-              x: '-50%',
-              top: typeof window !== 'undefined' && window.innerWidth < 768 ? '55%' : '45%',
-              scale: interiorScale,
-              y: interiorY,
-              originX: 0.5,
-              originY: 1,
-              opacity: interiorOpacity,
-              width: typeof window !== 'undefined' && window.innerWidth < 768 ? '120vw' : '1050px',
-              height: typeof window !== 'undefined' && window.innerWidth < 768 ? '85vh' : '700px',
-              willChange: 'transform, opacity',
-              transform: 'translate3d(0,0,0)'
-            }}
-          >
-            <div className="relative w-full h-full flex items-center justify-center">
-              <Image 
-                src="/images/hero/Interior Img 1.png" 
-                alt="Luxury Interior" 
+            {/* Continuous 'Breathing' Ken Burns */}
+            <motion.div
+              initial={{ scale: 1.05 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 8, ease: "linear" }}
+              className="absolute inset-0 will-change-transform transform-gpu"
+            >
+              <Image
+                src={slides[currentIndex].image}
+                alt={slides[currentIndex].title}
                 fill
-                className="object-contain drop-shadow-[0_40px_100px_rgba(0,0,0,0.15)]"
+                className="object-cover"
                 priority
                 quality={100}
               />
-            </div>
+            </motion.div>
           </motion.div>
+        </AnimatePresence>
 
-          {/* Dynamic Parallax Clouds */}
-          <motion.div className="absolute z-40 will-change-transform" style={{ left: '10%', top: '30%', width: '40%', height: '30%', x: cloud1X, scale: cloudScale }}>
-            <Image src="/images/hero/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-80" />
-          </motion.div>
-          <motion.div className="absolute z-40 will-change-transform" style={{ right: '5%', top: '50%', width: '45%', height: '40%', x: cloud2X, scale: cloudScale }}>
-            <Image src="/images/hero/Cloud-2 2.png" alt="Cloud" fill className="object-contain opacity-90" />
-          </motion.div>
-          <motion.div className="absolute z-20 will-change-transform" style={{ left: '60%', top: '20%', width: '35%', height: '30%', y: cloud3Y, scale: cloudScale }}>
-            <Image src="/images/hero/Cloud-3 1.png" alt="Cloud" fill className="object-contain opacity-60" />
-          </motion.div>
+        {/* --- 2. STATIC OVERLAY GRADIENT --- */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/80 via-black/30 to-transparent pointer-events-none mix-blend-multiply" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+            
+        {/* --- 3. STATIONARY TEXT CONTAINER --- */}
+        <div className="absolute inset-0 z-20 flex flex-col justify-end pb-12 md:pb-24 lg:pb-32 px-8 md:px-16 lg:px-24 pointer-events-none">
+          <div className="max-w-[800px] pointer-events-auto">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentIndex}
+                variants={textContainerVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="flex flex-col items-start will-change-[transform,opacity] transform-gpu"
+              >
+                {/* Refined Glassy Pill */}
+                <motion.div
+                  variants={textItemVariants}
+                  className="inline-flex items-center px-5 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-xl mb-8 shadow-[0_8px_30px_rgb(0,0,0,0.2)]"
+                >
+                  <span className="text-white text-xs font-bold tracking-[0.3em] uppercase">
+                    {slides[currentIndex].title}
+                  </span>
+                </motion.div>
 
-          {/* Group 390 (Bottom Cloud Bank - Mostly submerged in mist for soft transition) */}
-          <motion.div className="absolute z-[110]" style={{ left: '547px', bottom: '-180px', width: '802px', height: '471px', transform: 'rotate(-180deg)', y: mistY }}>
-            <Image src="/images/hero/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-70" />
-          </motion.div>
-          <motion.div className="absolute z-[110]" style={{ left: '298px', bottom: '-220px', width: '802px', height: '471px', transform: 'rotate(-180deg)', y: mistY }}>
-            <Image src="/images/hero/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-80" />
-          </motion.div>
-          <motion.div className="absolute z-[110]" style={{ left: '-249px', bottom: '-160px', width: '802px', height: '471px', transform: 'rotate(-180deg)', y: mistY }}>
-            <Image src="/images/hero/Cloud-2 1.png" alt="Cloud" fill className="object-contain opacity-75" />
-          </motion.div>
-
+                {/* Headline */}
+                <motion.h1 
+                  variants={textItemVariants}
+                  className="text-white text-5xl md:text-7xl lg:text-[96px] font-bold leading-[1.02] mb-6 tracking-tight whitespace-pre-line drop-shadow-xl"
+                >
+                  {slides[currentIndex].headline}
+                </motion.h1>
+                
+                {/* Description */}
+                <motion.p 
+                  variants={textItemVariants}
+                  className="text-white/80 text-lg md:text-2xl font-medium mb-12 tracking-wide max-w-[500px] drop-shadow-md leading-relaxed"
+                >
+                  {slides[currentIndex].description}
+                </motion.p>
+                
+                {/* Button */}
+                <motion.div variants={textItemVariants}>
+                  <VibgyorButton href="/services" variant="light" className="scale-105 transform origin-left">
+                    Explore Services
+                  </VibgyorButton>
+                </motion.div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
 
-        {/* Bottom Mist/Gradient (Rectangle 350) - Moved outside container to cover full 100vw */}
-        <motion.div 
-          className="absolute inset-x-0 bottom-[-65vh] z-[120] h-[100vh] pointer-events-none" 
-          style={{ 
-            background: 'linear-gradient(0deg, #FFFFFF 30.38%, rgba(255, 255, 255, 0) 92.42%)',
-            y: mistY
-          }} 
-        />
-
-        {/* Cinematic Large Logo Transition - Sharp and High Fidelity */}
-        <motion.div 
-          className="absolute inset-x-0 top-0 h-screen z-[500] flex items-center justify-center pointer-events-none will-change-transform will-change-opacity"
-          style={{ 
-            opacity: useTransform(smoothProgress, [0.7, 0.8], [0, 1]),
-            scale: useTransform(smoothProgress, [0.7, 0.8], [0.95, 1]),
-            translateZ: 0
-          }}
-        >
-          <div className="w-[320px] md:w-[480px] lg:w-[600px]">
-            <svg viewBox="0 0 113 43" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto drop-shadow-2xl">
-              <path d="M23.5955 9.78414C20.0973 13.1838 17.3255 17.3068 14.9226 21.5667C13.4844 19.7479 12.1711 17.8158 10.6573 16.0565C10.0356 15.3301 8.25451 13.16 7.53975 12.7878C5.00616 11.472 2.12682 14.2703 2.5394 16.9615C2.69339 17.9528 6.09863 20.7987 6.99352 21.8019C10.114 25.2938 12.4675 29.4556 14.8006 33.5161L15.1609 33.4774C18.569 25.8833 22.4449 18.4827 27.207 11.6834L28.5988 12.6807L28.5523 31.2566L14.6611 39.7348L13.9493 39.7586L0 31.0631L0.0610153 12.892L14.0975 4.18457L14.8848 4.31853L23.5984 9.78711L23.5955 9.78414Z" fill="#03AEF2"/>
-              <path d="M23.8839 10.0403C28.0218 6.0683 33.3045 2.65194 38.3519 0C38.5699 0.235205 36.0127 2.06393 35.7541 2.29913C32.6536 5.10984 29.9193 8.50561 27.5016 11.919C22.739 18.6341 18.8626 25.9432 15.4541 33.4433L15.0938 33.4815C12.7604 29.4712 10.4067 25.361 7.28586 21.9123C6.38796 20.9215 2.98235 18.1108 2.83124 17.1318C2.41571 14.4769 5.29828 11.7103 7.83215 13.0098C8.54408 13.3744 10.3253 15.5206 10.9501 16.238C12.4611 17.9756 13.7775 19.8866 15.2158 21.6801C17.6189 17.4758 20.3911 13.4038 23.8897 10.0433L23.8839 10.0403Z" fill="#07344B"/>
-              <path d="M64.9032 32.8124C64.0104 32.9585 63.4417 33.7474 62.5403 33.9753C55.4687 35.7576 56.3985 24.5993 56.7312 20.3598C57.1662 14.7938 62.8759 15.0421 67.0358 15.6557C67.542 15.7317 68.0367 15.9567 68.2386 16.4738L68.358 37.7151C68.2187 41.9897 63.1033 43.5061 59.8646 41.9576L59.5519 41.0781L59.8646 40.4587C60.8542 39.1936 64.9061 40.6369 64.9061 37.8028V32.8124H64.9032ZM62.1621 18.1042C60.9935 18.2561 60.3679 18.9281 60.2115 20.1085C60.0409 21.3853 60.0523 29.3764 60.4134 30.2938C61.1158 32.082 64.1924 31.8628 64.8975 30.1477L64.8151 18.3993C63.945 18.2123 63.0635 17.9844 62.1593 18.1012L62.1621 18.1042Z" fill="#07344B"/>
-              <path d="M44.828 16.3327C47.4971 14.9773 51.2101 14.4065 52.9229 17.4246C53.9155 19.1723 53.9216 28.909 53.2074 30.8411C51.7942 34.6673 46.093 34.398 42.6674 33.8886C42.1802 33.8154 41.702 33.6427 41.4085 33.2387L41.1543 32.5508L41.1694 8.35542C41.3328 7.36009 42.162 6.88584 43.1455 6.9883C43.8778 6.95024 44.8311 7.74066 44.8311 8.44031V16.3356L44.828 16.3327ZM44.8432 31.2656C46.5257 31.5203 49.5216 31.8657 49.921 29.6233C50.1661 28.2533 50.1601 20.9698 49.9361 19.5646C49.5427 17.0821 45.4454 17.3368 44.7736 19.5031L44.8432 31.2656Z" fill="#07344B"/>
-              <path d="M79.9485 30.6181C80.2789 30.2927 80.3172 29.9205 80.3644 29.4867C80.7626 25.7936 79.7272 20.424 80.2907 16.9713C80.5915 15.1365 82.8217 14.7554 83.7037 16.3411V38.7018C82.9426 42.3421 78.0989 43.283 75.0958 42.0139C73.7861 39.2675 77.5561 40.1204 78.9071 39.6368C81.1609 38.8308 80.1697 34.5251 80.27 32.7108C79.2641 32.9453 78.5089 33.7982 77.4882 34.0151C75.32 34.4753 73.0781 33.3996 72.317 31.3069C71.8125 29.9176 71.7329 18.6742 71.9836 16.8511C72.258 14.8492 75.1224 14.9284 75.4469 16.6899C75.9985 19.6649 74.7123 28.4052 75.7625 30.5008C76.5147 31.9986 78.9337 31.6791 79.9514 30.6181H79.9485Z" fill="#07344B"/>
-              <path d="M91.4207 15.4722C99.9113 14.435 99.1454 19.9219 98.9334 26.595C98.7638 31.9388 97.8678 34.7085 91.8503 34.095C87.2686 33.6275 87.3449 29.9433 87.2856 26.2181C87.2206 22.2417 86.3613 16.0916 91.4235 15.4722H91.4207ZM92.4099 18.0813C91.4037 18.2536 90.8639 18.9665 90.731 19.9833C90.5756 21.1841 90.601 29.4846 90.9232 30.2968C91.6355 32.1053 95.1205 31.8979 95.4795 29.7388C95.7282 28.2429 95.6914 21.561 95.4992 19.9716C95.4568 19.6239 95.3579 19.2762 95.2166 18.9578C94.7163 18.0374 93.3172 17.9235 92.4099 18.0813Z" fill="#07344B"/>
-              <path d="M104.294 14.6807C105.42 14.463 105.799 15.5962 106.446 15.7125C107.198 15.6439 108.165 15.8288 108.883 15.5873C109.308 15.4441 109.692 14.8209 110.131 14.7046C111.585 14.3199 113.766 15.9481 112.731 17.5197C111.696 19.0913 108.358 17.9641 106.899 17.8895C106.594 17.8657 106.48 18.0058 106.335 18.2504C105.707 19.3061 106.491 30.4833 106.121 32.7826C105.984 33.6414 105.24 34.1574 104.448 34.1782C102.25 34.1991 102.689 30.9276 102.663 29.2695C102.615 25.9563 102.35 19.4403 102.774 16.4312C102.88 15.6767 103.59 14.8149 104.291 14.6807H104.294Z" fill="#07344B"/>
-              <path d="M35.7674 15.3821C36.3571 15.2882 36.9226 15.3704 37.419 15.6931C37.8522 16.0364 38.0357 16.5645 38.1019 17.0897C38.4178 19.6071 38.49 30.3516 38.0899 32.7223C37.78 34.5649 34.7145 34.7233 34.4468 32.8309C34.1038 30.4279 34.0767 19.0555 34.4498 16.7171C34.5581 16.0364 35.0665 15.4965 35.7704 15.3851L35.7674 15.3821Z" fill="#07344B"/>
-              <path d="M35.7097 7.03168C39.0525 6.39137 39.3092 11.3545 36.0794 11.1539C33.6839 11.0034 33.5464 7.44773 35.7097 7.03168Z" fill="#07344B"/>
-            </svg>
-          </div>
-        </motion.div>
+        {/* --- 4. INTEGRATED PROGRESS NAVIGATION --- */}
+        <div className="hidden md:flex absolute bottom-10 right-8 md:right-16 gap-4 z-40">
+          {slides.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => {
+                if (idx === currentIndex) return;
+                setDirection(idx > currentIndex ? 1 : -1);
+                setCurrentIndex(idx);
+              }}
+              className="relative flex items-center justify-center h-8 focus:outline-none group/dot"
+              aria-label={`Go to slide ${idx + 1}`}
+            >
+              {/* Background Track */}
+              <div 
+                className={`h-[2px] rounded-full transition-all duration-700 ease-out ${
+                  idx === currentIndex 
+                    ? "w-16 bg-white/20" 
+                    : "w-6 bg-white/40 group-hover/dot:bg-white/70"
+                }`}
+              />
+              
+              {/* Active Fill Animation */}
+              {idx === currentIndex && (
+                <motion.div 
+                  className="absolute left-0 top-1/2 -translate-y-1/2 h-[2px] bg-white rounded-full shadow-[0_0_12px_rgba(255,255,255,1)]"
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: slideDuration / 1000, ease: "linear" }}
+                  key={`fill-${currentIndex}`} // Force reset on slide change
+                />
+              )}
+            </button>
+          ))}
+        </div>
       </div>
-      
-      {/* Scroll buffer for section pinning */}
-      <div className="h-[300vh] md:h-[380vh]" />
     </section>
   );
 }

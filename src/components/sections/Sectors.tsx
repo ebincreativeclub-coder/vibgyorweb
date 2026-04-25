@@ -257,26 +257,33 @@ function SectorCard({ sector }: { sector: typeof sectors[0] }) {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => {
           setIsHovered(false);
-          setMousePos({ x: 0, y: 0 });
+          // Keeping the last mouse position so the glow fades out naturally where it is, instead of snapping to center.
         }}
-        className="h-full p-10 lg:p-14 border-[0.5px] border-[#16232A]/10 transition-all duration-700 hover:bg-[#F9FDFF] relative overflow-hidden flex flex-col cursor-crosshair"
+        className="h-full p-10 lg:p-14 border-[0.5px] border-[#16232A]/10 transition-colors duration-700 hover:bg-[#F9FDFF] relative overflow-hidden flex flex-col cursor-crosshair isolate transform-gpu"
       >
         {/* Hover Glow Effect */}
         <motion.div 
+          initial={{ opacity: 0, scale: 1 }}
           animate={{ 
             opacity: isHovered ? 1 : 0,
             scale: isHovered ? 1.5 : 1,
             x: mousePos.x * 2,
             y: mousePos.y * 2
           }}
-          className="absolute -top-1/2 -right-1/2 w-full h-full bg-[#03AEF2] blur-[120px] rounded-full opacity-0 pointer-events-none transition-opacity duration-700"
+          transition={{
+            opacity: { duration: 0.5, ease: "easeInOut" },
+            scale: { duration: 0.5, ease: "easeOut" },
+            x: { type: "spring", stiffness: 150, damping: 25, mass: 0.1 },
+            y: { type: "spring", stiffness: 150, damping: 25, mass: 0.1 }
+          }}
+          className="absolute -top-1/2 -right-1/2 w-full h-full bg-[#03AEF2] blur-[120px] rounded-full pointer-events-none will-change-[transform,opacity] transform-gpu"
         />
 
         {/* Content Wrapper with Magnetic Physics */}
         <motion.div 
-          animate={{ x: mousePos.x, y: mousePos.y }}
+          animate={{ x: isHovered ? mousePos.x : 0, y: isHovered ? mousePos.y : 0 }}
           transition={{ type: "spring", stiffness: 150, damping: 25, mass: 0.1 }}
-          className="relative z-10 flex flex-col h-full"
+          className="relative z-10 flex flex-col h-full will-change-transform"
         >
           {/* Icon with Circle Base */}
           <div className="mb-10 relative">

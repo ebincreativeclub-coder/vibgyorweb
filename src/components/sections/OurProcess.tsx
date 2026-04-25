@@ -86,12 +86,19 @@ const ProcessCard = ({ step, index, totalSteps, smoothProgress }: ProcessCardPro
 
   return (
     <motion.div 
-      style={{ opacity: cardOpacity, y: cardY, scale: cardScale, boxShadow, borderColor }}
-      className="w-full lg:flex-1 bg-white border-[1.5px] rounded-[2.5rem] p-6 md:p-8 xl:p-10 flex flex-col relative overflow-hidden will-change-transform"
+      style={{ 
+        opacity: cardOpacity, 
+        y: cardY, 
+        scale: cardScale, 
+        boxShadow, 
+        borderColor,
+        transform: "translateZ(0)", // Safari hardware acceleration
+      }}
+      className="w-full lg:flex-1 bg-white border-[1.5px] rounded-[2.5rem] p-6 md:p-8 xl:p-10 flex flex-col relative overflow-hidden will-change-transform isolate"
     >
-      {/* Decorative Glowing Background Blob */}
+      {/* Decorative Glowing Background Blob - Safari optimized with translateZ */}
       <motion.div 
-        style={{ opacity: blobOpacity }}
+        style={{ opacity: blobOpacity, transform: "translateZ(0)" }}
         className="absolute -top-20 -right-20 w-48 h-48 bg-[#03AEF2] blur-[90px] rounded-full pointer-events-none"
       />
 

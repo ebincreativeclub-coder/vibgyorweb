@@ -86,7 +86,7 @@ export function Companies({
           <div className="relative w-full overflow-hidden flex items-center cursor-grab active:cursor-grabbing">
           <motion.div 
             ref={marqueeRef}
-            className="flex gap-4 md:gap-6 items-center w-max"
+            className="flex gap-4 md:gap-6 items-center w-max will-change-transform transform-gpu isolate"
             style={{ x: baseX }}
             drag="x"
             dragConstraints={{ left: -100000, right: 100000 }}

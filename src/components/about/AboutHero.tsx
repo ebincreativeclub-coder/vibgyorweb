@@ -25,31 +25,20 @@ export function AboutHero() {
 
         {/* Main Banner / Mask Group */}
         <div className="relative w-full max-w-[1084px] mx-auto mb-10 md:mb-12" >
-          <RevealImage delay={0.4} className="relative aspect-[1084/465] w-full rounded-[20px] md:rounded-[40px] overflow-hidden shadow-2xl group">
-            {/* Background Image */}
-            <Image 
-              src="/images/about page/Group 426-2.webp" 
-              alt="Vibgyor Interior Workspace" 
-              fill 
-              className="object-cover transition-transform duration-1000 group-hover:scale-105"
-              priority
-            />
-            {/* Dark Overlay as per Mask Group */}
-            <div className="absolute inset-0 bg-[#000000]/30" />
-
-            {/* Play Button Icon (Polygon 7) */}
-            <motion.div 
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="absolute inset-0 flex items-center justify-center z-10"
+          <RevealImage delay={0.4} className="relative aspect-[1084/465] w-full rounded-[20px] md:rounded-[40px] overflow-hidden shadow-2xl group isolate">
+            {/* Background Video */}
+            <video 
+              autoPlay 
+              muted 
+              loop 
+              playsInline 
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000"
             >
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30 transition-all hover:scale-110 hover:bg-white/30 cursor-pointer">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="white" className="ml-1">
-                  <path d="M5 3L19 12L5 21V3Z" />
-                </svg>
-              </div>
-            </motion.div>
+              <source src="/images/video/8829009-hd_1366_720_25fps.mp4" type="video/mp4" />
+            </video>
+
+            {/* Dark Overlay as per Mask Group */}
+            <div className="absolute inset-0 bg-[#000000]/30 z-10" />
           </RevealImage>
         </div>
 

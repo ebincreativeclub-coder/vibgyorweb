@@ -82,7 +82,7 @@ export function TeamSection() {
           onDragEnd={() => setIsDragging(false)}
           onHoverStart={() => setIsPaused(true)}
           onHoverEnd={() => setIsPaused(false)}
-          className="flex flex-nowrap gap-8 md:gap-[150px] items-center"
+          className="flex flex-nowrap gap-8 md:gap-[150px] items-center will-change-transform transform-gpu"
         >
           {/* We render multiple sets for the infinite loop */}
           {[1, 2, 3].map((setIndex) => (
@@ -112,13 +112,13 @@ function TeamCard({ member, index }: { member: any; index: number }) {
 
   return (
     <div 
-      className="flex flex-col items-center text-center shrink-0"
+      className="flex flex-col items-center text-center shrink-0 will-change-transform transform-gpu"
       style={{
-        transform: `translateY(${isUp ? "-50px" : "50px"})`
+        transform: `translateY(${isUp ? "-50px" : "50px"}) translateZ(0)`
       }}
     >
-      <div className="relative w-[220px] h-[220px] md:w-[271px] md:h-[271px] mb-8 group">
-        <div className="absolute inset-0 rounded-[135.5px] overflow-hidden bg-gradient-to-b from-[#B3B3B3] to-[#F1F1F1] transition-transform duration-500 group-hover:scale-105">
+      <div className="relative w-[220px] h-[220px] md:w-[271px] md:h-[271px] mb-8 group isolate">
+        <div className="absolute inset-0 rounded-[135.5px] overflow-hidden bg-gradient-to-b from-[#B3B3B3] to-[#F1F1F1] transition-transform duration-500 group-hover:scale-105 transform-gpu">
           <Image 
             src="/images/about page/Rectangle 621.jpg" 
             alt={member.name}
@@ -126,7 +126,8 @@ function TeamCard({ member, index }: { member: any; index: number }) {
             className="object-cover"
             draggable={false}
           />
-          <div className="absolute inset-0 bg-black/10 mix-blend-overlay pointer-events-none" />
+          {/* Replaced mix-blend-overlay with standard alpha for Safari performance on moving elements */}
+          <div className="absolute inset-0 bg-black/15 pointer-events-none" />
         </div>
       </div>
 
