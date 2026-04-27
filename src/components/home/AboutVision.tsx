@@ -224,22 +224,24 @@ export function AboutVision({ showBanner = true }: AboutVisionProps) {
               initial="initial"
               className="absolute inset-0 flex flex-col items-center justify-center will-change-transform"
             >
-              {/* The Image Container */}
+              {/* The Video Container */}
               <motion.div 
                 variants={{
                   initial: { scale: 1 },
-                  hover: { scale: 1.1 }
+                  hover: { scale: 1.05 }
                 }}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                 className="absolute inset-0 z-0 will-change-transform"
               >
-                <Image 
-                  src="/images/about/Group 426.webp" 
-                  alt="Interior Storytelling" 
-                  fill 
-                  className="object-cover"
-                  priority
-                />
+                <video 
+                  autoPlay 
+                  muted 
+                  loop 
+                  playsInline 
+                  className="absolute inset-0 w-full h-full object-cover"
+                >
+                  <source src="/images/video/8829009-hd_1366_720_25fps.mp4" type="video/mp4" />
+                </video>
               </motion.div>
 
               {/* The Overlay */}

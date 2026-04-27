@@ -50,7 +50,7 @@ export function ProjectsGrid() {
       <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-[1440px]">
         
         {/* Category Filter Bar */}
-        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-12 mb-16 md:mb-20">
+        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 mb-16 md:mb-20">
           {categories.map((cat) => (
             <button
               key={cat}
