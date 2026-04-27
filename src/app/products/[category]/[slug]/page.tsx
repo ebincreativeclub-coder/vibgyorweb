@@ -66,10 +66,10 @@ export default function ProductDetailPage() {
             SECTION 1 — HERO SPLIT
             Full-width immersive product hero
         ═══════════════════════════════════════════════ */}
-        <section className={`flex flex-col lg:flex-row max-w-[1600px] mx-auto transition-all duration-700 ${!isExpanded ? 'lg:h-[calc(100vh-96px)] lg:overflow-hidden lg:items-stretch' : 'items-start h-auto'}`}>
+        <section className="flex flex-col lg:flex-row max-w-[1600px] mx-auto items-start">
           
           {/* LEFT — Image & Thumbnails */}
-          <div className="relative w-full lg:w-[55%] p-4 md:p-6 lg:p-8 flex flex-col gap-6 lg:h-full">
+          <div className="relative w-full lg:w-[55%] p-4 md:p-6 lg:p-8 flex flex-col gap-6">
             
             {/* Breadcrumb — Moved to top for better mobile flow */}
             <nav className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-[#16232A]/40">
@@ -81,7 +81,7 @@ export default function ProductDetailPage() {
             </nav>
 
             <div 
-              className="relative w-full aspect-square lg:aspect-auto lg:flex-1 overflow-hidden rounded-[24px] md:rounded-[32px] bg-[#F8FAFB] cursor-zoom-in isolation-isolate transform-gpu shadow-sm border border-[#16232A]/5"
+              className="relative w-full aspect-square lg:aspect-auto lg:h-[calc(100vh-220px)] overflow-hidden rounded-[24px] md:rounded-[32px] bg-[#F8FAFB] cursor-zoom-in isolation-isolate transform-gpu shadow-sm border border-[#16232A]/5"
               onClick={() => setLightboxOpen(true)}
             >
               <AnimatePresence mode="popLayout" initial={false}>
@@ -166,7 +166,7 @@ export default function ProductDetailPage() {
           </div>
 
           {/* RIGHT — Product Info */}
-          <div className="w-full lg:w-[45%] flex flex-col justify-start px-6 md:px-10 lg:px-16 py-8 lg:py-12 lg:h-full lg:overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <div className="w-full lg:w-[45%] flex flex-col justify-start px-6 md:px-10 lg:px-16 py-8 lg:py-12">
             
 
             {/* Sub Category Badge */}
