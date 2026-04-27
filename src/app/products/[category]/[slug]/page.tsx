@@ -45,11 +45,7 @@ export default function ProductDetailPage() {
   }, [productSlug, categorySlug]);
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="w-8 h-8 border-[3px] border-[#16232A] border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+    return <div className="min-h-screen bg-white" />;
   }
 
   if (!product || !category) {

@@ -14,7 +14,7 @@ function Counter({ value, suffix }: { value: string, suffix: string }) {
   useEffect(() => {
     if (inView && numberRef.current) {
       const controls = animate(0, num, {
-        duration: 2.2,
+        duration: 4.0,
         ease: [0.16, 1, 0.3, 1], // Ultra-premium architectural ease
         onUpdate(v) {
           if (numberRef.current) {
@@ -60,12 +60,12 @@ export function Features() {
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
         {/* Top Text Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 mb-20 md:mb-24 items-start">
-          <RevealText delay={0.1}>
+          <FadeUp delay={0.1}>
             <h2 className="text-h3 md:text-5xl lg:text-h1 font-medium text-[#16232A]">
               We Build Spaces <br />
               <span className="text-[#63757E]">That Work.</span>
             </h2>
-          </RevealText>
+          </FadeUp>
 
           <FadeUp delay={0.2} className="flex flex-col">
             <p className="text-body-md md:text-body-lg font-normal text-[#16232A] mb-6 md:mb-8 max-w-[594px]">

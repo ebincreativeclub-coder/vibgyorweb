@@ -185,11 +185,7 @@ export default function CategoryPage() {
   }, [searchQuery, sortBy, selectedFeatures, selectedSubCategories, allProducts]);
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="w-8 h-8 border-4 border-[#03AEF2] border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+    return <div className="min-h-screen bg-white" />;
   }
 
   if (!category) {
@@ -237,7 +233,7 @@ export default function CategoryPage() {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full pl-11 pr-4 py-3 bg-white rounded-full text-sm font-medium focus:outline-none transition-all shadow-sm border border-transparent focus:border-[#03AEF2]/30"
                   />
-                  <svg className="absolute left-4 top-1/2 -translate-y-1/2 text-[#16232A]/30" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                  <svg className="absolute left-4 top-1/2 -translate-y-1/2 text-[#16232A]/80" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 </div>
 
                 <div className="grid grid-cols-2 md:flex md:items-center gap-2 w-full md:w-auto">

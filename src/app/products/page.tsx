@@ -28,11 +28,7 @@ export default function ProductsPage() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="w-8 h-8 border-4 border-[#03AEF2] border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+    return <div className="min-h-screen bg-white" />;
   }
 
   return (
@@ -91,10 +87,12 @@ export default function ProductsPage() {
                 </div>
 
                 <div className="px-2">
-                  <h2 className="text-[28px] md:text-[34px] font-semibold text-[#16232A] mb-4 leading-tight group-hover:text-[#03AEF2] transition-colors duration-300">
-                    {category.title}
-                  </h2>
-                  <p className="text-[16px] md:text-[18px] text-[#63757E] font-medium leading-relaxed max-w-[320px]">
+                  <div className="flex items-end min-h-[70px] md:min-h-[85px] mb-3">
+                    <h2 className="text-[28px] md:text-[34px] font-semibold text-[#16232A] leading-tight group-hover:text-[#03AEF2] transition-colors duration-300 line-clamp-2">
+                      {category.title}
+                    </h2>
+                  </div>
+                  <p className="text-[16px] md:text-[18px] text-[#63757E] font-medium leading-relaxed max-w-[320px] line-clamp-3">
                     {category.description}
                   </p>
                 </div>

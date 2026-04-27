@@ -160,7 +160,7 @@ export default function ServicesPage() {
 
                 {/* Showcase image */}
                 <RevealImage>
-                  <div className="relative w-full aspect-[633/304] overflow-hidden group">
+                  <div className="relative w-full aspect-[633/304] overflow-hidden rounded-[24px] md:rounded-[32px] group">
                     <Image
                       src={section.image}
                       alt={section.title}

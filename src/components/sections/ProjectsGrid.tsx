@@ -102,7 +102,7 @@ export function ProjectsGrid() {
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="group relative overflow-hidden rounded-none w-full h-full min-h-[250px] md:min-h-[320px] lg:min-h-[350px] cursor-pointer bg-gray-100">
+    <div className="group relative overflow-hidden rounded-[16px] md:rounded-[24px] w-full h-full min-h-[250px] md:min-h-[320px] lg:min-h-[350px] cursor-pointer bg-gray-100">
       <Image
         src={project.src}
         alt={project.title}
@@ -112,10 +112,10 @@ function ProjectCard({ project }: { project: Project }) {
       />
 
       {/* Overlay & Content */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#16232A]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#16232A]/90 via-[#16232A]/30 to-transparent transition-opacity duration-700 ease-out" />
       
       <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 pointer-events-none">
-        <div className="transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 ease-[0.16, 1, 0.3, 1]">
+        <div className="transition-all duration-700 ease-[0.16, 1, 0.3, 1]">
           <span className="text-[10px] md:text-[12px] font-bold tracking-[0.2em] text-[#03AEF2] uppercase mb-2 block">
             {project.category}
           </span>
