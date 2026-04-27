@@ -47,27 +47,27 @@ export function AboutVision({ showBanner = true }: AboutVisionProps) {
   ];
 
   return (
-    <section className="bg-[#16232A] text-white pt-16 pb-12 lg:pt-24 lg:pb-16 overflow-hidden relative selection:bg-[#03AEF2] selection:text-white">
+    <section className="bg-[#16232A] text-white pt-24 pb-8 lg:pb-12 overflow-hidden relative selection:bg-[#03AEF2] selection:text-white">
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px] relative z-10">
         
         {/* TOP HEADER: Full Width Split */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 lg:mb-24 gap-10">
+        <div className="flex flex-col lg:flex-row justify-between items-start mb-12 lg:mb-16 gap-10">
           <div className="lg:w-1/2">
             <FadeUp delay={0.1}>
-              <span className="text-body-lg font-medium text-white mb-6 block">
+              <span className="text-body-lg font-medium text-white mb-4 block">
                 Why Choose Us
               </span>
             </FadeUp>
             <RevealText delay={0.2}>
-              <h2 className="text-3xl md:text-h2 font-medium text-white">
+              <h2 className="text-3xl md:text-h2 font-medium text-white leading-tight">
                 What Sets Us <br className="hidden md:block"/> Apart.
               </h2>
             </RevealText>
           </div>
 
-          <div className="lg:w-1/3 flex flex-col items-start lg:items-end text-left lg:text-right">
+          <div className="lg:w-1/3 flex flex-col items-start text-left">
             <FadeUp delay={0.3}>
-              <p className="text-body md:text-body-md text-white/70 mb-8 max-w-[400px]">
+              <p className="text-body md:text-body-md text-white/70 mb-6 max-w-[400px] leading-relaxed">
                 We don't just build spaces - we build trust through transparency, precision, and a relentless focus on your goals.
               </p>
               {!showBanner && (

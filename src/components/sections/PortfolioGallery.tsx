@@ -68,10 +68,10 @@ export function PortfolioGallery() {
   });
 
   return (
-    <section className="bg-[#16232A] text-white pt-24 pb-32 md:pt-32 md:pb-40 overflow-hidden selection:bg-[#03AEF2] selection:text-white">
+    <section className="bg-[#16232A] text-white pt-24 pb-20 md:pb-24 overflow-hidden selection:bg-[#03AEF2] selection:text-white">
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
         {/* HEADER */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-8">
+        <div className="flex flex-col md:flex-row justify-between items-start mb-12 md:mb-16 gap-8">
           <div className="max-w-[700px]">
              <FadeUp delay={0.1}>
               <span className="text-body-lg font-medium text-white mb-6 block">

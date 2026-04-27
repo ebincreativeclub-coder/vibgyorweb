@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Lenis from "lenis";
 import { usePathname } from "next/navigation";
 
@@ -29,12 +29,17 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  // Reset scroll to top on route change
+  const lastPathname = useRef(pathname);
+
+  // Reset scroll to top on route change (but NOT on initial refresh)
   useEffect(() => {
-    if (lenisInst) {
-      lenisInst.scrollTo(0, { immediate: true });
+    if (lastPathname.current !== pathname) {
+      if (lenisInst) {
+        lenisInst.scrollTo(0, { immediate: true });
+      }
+      window.scrollTo(0, 0);
+      lastPathname.current = pathname;
     }
-    window.scrollTo(0, 0);
   }, [pathname, lenisInst]);
 
   // Dynamically recalculate scroll limits when page height changes

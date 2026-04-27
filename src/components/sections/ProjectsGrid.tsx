@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { RevealStaggerGroup, RevealItem, FadeUp } from "../ui/Reveal";
+import { RevealStaggerGroup, RevealItem, FadeUp, RevealImage } from "../ui/Reveal";
 import { VibgyorButton } from "../ui/VibgyorButton";
 
 interface Project {
@@ -71,23 +71,26 @@ export function ProjectsGrid() {
           ))}
         </div>
 
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
+        <RevealStaggerGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
           <AnimatePresence mode="popLayout" initial={false}>
             {filteredProjects.map((project, index) => (
-              <motion.div
+              <RevealItem 
                 key={project.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 className={spans[index % spans.length]}
               >
-                <ProjectCard project={project} />
-              </motion.div>
+                <motion.div
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <ProjectCard project={project} />
+                </motion.div>
+              </RevealItem>
             ))}
           </AnimatePresence>
-        </motion.div>
+        </RevealStaggerGroup>
 
         <FadeUp delay={0.2} className="flex justify-center mt-12 md:mt-16">
           <VibgyorButton href="/projects" variant="outline">
@@ -102,17 +105,19 @@ export function ProjectsGrid() {
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="group relative overflow-hidden rounded-[16px] md:rounded-[24px] w-full h-full min-h-[250px] md:min-h-[320px] lg:min-h-[350px] cursor-pointer bg-gray-100">
-      <Image
-        src={project.src}
-        alt={project.title}
-        fill
-        className="object-cover transition-transform duration-1000 ease-[0.16, 1, 0.3, 1] group-hover:scale-110"
-        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 100vw"
-      />
+    <div className="group relative overflow-hidden rounded-[16px] md:rounded-[24px] w-full h-full min-h-[250px] md:min-h-[320px] lg:min-h-[350px] cursor-pointer bg-[#F8FAFB]">
+      <RevealImage className="absolute inset-0 z-0">
+        <Image
+          src={project.src}
+          alt={project.title}
+          fill
+          className="object-cover transition-transform duration-1000 ease-[0.16, 1, 0.3, 1] group-hover:scale-110"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 100vw"
+        />
+      </RevealImage>
 
       {/* Overlay & Content */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#16232A]/90 via-[#16232A]/30 to-transparent transition-opacity duration-700 ease-out" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#16232A]/90 via-[#16232A]/30 to-transparent transition-opacity duration-700 ease-out z-[1]" />
       
       <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 pointer-events-none">
         <div className="transition-all duration-700 ease-[0.16, 1, 0.3, 1]">
