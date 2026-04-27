@@ -66,10 +66,10 @@ export default function ProductDetailPage() {
             SECTION 1 — HERO SPLIT
             Full-width immersive product hero
         ═══════════════════════════════════════════════ */}
-        <section className="flex flex-col lg:flex-row max-w-[1600px] mx-auto items-start">
+        <section className={`flex flex-col lg:flex-row max-w-[1600px] mx-auto transition-all duration-700 ${!isExpanded ? 'lg:h-[calc(100vh-96px)] lg:overflow-hidden lg:items-stretch' : 'items-start h-auto'}`}>
           
           {/* LEFT — Image & Thumbnails */}
-          <div className="relative w-full lg:w-[55%] p-4 md:p-6 lg:p-8 flex flex-col gap-6">
+          <div className="relative w-full lg:w-[55%] p-4 md:p-6 lg:p-8 flex flex-col gap-6 lg:h-full">
             
             {/* Breadcrumb — Moved to top for better mobile flow */}
             <nav className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-[#16232A]/40">
@@ -81,7 +81,7 @@ export default function ProductDetailPage() {
             </nav>
 
             <div 
-              className="relative w-full aspect-square md:aspect-[4/3] lg:aspect-[4/5] max-h-[calc(100vh-160px)] overflow-hidden rounded-[24px] md:rounded-[32px] bg-[#F8FAFB] cursor-zoom-in isolation-isolate transform-gpu shadow-sm border border-[#16232A]/5"
+              className="relative w-full aspect-square lg:aspect-auto lg:flex-1 overflow-hidden rounded-[24px] md:rounded-[32px] bg-[#F8FAFB] cursor-zoom-in isolation-isolate transform-gpu shadow-sm border border-[#16232A]/5"
               onClick={() => setLightboxOpen(true)}
             >
               <AnimatePresence mode="popLayout" initial={false}>
@@ -140,9 +140,9 @@ export default function ProductDetailPage() {
               </div>
             </div>
 
-            {/* Thumbnail Strip — Moved here to stay close to main image */}
+            {/* Thumbnail Strip — Mobile Only */}
             {allImages.length > 1 && (
-              <div className="flex flex-wrap gap-3 mt-2">
+              <div className="flex flex-wrap gap-3 mt-2 lg:hidden">
                 {allImages.map((img: any, idx: number) => (
                   <button
                     key={idx}
@@ -166,7 +166,7 @@ export default function ProductDetailPage() {
           </div>
 
           {/* RIGHT — Product Info */}
-          <div className="w-full lg:w-[45%] flex flex-col justify-start px-6 md:px-10 lg:px-16 py-8 lg:py-12">
+          <div className="w-full lg:w-[45%] flex flex-col justify-start px-6 md:px-10 lg:px-16 py-8 lg:py-12 lg:h-full lg:overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             
 
             {/* Sub Category Badge */}
@@ -255,6 +255,29 @@ export default function ProductDetailPage() {
               </Link>
             </div>
 
+            {/* Thumbnail Strip — Desktop Only */}
+            {allImages.length > 1 && (
+              <div className="hidden lg:flex flex-wrap gap-3 pt-8 border-t border-[#16232A]/[0.06]">
+                {allImages.map((img: any, idx: number) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveImageIndex(idx)}
+                    className={`relative w-16 h-16 xl:w-20 xl:h-20 rounded-2xl overflow-hidden transition-all duration-300 ${
+                      activeImageIndex === idx 
+                        ? 'ring-2 ring-[#16232A] ring-offset-2 ring-offset-white' 
+                        : 'opacity-40 hover:opacity-80'
+                    }`}
+                  >
+                    <Image
+                      src={urlForImage(img).width(200).url()}
+                      alt={`${product.title} view ${idx + 1}`}
+                      fill
+                      className="object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
