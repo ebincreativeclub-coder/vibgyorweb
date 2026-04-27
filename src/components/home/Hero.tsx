@@ -114,14 +114,15 @@ export function Hero() {
               transition={{ duration: 8, ease: "linear" }}
               className="absolute inset-0 will-change-transform transform-gpu"
             >
-              <Image
-                src={slides[currentIndex].image}
-                alt={slides[currentIndex].title}
-                fill
-                className="object-cover"
-                priority
-                quality={100}
-              />
+                <Image
+                  src={slides[currentIndex].image}
+                  alt={slides[currentIndex].title}
+                  fill
+                  className="object-cover"
+                  priority
+                  quality={90}
+                  sizes="100vw"
+                />
             </motion.div>
           </motion.div>
         </AnimatePresence>

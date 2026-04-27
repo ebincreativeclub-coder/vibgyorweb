@@ -131,12 +131,12 @@ export function Navigation() {
               
               <div className="flex gap-6">
                  {/* Mini Socials in Menu */}
-                 <div className="w-10 h-10 rounded-full border border-[#16232A]/10 flex items-center justify-center text-[#16232A]/60">
+                 <a href="#" aria-label="Follow us on Instagram" className="w-10 h-10 rounded-full border border-[#16232A]/20 flex items-center justify-center text-[#16232A]/80 hover:text-[#03AEF2] hover:border-[#03AEF2] transition-colors">
                    <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                 </div>
-                 <div className="w-10 h-10 rounded-full border border-[#16232A]/10 flex items-center justify-center text-[#16232A]/60">
+                 </a>
+                 <a href="#" aria-label="Follow us on LinkedIn" className="w-10 h-10 rounded-full border border-[#16232A]/20 flex items-center justify-center text-[#16232A]/80 hover:text-[#03AEF2] hover:border-[#03AEF2] transition-colors">
                    <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-                 </div>
+                 </a>
               </div>
             </motion.div>
           </motion.div>

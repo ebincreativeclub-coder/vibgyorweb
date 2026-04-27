@@ -13,8 +13,25 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "Vibgyor Engineering WLL",
-  description: "Boutique contracting firm specializing in workspace design and interior transformation.",
+  title: "Vibgyor Engineering WLL | Interior Fit-Out & Civil Engineering Doha",
+  description: "Doha's leading boutique contracting firm specializing in workspace design, interior fit-out, and premium civil engineering. Transforming spaces with precision and creativity.",
+  keywords: ["Interior Fit-Out Doha", "Civil Engineering Qatar", "Workspace Design", "Turnkey Solutions", "Contracting Firm Doha"],
+  openGraph: {
+    title: "Vibgyor Engineering WLL",
+    description: "Boutique contracting firm specializing in workspace design and interior transformation.",
+    type: "website",
+    locale: "en_US",
+    siteName: "Vibgyor Engineering",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vibgyor Engineering WLL",
+    description: "Boutique contracting firm specializing in workspace design and interior transformation.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 import { ConditionalLayout } from "@/components/layout/ConditionalLayout";
