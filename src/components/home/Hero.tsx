@@ -92,7 +92,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative w-full h-[90vh] md:h-screen bg-[#f8fbff] flex flex-col pt-[80px] md:pt-[100px] pb-6 px-4 md:px-6 lg:px-8">
+    <section className="relative w-full h-[90vh] md:h-screen bg-white flex flex-col pt-[88px] md:pt-[100px] pb-6 px-4 md:px-6 lg:px-8">
       <div className="relative flex-1 w-full mx-auto rounded-[30px] md:rounded-[40px] overflow-hidden group shadow-[0_20px_50px_rgba(0,0,0,0.1)] bg-[#061014]">
         
         {/* --- 1. SLIDING BACKGROUNDS --- */}

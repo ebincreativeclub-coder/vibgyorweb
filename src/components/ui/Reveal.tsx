@@ -23,7 +23,7 @@ export function RevealText({
       <motion.div
         initial={{ y: "100%", opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true, margin: "0px" }}
+        viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: DURATION, delay, ease: EASE }}
       >
         {children}
@@ -48,7 +48,7 @@ export function FadeUp({
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px" }}
+      viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: DURATION, delay, ease: EASE }}
       className={className}
     >
@@ -85,7 +85,7 @@ export function RevealStaggerGroup({
       variants={staggerContainerVariants}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "0px" }}
+      viewport={{ once: true, amount: 0.1 }}
       className={className}
     >
       {children}
@@ -123,7 +123,7 @@ export function RevealImage({
     <motion.div
       initial={{ opacity: 0, scale: 0.96, y: 80 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px" }}
+      viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: DURATION, delay, ease: EASE }}
       className={className}
     >

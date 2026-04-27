@@ -17,9 +17,7 @@ export const metadata: Metadata = {
   description: "Boutique contracting firm specializing in workspace design and interior transformation.",
 };
 
-import { Navigation } from "@/components/layout/Navigation";
-import { Footer } from "@/components/layout/Footer";
-import { SmoothScroll } from "@/components/ui/SmoothScroll";
+import { ConditionalLayout } from "@/components/layout/ConditionalLayout";
 
 export default function RootLayout({
   children,
@@ -32,11 +30,9 @@ export default function RootLayout({
       className={`${instrumentSans.variable} ${lora.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col gpu-boost">
-        <SmoothScroll>
-          <Navigation />
+        <ConditionalLayout>
           {children}
-          <Footer />
-        </SmoothScroll>
+        </ConditionalLayout>
       </body>
     </html>
   );

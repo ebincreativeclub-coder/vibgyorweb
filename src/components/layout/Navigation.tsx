@@ -3,31 +3,10 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const { scrollY } = useScroll();
-  const lastScrollY = useRef(0);
-
-  // Auto-hide logic: hide on scroll down, show on scroll up
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const direction = latest - lastScrollY.current;
-    setIsScrolled(latest > 50);
-
-    if (latest > 500 && !isOpen) {
-      if (direction > 10 && isVisible) {
-        setIsVisible(false);
-      } else if (direction < -10 && !isVisible) {
-        setIsVisible(true);
-      }
-    } else {
-      setIsVisible(true);
-    }
-    lastScrollY.current = latest;
-  });
 
   // Lock scroll when menu is open
   useEffect(() => {
@@ -42,24 +21,14 @@ export function Navigation() {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
+    { name: "Products", href: "/products" },
     { name: "Projects", href: "/projects" },
     { name: "Contact", href: "/contact" },
   ];
 
   return (
     <>
-      <motion.nav 
-        animate={{ 
-          y: isVisible ? 0 : -100,
-          backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.15)" : "rgba(255, 255, 255, 0)",
-          backdropFilter: isScrolled ? "blur(16px)" : "blur(0px)",
-          boxShadow: isScrolled ? "0 4px 30px rgba(0,0,0,0.02)" : "none"
-        }}
-        transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
-        className={`fixed top-0 left-0 w-full z-[200] transition-all duration-300 transform-gpu ${
-          isScrolled ? "py-4" : "py-6 md:py-8"
-        }`}
-      >
+      <nav className="fixed top-0 left-0 w-full z-[200] py-4 md:py-5 bg-white">
         <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px] flex items-center justify-between relative h-full">
           
           {/* Logo - Left */}
@@ -114,7 +83,7 @@ export function Navigation() {
             </button>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
