@@ -6,12 +6,12 @@ import Image from "next/image";
 import { RevealText, FadeUp } from "../ui/Reveal";
 
 const TEAM_MEMBERS = [
-  { id: 1, name: "Alexander Wright", designation: "Managing Director" },
-  { id: 2, name: "Sarah Al-Thani", designation: "Design Lead" },
-  { id: 3, name: "Marcus Chen", designation: "Project Manager" },
-  { id: 4, name: "Elena Petrova", designation: "Civil Engineer" },
-  { id: 5, name: "James Miller", designation: "Head of Carpentry" },
-  { id: 6, name: "Lina Hadid", designation: "Interior Architect" },
+  { id: 1, name: "Alexander Wright", designation: "Managing Director", image: "/images/team/team1.jpg" },
+  { id: 2, name: "Sarah Al-Thani", designation: "Design Lead", image: "/images/team/team2.jpg" },
+  { id: 3, name: "Marcus Chen", designation: "Project Manager", image: "/images/team/team3.jpg" },
+  { id: 4, name: "Elena Petrova", designation: "Civil Engineer", image: "/images/team/team1.jpg" },
+  { id: 5, name: "James Miller", designation: "Head of Carpentry", image: "/images/team/team2.jpg" },
+  { id: 6, name: "Lina Hadid", designation: "Interior Architect", image: "/images/team/team3.jpg" },
 ];
 
 export function TeamSection() {
@@ -120,10 +120,10 @@ function TeamCard({ member, index }: { member: any; index: number }) {
       <div className="relative w-[220px] h-[220px] md:w-[271px] md:h-[271px] mb-8 group isolate">
         <div className="absolute inset-0 rounded-[135.5px] overflow-hidden bg-gradient-to-b from-[#B3B3B3] to-[#F1F1F1] transition-transform duration-500 group-hover:scale-105 transform-gpu">
           <Image 
-            src="/images/about page/Rectangle 621.jpg" 
+            src={member.image} 
             alt={member.name}
             fill
-            className="object-cover"
+            className="object-cover object-top"
             draggable={false}
           />
           {/* Replaced mix-blend-overlay with standard alpha for Safari performance on moving elements */}
