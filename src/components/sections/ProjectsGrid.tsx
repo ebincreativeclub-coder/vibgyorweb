@@ -117,14 +117,14 @@ function ProjectCard({ project }: { project: Project }) {
       </RevealImage>
 
       {/* Overlay & Content */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#16232A]/90 via-[#16232A]/30 to-transparent transition-opacity duration-700 ease-out z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#16232A]/70 via-transparent to-transparent transition-opacity duration-700 ease-out z-[1]" />
       
-      <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 pointer-events-none">
-        <div className="transition-all duration-700 ease-[0.16, 1, 0.3, 1]">
-          <span className="text-[10px] md:text-[12px] font-bold tracking-[0.2em] text-[#03AEF2] uppercase mb-2 block">
+      <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 pointer-events-none z-[2]">
+        <div className="transition-all duration-700 ease-[0.16, 1, 0.3, 1] group-hover:translate-y-[-4px]">
+          <span className="text-[10px] md:text-[12px] font-bold tracking-[0.2em] text-[#03AEF2] uppercase mb-2 block drop-shadow-sm">
             {project.category}
           </span>
-          <h3 className="text-[18px] md:text-[22px] font-medium text-white leading-tight">
+          <h3 className="text-[18px] md:text-[22px] font-medium text-white leading-tight drop-shadow-md">
             {project.title}
           </h3>
         </div>

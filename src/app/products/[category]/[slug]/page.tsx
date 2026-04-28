@@ -313,41 +313,7 @@ export default function ProductDetailPage() {
           </section>
         )}
 
-        {/* ═══════════════════════════════════════════════
-            SECTION 3 — GALLERY MOSAIC
-            Pinterest-style asymmetric grid
-        ═══════════════════════════════════════════════ */}
-        {allImages.length > 1 && (
-          <section className="border-t border-[#16232A]/[0.06] bg-white">
-            <div className="max-w-[1280px] mx-auto px-8 md:px-16 py-24 md:py-32">
-              
-              <h2 className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#16232A]/30 mb-12">Gallery</h2>
 
-              {/* Mosaic Grid */}
-              <div className="columns-1 sm:columns-2 gap-4 md:gap-6">
-                {allImages.map((img: any, idx: number) => (
-                  <div 
-                    key={idx}
-                    className="mb-4 md:mb-6 break-inside-avoid group cursor-pointer"
-                    onClick={() => { setActiveImageIndex(idx); setLightboxOpen(true); }}
-                  >
-                    <div className={`relative w-full overflow-hidden rounded-2xl md:rounded-3xl bg-white isolation-isolate transform-gpu ${
-                      idx % 3 === 0 ? 'aspect-[3/4]' : idx % 3 === 1 ? 'aspect-square' : 'aspect-[4/3]'
-                    }`}>
-                      <Image
-                        src={urlForImage(img).url()}
-                        alt={`${product.title} ${idx + 1}`}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu"
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* ═══════════════════════════════════════════════
             SECTION 4 — DOWNLOADS
