@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useMotionValue, useAnimationFrame, useMotionValueEvent } from "framer-motion";
+import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
 import Image from "next/image";
 import { RevealText, FadeUp } from "../ui/Reveal";
 
@@ -38,21 +38,25 @@ export function TeamSection() {
     }
   }, [setWidth, x]);
 
-  useMotionValueEvent(x, "change", (latest) => {
+  useAnimationFrame((t, delta) => {
     if (setWidth === 0) return;
-    if (latest > -setWidth) {
+    
+    const currentX = x.get();
+    
+    // Apply idle auto-scroll velocity if user is not dragging or hovering
+    if (!isPaused && !isDragging) {
+      const speed = -0.6;
+      const moveBy = speed * (delta / 16);
+      x.set(currentX + moveBy);
+    }
+
+    // Evaluate infinite loop boundaries safely decoupled from touch pointer conflicts
+    const latest = x.get();
+    if (latest > 0) {
       x.set(latest - setWidth);
     } else if (latest <= -2 * setWidth) {
       x.set(latest + setWidth);
     }
-  });
-
-  useAnimationFrame((t, delta) => {
-    if (isPaused || isDragging || setWidth === 0) return;
-    const speed = -0.6;
-    const currentX = x.get();
-    const moveBy = speed * (delta / 16);
-    x.set(currentX + moveBy);
   });
 
   return (
@@ -72,7 +76,7 @@ export function TeamSection() {
       </div>
 
       {/* Infinite Wave Carousel */}
-      <div className="relative w-full cursor-grab active:cursor-grabbing pb-16 md:pb-24">
+      <div className="relative w-full cursor-grab active:cursor-grabbing pb-16 md:pb-24 touch-pan-y select-none">
         <motion.div
           style={{ x }}
           drag="x"
@@ -82,14 +86,14 @@ export function TeamSection() {
           onDragEnd={() => setIsDragging(false)}
           onHoverStart={() => setIsPaused(true)}
           onHoverEnd={() => setIsPaused(false)}
-          className="flex flex-nowrap gap-8 md:gap-[150px] items-center will-change-transform transform-gpu"
+          className="flex flex-nowrap w-max items-center will-change-transform transform-gpu"
         >
           {/* We render multiple sets for the infinite loop */}
           {[1, 2, 3].map((setIndex) => (
             <div 
               key={`set-${setIndex}`}
               ref={setIndex === 1 ? setRef : null}
-              className="flex flex-nowrap gap-8 md:gap-[150px]"
+              className="flex flex-nowrap gap-8 md:gap-[150px] pr-8 md:pr-[150px] shrink-0"
             >
               {TEAM_MEMBERS.map((member, idx) => (
                 <TeamCard 
@@ -117,7 +121,7 @@ function TeamCard({ member, index }: { member: any; index: number }) {
         transform: `translateY(${isUp ? "-50px" : "50px"}) translateZ(0)`
       }}
     >
-      <div className="relative w-[220px] h-[220px] md:w-[271px] md:h-[271px] mb-8 group isolate">
+      <div className="relative w-[220px] h-[220px] md:w-[271px] md:h-[271px] mb-8 group isolate pointer-events-none">
         <div className="absolute inset-0 rounded-[135.5px] overflow-hidden bg-gradient-to-b from-[#B3B3B3] to-[#F1F1F1] transition-transform duration-500 group-hover:scale-105 transform-gpu">
           <Image 
             src={member.image} 

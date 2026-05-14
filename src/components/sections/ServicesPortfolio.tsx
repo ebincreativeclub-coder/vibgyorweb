@@ -3,9 +3,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { VibgyorButton } from "../ui/VibgyorButton";
 
 export function ServicesPortfolio() {
+  const router = useRouter();
   const [activeService, setActiveService] = useState<number | null>(1);
 
   const services = [
@@ -45,16 +48,17 @@ export function ServicesPortfolio() {
               key={service.id}
               onMouseEnter={() => setActiveService(index)}
               onMouseLeave={() => setActiveService(null)}
-              onClick={() => setActiveService(index)}
               className="group relative border-b border-[#63757E] border-opacity-50 min-h-[200px] md:min-h-[240px] lg:min-h-[289px] flex items-center cursor-pointer overflow-hidden transition-all duration-500 py-6"
             >
+              <Link href={`/services#service-0${service.id}`} className="absolute inset-0 z-20" />
+              
               <div className={`absolute inset-0 z-0 pointer-events-none transition-opacity duration-500 transform-gpu ${isActive ? 'opacity-100' : 'opacity-0'}`}>
                 <Image src={bgImage} alt={service.title} fill className="object-cover" />
                 {/* Replaced mix-blend-multiply with standard alpha for better Safari performance */}
                 <div className="absolute inset-0 bg-[#16232A]/70" />
               </div>
 
-              <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px] relative z-10 w-full flex items-center justify-between">
+              <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px] relative z-10 w-full flex items-center justify-between pointer-events-none">
                 <div className="w-[15%] md:w-[20%] flex justify-start">
                   <div className={`w-8 h-8 md:w-[29px] md:h-[29px] rounded-full border-[0.5px] flex items-center justify-center text-xs shrink-0 font-normal transition-colors duration-500 ${isActive ? 'border-white text-white' : 'border-[#63757E] text-[#63757E]'} group-hover:border-white group-hover:text-white`}>
                     {service.id}

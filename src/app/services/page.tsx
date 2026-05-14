@@ -60,7 +60,7 @@ const serviceData: ServiceItem[] = [
     }
   },
   {
-    id: "02",
+    id: "03",
     title: "Carpentry Services",
     image: "/images/service page/Mask group-8.webp",
     services: [
@@ -119,7 +119,7 @@ export default function ServicesPage() {
 
         {/* ── SERVICE SECTIONS ── */}
         {serviceData.map((section, index) => (
-          <div key={index} className="relative w-full">
+          <div key={index} id={`service-${section.id}`} className="relative w-full scroll-mt-32">
 
             {/* Row: Left text + Right image/stats */}
             <div className="flex flex-col lg:flex-row justify-between items-start gap-10 lg:gap-0 pt-[49px]">

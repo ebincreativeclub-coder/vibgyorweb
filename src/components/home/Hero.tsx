@@ -127,9 +127,26 @@ export function Hero() {
           </motion.div>
         </AnimatePresence>
 
+        {/* --- HARDWARE TEXTURE PRELOADER --- */}
+        {/* Forces the browser compositor to download, decode, and cache full-resolution WebP textures for upcoming slides immediately on load, eliminating first-time transition frame stutter. */}
+        <div className="absolute opacity-0 pointer-events-none w-px h-px overflow-hidden z-0">
+          {slides.map((slide, idx) => (
+            <Image
+              key={`preload-${idx}`}
+              src={slide.image}
+              alt="preload"
+              fill
+              sizes="100vw"
+              priority
+              quality={90}
+            />
+          ))}
+        </div>
+
         {/* --- 2. STATIC OVERLAY GRADIENT --- */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/80 via-black/30 to-transparent pointer-events-none mix-blend-multiply" />
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+        {/* Replaced mix-blend-multiply with pure alpha layers to prevent compositing reflows on high-DPI displays */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/85 via-black/40 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
             
         {/* --- 3. STATIONARY TEXT CONTAINER --- */}
         <div className="absolute inset-0 z-20 flex flex-col justify-end pb-12 md:pb-24 lg:pb-32 px-8 md:px-16 lg:px-24 pointer-events-none">

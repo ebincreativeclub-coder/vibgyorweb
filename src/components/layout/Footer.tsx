@@ -92,13 +92,20 @@ export function Footer() {
           <FadeUp delay={0.2} className="lg:pt-8 min-w-[140px]">
             <h5 className="lg:hidden text-[#63757E] text-[12px] uppercase tracking-widest font-normal mb-6">Explore</h5>
             <div className="flex flex-col space-y-2">
-              {['About', 'Services', 'Projects', 'Contact'].map((item) => (
+              {[
+                { name: 'Home', href: '/' },
+                { name: 'About', href: '/about' },
+                { name: 'Services', href: '/services' },
+                { name: 'Products', href: '/products' },
+                { name: 'Projects', href: '/projects' },
+                { name: 'Contact', href: '/contact' }
+              ].map((item) => (
                 <Link 
-                  key={item}
-                  href={`/${item.toLowerCase()}`}
+                  key={item.name}
+                  href={item.href}
                   className="block text-white text-[18px] md:text-[20px] font-medium leading-[38px] md:leading-[45px] hover:text-[#03AEF2] transition-all duration-300 whitespace-nowrap"
                 >
-                  {item}
+                  {item.name}
                 </Link>
               ))}
             </div>
@@ -118,19 +125,25 @@ export function Footer() {
             {/* Call Us */}
             <div className="space-y-3">
               <h5 className="text-[#63757E] text-[12px] uppercase tracking-widest font-normal">Call Us</h5>
-              <div className="text-white text-[14px] leading-[1.8] font-semibold space-y-1">
-                <p>+974 44604655</p>
-                <p>+974 70689948</p>
-                <p>+974 44513654</p>
+              <div className="text-white text-[14px] leading-[1.8] font-semibold flex flex-col items-start space-y-1">
+                <a href="tel:+97444604655" className="hover:text-[#03AEF2] transition-colors duration-300">
+                  +974 44604655
+                </a>
+                <a href="tel:+97470689948" className="hover:text-[#03AEF2] transition-colors duration-300">
+                  +974 70689948
+                </a>
+                <a href="tel:+97444513654" className="hover:text-[#03AEF2] transition-colors duration-300">
+                  +974 44513654
+                </a>
               </div>
             </div>
 
             {/* Email Us */}
             <div className="space-y-3">
               <h5 className="text-[#63757E] text-[12px] uppercase tracking-widest font-normal">Email Us</h5>
-              <p className="text-white text-[14px] font-semibold">
+              <a href="mailto:info@vibgyorworld.net" className="block text-white text-[14px] font-semibold hover:text-[#03AEF2] transition-colors duration-300">
                 info@vibgyorworld.net
-              </p>
+              </a>
             </div>
           </FadeUp>
         </div>
