@@ -178,9 +178,9 @@ export default function ContactPage() {
 
         {/* MAP SECTION */}
         <FadeUp delay={0.8} className="mt-32">
-          {/* Smart Interactive Map Wrapper: Isolates expensive pointer hit-testing during page scroll to guarantee pure 60fps scrolling, but enables rich interactive maps mode instantly upon user click */}
+          {/* Smart Interactive Map Wrapper: Generous fixed height on mobile viewports with native touch interactions enabled by default. Isolates pointer hit-testing exclusively on desktop viewports to maintain ultra-smooth scroll performance. */}
           <div 
-            className="relative w-full aspect-[1084/450] rounded-[20px] md:rounded-[40px] overflow-hidden shadow-xl border border-[#63757E]/10 transform-gpu group"
+            className="relative w-full h-[380px] md:h-auto md:aspect-[1084/450] rounded-[20px] md:rounded-[40px] overflow-hidden shadow-xl border border-[#63757E]/10 transform-gpu group"
             onMouseLeave={() => setIsMapInteractive(false)}
           >
             {/* Active Embedded Map */}
@@ -193,14 +193,14 @@ export default function ContactPage() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="Our Location in Doha"
-              className={`absolute inset-0 transition-all duration-500 ${isMapInteractive ? "pointer-events-auto" : "pointer-events-none"}`}
+              className={`absolute inset-0 transition-all duration-500 pointer-events-auto md:${isMapInteractive ? "pointer-events-auto" : "pointer-events-none"}`}
             ></iframe>
 
-            {/* Floating Glassmorphism Unlock Badge */}
+            {/* Floating Glassmorphism Unlock Badge (Restricted to Desktop viewports) */}
             {!isMapInteractive && (
               <div 
                 onClick={() => setIsMapInteractive(true)}
-                className="absolute inset-0 z-20 flex items-center justify-center bg-[#16232A]/5 bg-gradient-to-t from-[#16232A]/15 via-transparent to-transparent backdrop-blur-[1px] hover:backdrop-blur-[0px] transition-all duration-500 cursor-pointer"
+                className="absolute inset-0 z-20 hidden md:flex items-center justify-center bg-[#16232A]/5 bg-gradient-to-t from-[#16232A]/15 via-transparent to-transparent backdrop-blur-[1px] hover:backdrop-blur-[0px] transition-all duration-500 cursor-pointer"
               >
                 {/* Premium Core Brand matching Button Signature */}
                 <div className="inline-flex items-center justify-between h-[45px] pl-6 pr-1.5 bg-[#16232A] text-white rounded-full group transition-all duration-300 hover:pr-2.5 shadow-[0_15px_30px_rgba(22,35,42,0.25)] hover:shadow-[0_20px_40px_rgba(22,35,42,0.4)] border border-white/10 transform hover:scale-[1.02]">
@@ -224,9 +224,9 @@ export default function ContactPage() {
               </div>
             )}
 
-            {/* Subtle Locked Indicator when active */}
+            {/* Subtle Locked Indicator when active (Restricted to Desktop viewports) */}
             {isMapInteractive && (
-              <div className="absolute top-4 right-4 z-20 pointer-events-none animate-fade-in">
+              <div className="absolute top-4 right-4 z-20 pointer-events-none animate-fade-in hidden md:block">
                 <span className="px-4 py-1.5 rounded-full bg-[#16232A]/80 backdrop-blur-md text-white text-xs font-medium tracking-wide border border-white/10 shadow-lg">
                   Interactive Mode Active • Scroll Outside to Continue
                 </span>
