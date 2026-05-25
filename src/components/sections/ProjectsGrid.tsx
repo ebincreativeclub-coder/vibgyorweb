@@ -1,41 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { RevealStaggerGroup, RevealItem, FadeUp, RevealImage } from "../ui/Reveal";
+import { RevealStaggerGroup, staggerItemVariants, FadeUp, RevealImage } from "../ui/Reveal";
 import { VibgyorButton } from "../ui/VibgyorButton";
+import { client } from "@/sanity/lib/client";
+import { projectsQuery } from "@/sanity/lib/queries";
+import { urlForImage } from "@/sanity/lib/image";
 
-interface Project {
-  id: number;
-  src: string;
-  title: string;
-  category: "Interior Fit Out" | "Civil Engineering" | "Carpentry";
-}
-
-const projects: Project[] = [
-  { id: 9, src: "/images/projects/mask_group_9_1_1x.webp", title: "Modern Office Workspace", category: "Interior Fit Out" },
-  { id: 10, src: "/images/projects/mask_group_10_1_1x.webp", title: "Residential Complex A1", category: "Civil Engineering" },
-  { id: 11, src: "/images/projects/mask_group_11_1_1x.webp", title: "Custom Timber Kitchen", category: "Carpentry" },
-  { id: 12, src: "/images/projects/mask_group_12_1_1x.webp", title: "Luxury Executive Suite", category: "Interior Fit Out" },
-  { id: 13, src: "/images/projects/mask_group_13_1_1x.webp", title: "Foundation Works - Lusail", category: "Civil Engineering" },
-  { id: 14, src: "/images/projects/mask_group_14_1_1x.webp", title: "Bespoke Office Furniture", category: "Carpentry" },
-  { id: 15, src: "/images/projects/mask_group_15_1_1x.webp", title: "Retail Showroom Design", category: "Interior Fit Out" },
-  { id: 16, src: "/images/projects/mask_group_16_1_1x.webp", title: "Structural Reinforcement", category: "Civil Engineering" },
-  { id: 17, src: "/images/projects/mask_group_17_1_1x.webp", title: "Artisan Wood Paneling", category: "Carpentry" },
-  { id: 18, src: "/images/projects/mask_group_18_1_1x.webp", title: "Hospitality Lounge", category: "Interior Fit Out" },
-  { id: 19, src: "/images/projects/mask_group_19_1_1x.webp", title: "Urban Infrastructure Project", category: "Civil Engineering" },
-  { id: 20, src: "/images/projects/mask_group_20_1_1x.webp", title: "Modern Joinery Solutions", category: "Carpentry" },
-];
-
-const categories = ["All", "Interior Fit Out", "Civil Engineering", "Carpentry"] as const;
+const categories = ["All", "Interior Fit Out", "Civil Engineering", "Joinery", "Food and Hospitality"] as const;
 
 export function ProjectsGrid() {
+  const [projectsList, setProjectsList] = useState<any[]>([]);
   const [activeCategory, setActiveCategory] = useState<typeof categories[number]>("All");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        const data = await client.fetch(projectsQuery);
+        setProjectsList(data);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProjects();
+  }, []);
 
   const filteredProjects = activeCategory === "All" 
-    ? projects 
-    : projects.filter(p => p.category === activeCategory);
+    ? projectsList 
+    : projectsList.filter(p => p.category === activeCategory);
 
   const spans = [
     "lg:col-span-2", "lg:col-span-1",
@@ -44,6 +42,14 @@ export function ProjectsGrid() {
     "lg:col-span-1", "lg:col-span-1", "lg:col-span-1",
     "lg:col-span-2", "lg:col-span-1",
   ];
+
+  if (loading) {
+    return (
+      <section className="bg-white pb-12 md:pb-20 min-h-[400px] flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-[#03AEF2] border-t-transparent rounded-full animate-spin" />
+      </section>
+    );
+  }
 
   return (
     <section className="bg-white pb-12 md:pb-20">
@@ -74,20 +80,20 @@ export function ProjectsGrid() {
         <RevealStaggerGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
           <AnimatePresence mode="popLayout" initial={false}>
             {filteredProjects.map((project, index) => (
-              <RevealItem 
-                key={project.id}
+              <motion.div
+                key={project._id}
+                layout
                 className={spans[index % spans.length]}
+                variants={staggerItemVariants}
+                initial="hidden"
+                animate="show"
+                exit={{ opacity: 0, scale: 0.95, y: 30, transition: { duration: 0.3 } }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               >
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                >
+                <Link href={`/projects/${project.slug}`}>
                   <ProjectCard project={project} />
-                </motion.div>
-              </RevealItem>
+                </Link>
+              </motion.div>
             ))}
           </AnimatePresence>
         </RevealStaggerGroup>
@@ -103,17 +109,19 @@ export function ProjectsGrid() {
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project }: { project: any }) {
   return (
     <div className="group relative overflow-hidden rounded-[16px] md:rounded-[24px] w-full h-full min-h-[250px] md:min-h-[320px] lg:min-h-[350px] cursor-pointer bg-[#F8FAFB]">
       <RevealImage className="absolute inset-0 z-0">
-        <Image
-          src={project.src}
-          alt={project.title}
-          fill
-          className="object-cover transition-transform duration-1000 ease-[0.16, 1, 0.3, 1] group-hover:scale-110"
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 100vw"
-        />
+        {project.mainImage && (
+          <Image
+            src={urlForImage(project.mainImage).url()}
+            alt={project.title}
+            fill
+            className="object-cover transition-transform duration-1000 ease-[0.16, 1, 0.3, 1] group-hover:scale-110"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 100vw"
+          />
+        )}
       </RevealImage>
 
       {/* Overlay & Content */}
@@ -121,7 +129,7 @@ function ProjectCard({ project }: { project: Project }) {
       
       <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 pointer-events-none z-[2]">
         <div className="transition-all duration-700 ease-[0.16, 1, 0.3, 1] group-hover:translate-y-[-4px]">
-          <span className="text-[10px] md:text-[12px] font-bold tracking-[0.2em] text-[#03AEF2] uppercase mb-2 block drop-shadow-sm">
+          <span className="inline-flex items-center px-3 py-1 rounded-full border border-[#03AEF2]/30 bg-[#16232A]/80 backdrop-blur-md text-[10px] font-bold tracking-[0.15em] text-[#03AEF2] uppercase mb-3 drop-shadow-sm w-fit">
             {project.category}
           </span>
           <h3 className="text-[18px] md:text-[22px] font-medium text-white leading-tight drop-shadow-md">

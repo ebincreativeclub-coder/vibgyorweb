@@ -46,7 +46,7 @@ export default function RootLayout({
       lang="en"
       className={`${instrumentSans.variable} ${lora.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col gpu-boost">
+      <body className="min-h-full flex flex-col">
         <ConditionalLayout>
           {children}
         </ConditionalLayout>
