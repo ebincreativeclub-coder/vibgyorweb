@@ -10,6 +10,36 @@ import { projectBySlugQuery } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 import { RevealText, FadeUp } from "@/components/ui/Reveal";
 
+// Helper function to extract aspect ratio from Sanity image metadata or ref string
+function getImageAspectRatio(img: any): number {
+  if (!img) return 1.5;
+  
+  if (img.asset?.metadata?.dimensions?.aspectRatio) {
+    return img.asset.metadata.dimensions.aspectRatio;
+  }
+  
+  if (img.asset?.metadata?.dimensions) {
+    const { width, height } = img.asset.metadata.dimensions;
+    if (width && height) return width / height;
+  }
+
+  const ref = img.asset?._ref || img.asset?._id || "";
+  if (ref) {
+    const parts = ref.split("-");
+    if (parts.length >= 3) {
+      const dimensions = parts[2];
+      const [widthStr, heightStr] = dimensions.split("x");
+      const width = parseInt(widthStr, 10);
+      const height = parseInt(heightStr, 10);
+      if (!isNaN(width) && !isNaN(height) && height > 0) {
+        return width / height;
+      }
+    }
+  }
+
+  return 1.5;
+}
+
 export default function ProjectDetailPage() {
   const { slug } = useParams();
   const [project, setProject] = useState<any>(null);
@@ -88,32 +118,40 @@ export default function ProjectDetailPage() {
           </div>
         </section>
 
-        {/* Masonry Gallery Grid */}
+        {/* Masonry-like Puzzle Gallery Grid */}
         <section className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px] mb-16 md:mb-24">
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-            {allImages.map((img: any, idx: number) => (
-              <motion.div
-                key={idx}
-                className="break-inside-avoid overflow-hidden rounded-[20px] md:rounded-[28px] border border-[#16232A]/5 bg-[#F8FAFB] cursor-zoom-in shadow-sm hover:shadow-md transition-all duration-500 relative group"
-                onClick={() => {
-                  setActiveImageIndex(idx);
-                  setLightboxOpen(true);
-                }}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <div className="relative w-full h-auto overflow-hidden">
-                  <img
-                    src={urlForImage(img).url()}
-                    alt={`${project.title} gallery image ${idx + 1}`}
-                    className="w-full h-auto object-cover transition-transform duration-1000 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-                </div>
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-12 gap-4 md:gap-6">
+            {allImages.map((img: any, idx: number) => {
+              const isPortrait = getImageAspectRatio(img) < 0.9;
+              const spanClass = isPortrait 
+                ? "col-span-6 md:col-span-3 aspect-[3/4]" 
+                : "col-span-12 md:col-span-6 aspect-[16/10]";
+
+              return (
+                <motion.div
+                  key={idx}
+                  className={`${spanClass} overflow-hidden rounded-[20px] md:rounded-[28px] border border-[#16232A]/5 bg-[#F8FAFB] cursor-zoom-in shadow-sm hover:shadow-md transition-all duration-500 relative group`}
+                  onClick={() => {
+                    setActiveImageIndex(idx);
+                    setLightboxOpen(true);
+                  }}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <div className="relative w-full h-full overflow-hidden">
+                    <Image
+                      src={urlForImage(img).url()}
+                      alt={`${project.title} gallery image ${idx + 1}`}
+                      fill
+                      className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </section>
 
