@@ -14,3 +14,12 @@ export interface SanityProduct {
   }[]
   features?: string[]
 }
+
+export interface SanityProject {
+  _id: string
+  title: string
+  slug: string
+  category: string
+  mainImage: Image
+  images?: Image[]
+}

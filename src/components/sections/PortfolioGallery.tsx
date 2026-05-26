@@ -1,18 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useAnimationFrame, useMotionValueEvent } from "framer-motion";
+import { motion, useMotionValue, useAnimationFrame, useMotionValueEvent, useInView } from "framer-motion";
 import Image from "next/image";
 import { VibgyorButton } from "../ui/VibgyorButton";
 import { RevealText, FadeUp } from "../ui/Reveal";
 
 export function PortfolioGallery() {
   const galleryItems = [
-    { id: 1, src: "/images/home gallery/image_39_1.webp", title: "Luxury Showcase", subtitle: "Doha - Qatar" },
-    { id: 2, src: "/images/home gallery/image_39_2_1.webp", title: "Modern Corporate", subtitle: "West Bay" },
-    { id: 3, src: "/images/home gallery/image_39_3_1.webp", title: "Premium Interior", subtitle: "Pearl Qatar" },
-    { id: 4, src: "/images/home gallery/image_39_4_1.webp", title: "Urban Workspace", subtitle: "Lusail City" },
-    { id: 5, src: "/images/home gallery/image_39_5_1.webp", title: "Minimalist Studio", subtitle: "Msheireb" },
+    { id: 1, src: "/images/home gallery/Carpentry_and Joinery.webp", title: "Carpentry & Joinery", subtitle: "Custom Craftsmanship" },
+    { id: 2, src: "/images/home gallery/Modern_Corporate.webp", title: "Modern Corporate", subtitle: "Corporate Spaces" },
+    { id: 3, src: "/images/home gallery/Premium_Interior.webp", title: "Premium Interior", subtitle: "Luxury Fit-Outs" },
+    { id: 4, src: "/images/home gallery/Retail_outlets.webp", title: "Retail Outlets", subtitle: "Retail Projects" },
+    { id: 5, src: "/images/home gallery/Senior_management.webp", title: "Senior Management Office", subtitle: "Executive Spaces" },
+    { id: 6, src: "/images/home gallery/Showrooms.webp", title: "Showrooms", subtitle: "Brand Spaces" },
+    { id: 7, src: "/images/home gallery/Urban_Workspace.webp", title: "Urban Workspace", subtitle: "Collaborative Environments" },
+    { id: 8, src: "/images/home gallery/food_and_beverages.webp", title: "Food & Beverages", subtitle: "Restaurant & Café" },
   ];
 
   const x = useMotionValue(0);
@@ -57,9 +60,12 @@ export function PortfolioGallery() {
     }
   });
 
+  const containerRef = useRef<HTMLElement>(null);
+  const isInView = useInView(containerRef);
+
   // AUTO-SCROLL LOOP
   useAnimationFrame((t, delta) => {
-    if (isPaused || isDragging || setWidth === 0) return;
+    if (!isInView || isPaused || isDragging || setWidth === 0) return; // Pause when offscreen
     
     const speed = -0.6; // pixels per frame
     const currentX = x.get();
@@ -68,7 +74,7 @@ export function PortfolioGallery() {
   });
 
   return (
-    <section className="bg-[#16232A] text-white pt-24 pb-20 md:pb-24 overflow-hidden selection:bg-[#03AEF2] selection:text-white">
+    <section ref={containerRef} className="bg-[#16232A] text-white pt-24 pb-20 md:pb-24 overflow-hidden selection:bg-[#03AEF2] selection:text-white">
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
         {/* HEADER */}
         <div className="flex flex-col md:flex-row justify-between items-start mb-12 md:mb-16 gap-8">

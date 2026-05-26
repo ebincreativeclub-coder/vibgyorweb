@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useAnimationFrame, useMotionValue } from "framer-motion";
+import { motion, useAnimationFrame, useMotionValue, useInView } from "framer-motion";
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
 import { FadeUp } from "../ui/Reveal";
@@ -29,11 +29,15 @@ export function Companies({
   const marqueeRef = useRef<HTMLDivElement>(null);
   const baseX = useMotionValue(0);
   const velocity = useMotionValue(0); // Tracks post-drag inertia
+  const containerRef = useRef<HTMLElement>(null);
+  const isInView = useInView(containerRef);
 
   // Speed factor (lower = slower)
   const baseSpeed = 0.5;
 
   useAnimationFrame((t, delta) => {
+    if (!isInView) return; // Pause animation when off-screen to save CPU/GPU
+
     if (!isDragging) {
       let currentVelocity = velocity.get();
       
@@ -70,7 +74,9 @@ export function Companies({
   }, [baseX]);
 
   return (
-    <section className={`
+    <section 
+      ref={containerRef}
+      className={`
       ${showBackground ? 'bg-[#F1F2F3]' : 'bg-transparent'} 
       ${compact ? 'pt-6 pb-12 md:pb-16' : 'pt-14 pb-16 md:pb-24'} 
       overflow-hidden font-['Instrument_Sans'] selection:bg-[#03AEF2] selection:text-white
