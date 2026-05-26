@@ -11,6 +11,7 @@ interface ServiceItem {
   title: string;
   services: string[];
   image: string;
+  imagePosition?: string;
   stats: {
     projectsDone: string;
     projectsInHand: string;
@@ -22,7 +23,7 @@ const serviceData: ServiceItem[] = [
   {
     id: "01",
     title: "Interior Fit Out Services",
-    image: "/images/service page/Mask group-6.webp",
+    image: "/images/service page/interior.webp",
     services: [
       "Interior turnkey solutions",
       "Showroom interior design & decorations",
@@ -42,7 +43,7 @@ const serviceData: ServiceItem[] = [
   {
     id: "02",
     title: "Civil Engineering Services",
-    image: "/images/service page/Mask group-7.webp",
+    image: "/images/service page/civil.webp",
     services: [
       "Civil construction",
       "Water proofing",
@@ -62,7 +63,8 @@ const serviceData: ServiceItem[] = [
   {
     id: "03",
     title: "Carpentry Services",
-    image: "/images/service page/Mask group-8.webp",
+    image: "/images/service page/carpentry.webp",
+    imagePosition: "object-bottom",
     services: [
       "Custom made kitchens",
       "Vanity Counters",
@@ -165,7 +167,7 @@ export default function ServicesPage() {
                       src={section.image}
                       alt={section.title}
                       fill
-                      className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                      className={`object-cover ${section.imagePosition || "object-center"} transition-transform duration-1000 group-hover:scale-105`}
                     />
                   </div>
                 </RevealImage>

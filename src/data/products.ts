@@ -123,14 +123,14 @@ export const productCategories: ProductCategory[] = [
     title: "Demountable Partitioning System",
     slug: "demountable-partitioning-system",
     description: "Versatile and sound-insulated partitioning solutions for flexible office layouts.",
-    image: "/images/service page/Mask group-6.webp",
+    image: "/images/service page/interior.webp",
     products: [
       {
         id: "acoustic-glass-partition",
         title: "Acoustic Glass Partition System",
         slug: "acoustic-glass-partition",
         description: "Elegant double-glazed partitioning system providing superior acoustic insulation while maintaining transparency.",
-        images: ["/images/service page/Mask group-6.webp"],
+        images: ["/images/service page/interior.webp"],
         features: [
           "Superior sound insulation (up to 48dB)",
           "Minimalist slim-line profiles",
@@ -153,14 +153,14 @@ export const productCategories: ProductCategory[] = [
     title: "Raised Floor",
     slug: "raised-floor",
     description: "Advanced access floor systems for efficient cable management and airflow in data centers and offices.",
-    image: "/images/service page/Mask group-7.webp",
+    image: "/images/service page/civil.webp",
     products: [
       {
         id: "calcium-sulphate-access-floor",
         title: "Calcium Sulphate Access Floor",
         slug: "calcium-sulphate-access-floor",
         description: "High-density calcium sulphate panels offering exceptional fire resistance and structural stability.",
-        images: ["/images/service page/Mask group-7.webp"],
+        images: ["/images/service page/civil.webp"],
         features: [
           "Class A1 fire rating",
           "High load-bearing capacity",
