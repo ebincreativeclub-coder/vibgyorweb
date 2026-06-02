@@ -34,7 +34,7 @@ export function Navigation() {
           {/* Logo - Left */}
           <Link href="/" className="relative z-[210] flex items-center transition-opacity hover:opacity-90">
             <Image 
-              src="/images/common/logo new.svg" 
+              src="/images/common/logo-new.svg" 
               alt="Vibgyor Engineering" 
               width={180} 
               height={68} 

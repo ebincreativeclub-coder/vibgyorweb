@@ -55,7 +55,7 @@ export function Footer() {
             {/* Brand Logo */}
             <div className="relative w-[200px] md:w-[280px]">
               <Image 
-                src="/images/common/logo new.svg" 
+                src="/images/common/logo-new.svg" 
                 alt="Vibgyor logo" 
                 width={280}
                 height={100}

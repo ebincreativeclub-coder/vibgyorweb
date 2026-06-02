@@ -8,7 +8,7 @@ import { RevealText, FadeUp } from "../ui/Reveal";
 
 export function PortfolioGallery() {
   const galleryItems = [
-    { id: 1, src: "/images/home-gallery/Carpentry_and Joinery.webp", title: "Carpentry & Joinery", subtitle: "Custom Craftsmanship" },
+    { id: 1, src: "/images/home-gallery/Carpentry_and_Joinery.webp", title: "Carpentry & Joinery", subtitle: "Custom Craftsmanship" },
     { id: 2, src: "/images/home-gallery/Modern_Corporate.webp", title: "Modern Corporate", subtitle: "Corporate Spaces" },
     { id: 3, src: "/images/home-gallery/Premium_Interior.webp", title: "Premium Interior", subtitle: "Luxury Fit-Outs" },
     { id: 4, src: "/images/home-gallery/Retail_outlets.webp", title: "Retail Outlets", subtitle: "Retail Projects" },

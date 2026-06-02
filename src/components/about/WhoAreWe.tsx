@@ -24,7 +24,7 @@ export function WhoAreWe() {
           <div className="w-full">
             <RevealImage delay={0.2} className="relative aspect-[633/317] w-full rounded-[20px] md:rounded-[32px] overflow-hidden shadow-sm">
               <Image 
-                src="/images/about-page/Mask group-4.webp" 
+                src="/images/about-page/Mask-group-4.webp" 
                 alt="Modern Interior Design" 
                 fill 
                 className="object-cover"
@@ -40,7 +40,7 @@ export function WhoAreWe() {
           <div className="w-full max-w-[265px] md:max-w-none">
             <RevealImage delay={0.3} className="relative aspect-[265/273] w-full rounded-[20px] md:rounded-[32px] overflow-hidden shadow-sm">
               <Image 
-                src="/images/about-page/Mask group-5.webp" 
+                src="/images/about-page/Mask-group-5.webp" 
                 alt="Carpentry Details" 
                 fill 
                 className="object-cover"
