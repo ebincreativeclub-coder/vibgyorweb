@@ -7,19 +7,19 @@ import { VibgyorButton } from "../ui/VibgyorButton";
 
 const slides = [
   {
-    image: "/images/hero-new-slide/image-66.jpg",
+    image: "/images/hero-new-slide/image_66_1_1x.webp",
     title: "Interior Fit-out",
     headline: "Spaces That\nInspire.",
     description: "Interiors that reflect your brand and elevate your business."
   },
   {
-    image: "/images/hero-new-slide/image-66-2.jpg",
+    image: "/images/hero-new-slide/image_66_2_1_1x.webp",
     title: "Carpentry & Joinery",
     headline: "Crafted with\nPrecision.",
     description: "Bespoke woodwork built to your exact specifications."
   },
   {
-    image: "/images/hero-new-slide/image-66-3.jpg",
+    image: "/images/hero-new-slide/image_66_3_1_1x.webp",
     title: "Civil Engineering",
     headline: "Built to\nLast.",
     description: "Reliable civil works delivered on time and to the highest standard."
