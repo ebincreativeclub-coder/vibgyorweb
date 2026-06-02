@@ -73,7 +73,7 @@ export function Hero() {
     },
     exit: {
       opacity: 0,
-      transition: { staggerChildren: 0.05, staggerDirection: -1, duration: 0.4 }
+      transition: { duration: 0.2 }
     }
   };
 
@@ -86,8 +86,8 @@ export function Hero() {
     },
     exit: { 
       opacity: 0, 
-      y: -30, 
-      transition: { duration: 0.6, ease: [0.7, 0, 0.84, 0] as const } 
+      y: -20, 
+      transition: { duration: 0.2, ease: "easeIn" as const } 
     }
   };
 
@@ -95,6 +95,18 @@ export function Hero() {
     <section className="relative w-full h-[90vh] md:h-screen bg-white flex flex-col pt-[88px] md:pt-[100px] pb-6 px-4 md:px-6 lg:px-8">
       <div className="relative flex-1 w-full mx-auto rounded-[30px] md:rounded-[40px] overflow-hidden group shadow-[0_20px_50px_rgba(0,0,0,0.1)] bg-[#061014]">
         
+        {/* --- BACKUP BACKGROUND LAYER (Prevents Black Flash) --- */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={slides[currentIndex].image}
+            alt="background-backup"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+        </div>
+
         {/* --- 1. SLIDING BACKGROUNDS --- */}
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
@@ -257,3 +269,4 @@ function BackgroundPreloader() {
     </div>
   );
 }
+
