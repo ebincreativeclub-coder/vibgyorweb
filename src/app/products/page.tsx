@@ -9,8 +9,24 @@ import { client } from "@/sanity/lib/client";
 import { allCategoriesQuery } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 
+interface SanityImage {
+  _type: string;
+  asset: {
+    _ref: string;
+    _type: string;
+  };
+}
+
+interface Category {
+  _id: string;
+  title: string;
+  slug: string;
+  description?: string;
+  mainImage?: SanityImage;
+}
+
 export default function ProductsPage() {
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -53,23 +69,24 @@ export default function ProductsPage() {
       {/* ── CATEGORY GRID ── */}
       <section className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px] pb-24 md:pb-32">
         <RevealStaggerGroup className="flex flex-wrap justify-center gap-8 md:gap-12">
-          {categories.map((category, index) => (
+          {categories.map((category) => (
             <RevealItem key={category._id} className="group cursor-pointer w-full md:w-[calc(33.333%-32px)] min-w-[300px] max-w-[400px]">
               <Link href={`/products/${category.slug}`}>
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[20px] md:rounded-[40px] mb-8 bg-white shadow-xl transition-all duration-700 group-hover:shadow-2xl isolation-isolate transform-gpu">
+                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[20px] md:rounded-[40px] mb-8 bg-white shadow-xl transition-all duration-700 group-hover:shadow-2xl isolation-isolate transform-gpu">
                   {/* Category Image */}
                   <div className="absolute inset-0">
                     {category.mainImage && (
                       <Image
-                        src={urlForImage(category.mainImage).url()}
+                        src={urlForImage(category.mainImage).width(800).url()}
                         alt={category.title}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover transition-transform duration-1000 group-hover:scale-110 transform-gpu"
                       />
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-700 pointer-events-none" />
                   </div>
-
+ 
                   {/* View Products Label */}
                   <div className="absolute bottom-10 left-10 overflow-hidden">
                     <motion.div 
@@ -77,7 +94,7 @@ export default function ProductsPage() {
                       whileHover={{ y: 0 }}
                       className="flex items-center gap-3 text-white font-semibold tracking-wider uppercase text-sm"
                     >
-                      View Products
+                      Explore
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                         <polyline points="12 5 19 12 12 19"></polyline>
@@ -85,14 +102,14 @@ export default function ProductsPage() {
                     </motion.div>
                   </div>
                 </div>
-
+ 
                 <div className="px-2">
-                  <div className="flex items-end min-h-[70px] md:min-h-[85px] mb-3">
+                  <div className="mb-3">
                     <h2 className="text-[28px] md:text-[34px] font-semibold text-[#16232A] leading-tight group-hover:text-[#03AEF2] transition-colors duration-300 line-clamp-2">
                       {category.title}
                     </h2>
                   </div>
-                  <p className="text-[16px] md:text-[18px] text-[#63757E] font-medium leading-relaxed max-w-[320px] line-clamp-3">
+                  <p className="text-[16px] md:text-[18px] text-[#63757E] font-medium leading-relaxed max-w-none line-clamp-3">
                     {category.description}
                   </p>
                 </div>

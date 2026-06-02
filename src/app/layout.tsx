@@ -46,6 +46,10 @@ export default function RootLayout({
       lang="en"
       className={`${instrumentSans.variable} ${lora.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://cdn.sanity.io" />
+        <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="anonymous" />
+      </head>
       <body className="min-h-full flex flex-col">
         <ConditionalLayout>
           {children}
