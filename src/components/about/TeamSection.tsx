@@ -5,6 +5,13 @@ import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
 import Image from "next/image";
 import { RevealText, FadeUp } from "../ui/Reveal";
 
+interface TeamMember {
+  id: number;
+  name: string;
+  designation: string;
+  image: string;
+}
+
 const TEAM_MEMBERS = [
   { id: 1, name: "Alexander Wright", designation: "Managing Director", image: "/images/team/team1.jpg" },
   { id: 2, name: "Sarah Al-Thani", designation: "Design Lead", image: "/images/team/team2.jpg" },
@@ -110,7 +117,7 @@ export function TeamSection() {
   );
 }
 
-function TeamCard({ member, index }: { member: any; index: number }) {
+function TeamCard({ member, index }: { member: TeamMember; index: number }) {
   // Wave Logic: Offset Y based on index (even/odd)
   const isUp = index % 2 === 0;
 
@@ -127,6 +134,7 @@ function TeamCard({ member, index }: { member: any; index: number }) {
             src={member.image} 
             alt={member.name}
             fill
+            sizes="(max-width: 768px) 220px, 271px"
             className="object-cover object-top"
             draggable={false}
           />

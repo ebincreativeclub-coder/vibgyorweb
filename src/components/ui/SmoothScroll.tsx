@@ -46,7 +46,9 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       infinite: false,
     });
     
-    setLenisInst(lenis);
+    Promise.resolve().then(() => {
+      setLenisInst(lenis);
+    });
 
     function raf(time: number) {
       lenis.raf(time);

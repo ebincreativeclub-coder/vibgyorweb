@@ -9,13 +9,7 @@ import { client } from "@/sanity/lib/client";
 import { allCategoriesQuery } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 
-interface SanityImage {
-  _type: string;
-  asset: {
-    _ref: string;
-    _type: string;
-  };
-}
+import type { Image as SanityImage } from "sanity";
 
 interface Category {
   _id: string;

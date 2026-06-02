@@ -9,13 +9,7 @@ import { client } from "@/sanity/lib/client";
 import { categoryBySlugQuery } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 
-interface SanityImage {
-  _type: string;
-  asset: {
-    _ref: string;
-    _type: string;
-  };
-}
+import type { Image as SanityImage } from "sanity";
 
 interface Category {
   _id: string;
@@ -60,7 +54,9 @@ export default function CategoryPage() {
     notFound();
   }
 
-  const allImages = [category.mainImage, ...(category.gallery || [])].filter(Boolean);
+  const allImages: SanityImage[] = [category.mainImage, ...(category.gallery || [])].filter(
+    (img): img is SanityImage => !!img
+  );
 
   return (
     <>
