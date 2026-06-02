@@ -29,7 +29,16 @@ const slides = [
 export function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [preloadActive, setPreloadActive] = useState(false);
   const slideDuration = 6000;
+
+  useEffect(() => {
+    // Start preloading secondary images in background after 1s (keeps LCP fast)
+    const timeout = setTimeout(() => {
+      setPreloadActive(true);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -127,7 +136,23 @@ export function Hero() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Preload next slide image via <link> instead of hidden <Image> elements */}
+        {/* Background preloader for slide 2 and 3 (without priority, so they load in background) */}
+        {preloadActive && (
+          <div className="hidden" aria-hidden="true">
+            <Image
+              src={slides[1].image}
+              alt="preload-2"
+              fill
+              sizes="100vw"
+            />
+            <Image
+              src={slides[2].image}
+              alt="preload-3"
+              fill
+              sizes="100vw"
+            />
+          </div>
+        )}
 
         {/* --- 2. STATIC OVERLAY GRADIENT --- */}
         {/* Replaced mix-blend-multiply with pure alpha layers to prevent compositing reflows on high-DPI displays */}
