@@ -74,6 +74,7 @@ export default function ProductsPage() {
                         src={urlForImage(category.mainImage).width(800).url()}
                         alt={category.title}
                         fill
+                        unoptimized={true}
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover transition-transform duration-1000 group-hover:scale-110 transform-gpu"
                       />

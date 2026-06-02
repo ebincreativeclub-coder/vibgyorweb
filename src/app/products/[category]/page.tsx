@@ -173,6 +173,7 @@ export default function CategoryPage() {
                       src={urlForImage(allImages[activeImageIndex]).width(1200).url()}
                       alt={category.title}
                       fill
+                      unoptimized={true}
                       sizes="(max-width: 1024px) 100vw, 55vw"
                       className="object-cover transition-transform duration-1000 group-hover:scale-102"
                       priority
@@ -214,6 +215,7 @@ export default function CategoryPage() {
                         src={urlForImage(img).width(160).height(160).url()}
                         alt={`${category.title} thumbnail ${idx + 1}`}
                         fill
+                        unoptimized={true}
                         sizes="100px"
                         className="object-cover"
                       />
@@ -293,6 +295,7 @@ export default function CategoryPage() {
                   src={urlForImage(allImages[activeImageIndex]).width(2000).url()}
                   alt={category.title}
                   fill
+                  unoptimized={true}
                   sizes="100vw"
                   className="object-contain"
                 />
