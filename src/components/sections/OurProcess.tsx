@@ -123,8 +123,8 @@ const ProcessCard = ({ step, index, totalSteps, smoothProgress }: ProcessCardPro
           </svg>
 
           {/* Icon */}
-          <div className="relative w-7 h-7">
-            <Image src={step.icon} alt={step.title} fill className="object-contain" />
+          <div className="relative w-7 h-7 flex items-center justify-center">
+            <img src={step.icon} alt={step.title} className="w-full h-full object-contain" />
           </div>
         </div>
 
@@ -253,8 +253,8 @@ function MobileProcessCard({ step }: { step: typeof processSteps[0] }) {
             transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
           />
         </svg>
-        <div className="relative w-7 h-7">
-          <Image src={step.icon} alt={step.title} fill className="object-contain" />
+        <div className="relative w-7 h-7 flex items-center justify-center">
+          <img src={step.icon} alt={step.title} className="w-full h-full object-contain" />
         </div>
       </div>
 

@@ -245,12 +245,14 @@ function BackgroundPreloader() {
         alt="preload-2"
         fill
         sizes="100vw"
+        priority
       />
       <Image
         src={slides[2].image}
         alt="preload-3"
         fill
         sizes="100vw"
+        priority
       />
     </div>
   );
