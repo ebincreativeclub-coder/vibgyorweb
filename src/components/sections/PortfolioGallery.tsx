@@ -8,14 +8,14 @@ import { RevealText, FadeUp } from "../ui/Reveal";
 
 export function PortfolioGallery() {
   const galleryItems = [
-    { id: 1, src: "/images/home gallery/Carpentry_and Joinery.webp", title: "Carpentry & Joinery", subtitle: "Custom Craftsmanship" },
-    { id: 2, src: "/images/home gallery/Modern_Corporate.webp", title: "Modern Corporate", subtitle: "Corporate Spaces" },
-    { id: 3, src: "/images/home gallery/Premium_Interior.webp", title: "Premium Interior", subtitle: "Luxury Fit-Outs" },
-    { id: 4, src: "/images/home gallery/Retail_outlets.webp", title: "Retail Outlets", subtitle: "Retail Projects" },
-    { id: 5, src: "/images/home gallery/Senior_management.webp", title: "Senior Management Office", subtitle: "Executive Spaces" },
-    { id: 6, src: "/images/home gallery/Showrooms.webp", title: "Showrooms", subtitle: "Brand Spaces" },
-    { id: 7, src: "/images/home gallery/Urban_Workspace.webp", title: "Urban Workspace", subtitle: "Collaborative Environments" },
-    { id: 8, src: "/images/home gallery/food_and_beverages.webp", title: "Food & Beverages", subtitle: "Restaurant & Café" },
+    { id: 1, src: "/images/home-gallery/Carpentry_and Joinery.webp", title: "Carpentry & Joinery", subtitle: "Custom Craftsmanship" },
+    { id: 2, src: "/images/home-gallery/Modern_Corporate.webp", title: "Modern Corporate", subtitle: "Corporate Spaces" },
+    { id: 3, src: "/images/home-gallery/Premium_Interior.webp", title: "Premium Interior", subtitle: "Luxury Fit-Outs" },
+    { id: 4, src: "/images/home-gallery/Retail_outlets.webp", title: "Retail Outlets", subtitle: "Retail Projects" },
+    { id: 5, src: "/images/home-gallery/Senior_management.webp", title: "Senior Management Office", subtitle: "Executive Spaces" },
+    { id: 6, src: "/images/home-gallery/Showrooms.webp", title: "Showrooms", subtitle: "Brand Spaces" },
+    { id: 7, src: "/images/home-gallery/Urban_Workspace.webp", title: "Urban Workspace", subtitle: "Collaborative Environments" },
+    { id: 8, src: "/images/home-gallery/food_and_beverages.webp", title: "Food & Beverages", subtitle: "Restaurant & Café" },
   ];
 
   const x = useMotionValue(0);

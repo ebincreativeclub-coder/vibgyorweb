@@ -47,6 +47,7 @@ export default function RootLayout({
       className={`${instrumentSans.variable} ${lora.variable} h-full antialiased`}
     >
       <head>
+        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
         <link rel="preconnect" href="https://cdn.sanity.io" />
         <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="anonymous" />
       </head>

@@ -36,9 +36,9 @@ export function ServicesPortfolio() {
       <div className="w-full flex flex-col">
         {services.map((service, index) => {
           const serviceImages = {
-            "1": "/images/hero services/interior.webp",
-            "2": "/images/hero services/civil.webp",
-            "3": "/images/hero services/carpending_1.webp",
+            "1": "/images/hero-services/interior.webp",
+            "2": "/images/hero-services/civil.webp",
+            "3": "/images/hero-services/carpending_1.webp",
           };
           const bgImage = serviceImages[service.id as keyof typeof serviceImages];
           const isActive = activeService === index;

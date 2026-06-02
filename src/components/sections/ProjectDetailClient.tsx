@@ -117,7 +117,6 @@ export function ProjectDetailClient({ project }: { project: SanityProject }) {
                       src={urlForImage(img).width(800).auto("format").quality(80).url()}
                       alt={`${project.title} gallery image ${idx + 1}`}
                       fill
-                      unoptimized={true}
                       className="object-cover transform-gpu will-change-transform transition-transform duration-1000 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
@@ -194,7 +193,7 @@ export function ProjectDetailClient({ project }: { project: SanityProject }) {
                     src={urlForImage(allImages[activeImageIndex]).width(1600).auto("format").quality(85).url()}
                     alt={project.title}
                     fill
-                    unoptimized={true}
+                    sizes="100vw"
                     className="object-contain"
                   />
                 )}

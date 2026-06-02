@@ -20,7 +20,7 @@ export function Footer() {
               alt="Start your project"
               fill
               className="object-cover object-center"
-              priority
+              sizes="(max-width: 768px) 100vw, 1200px"
             />
             <div className="absolute inset-0 bg-black/60" />
           </div>

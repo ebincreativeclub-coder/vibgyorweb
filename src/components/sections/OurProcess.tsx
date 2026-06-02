@@ -10,25 +10,25 @@ const processSteps = [
     id: "01",
     title: "Consultation",
     description: "We start by listening. Our team meets with you to understand your space, your requirements, your timeline, and your budget. No assumptions, no generic solutions - every project starts with a proper brief.",
-    icon: "/images/our process svg/Vector-2.svg"
+    icon: "/images/our-process-svg/Vector-2.svg"
   },
   {
     id: "02",
     title: "Design & Plan",
     description: "Our designers and project leads translate your brief into a detailed execution plan - layouts, material selections, timelines, and cost breakdowns. Everything is agreed and signed off before a single tool is picked up.",
-    icon: "/images/our process svg/Vector-3.svg"
+    icon: "/images/our-process-svg/Vector-3.svg"
   },
   {
     id: "03",
     title: "Execution",
     description: "Our on-site teams get to work with precision and professionalism. We manage every trade, every material, and every milestone - so you can focus on your business while we build your space.",
-    icon: "/images/our process svg/Vector-4.svg"
+    icon: "/images/our-process-svg/Vector-4.svg"
   },
   {
     id: "04",
     title: "Handover",
     description: "We don't just finish - we hand over. A thorough walkthrough, full snag resolution, and complete sign-off ensures your space is delivered exactly as promised. No loose ends.",
-    icon: "/images/our process svg/Vector-5.svg"
+    icon: "/images/our-process-svg/Vector-5.svg"
   }
 ];
 

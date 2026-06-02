@@ -23,7 +23,7 @@ const serviceData: ServiceItem[] = [
   {
     id: "01",
     title: "Interior Fit Out Services",
-    image: "/images/service page/interior.webp",
+    image: "/images/service-page/interior.webp",
     services: [
       "Interior turnkey solutions",
       "Showroom interior design & decorations",
@@ -43,7 +43,7 @@ const serviceData: ServiceItem[] = [
   {
     id: "02",
     title: "Civil Engineering Services",
-    image: "/images/service page/civil.webp",
+    image: "/images/service-page/civil.webp",
     services: [
       "Civil construction",
       "Water proofing",
@@ -63,7 +63,7 @@ const serviceData: ServiceItem[] = [
   {
     id: "03",
     title: "Carpentry Services",
-    image: "/images/service page/carpentry.webp",
+    image: "/images/service-page/carpentry.webp",
     imagePosition: "object-bottom",
     services: [
       "Custom made kitchens",

@@ -7,19 +7,19 @@ import { VibgyorButton } from "../ui/VibgyorButton";
 
 const slides = [
   {
-    image: "/images/hero new slide/image 66.jpg",
+    image: "/images/hero-new-slide/image 66.jpg",
     title: "Interior Fit-out",
     headline: "Spaces That\nInspire.",
     description: "Interiors that reflect your brand and elevate your business."
   },
   {
-    image: "/images/hero new slide/image 66-2.jpg",
+    image: "/images/hero-new-slide/image 66-2.jpg",
     title: "Carpentry & Joinery",
     headline: "Crafted with\nPrecision.",
     description: "Bespoke woodwork built to your exact specifications."
   },
   {
-    image: "/images/hero new slide/image 66-3.jpg",
+    image: "/images/hero-new-slide/image 66-3.jpg",
     title: "Civil Engineering",
     headline: "Built to\nLast.",
     description: "Reliable civil works delivered on time and to the highest standard."
@@ -119,7 +119,7 @@ export function Hero() {
                   alt={slides[currentIndex].title}
                   fill
                   className="object-cover"
-                  priority
+                  priority={currentIndex === 0}
                   quality={90}
                   sizes="100vw"
                 />
@@ -127,21 +127,7 @@ export function Hero() {
           </motion.div>
         </AnimatePresence>
 
-        {/* --- HARDWARE TEXTURE PRELOADER --- */}
-        {/* Forces the browser compositor to download, decode, and cache full-resolution WebP textures for upcoming slides immediately on load, eliminating first-time transition frame stutter. */}
-        <div className="absolute opacity-0 pointer-events-none w-px h-px overflow-hidden z-0">
-          {slides.map((slide, idx) => (
-            <Image
-              key={`preload-${idx}`}
-              src={slide.image}
-              alt="preload"
-              fill
-              sizes="100vw"
-              priority
-              quality={90}
-            />
-          ))}
-        </div>
+        {/* Preload next slide image via <link> instead of hidden <Image> elements */}
 
         {/* --- 2. STATIC OVERLAY GRADIENT --- */}
         {/* Replaced mix-blend-multiply with pure alpha layers to prevent compositing reflows on high-DPI displays */}

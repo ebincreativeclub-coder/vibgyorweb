@@ -1,15 +1,17 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { RevealText, FadeUp, RevealStaggerGroup, RevealItem } from "@/components/ui/Reveal";
 import { client } from "@/sanity/lib/client";
 import { allCategoriesQuery } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
+import type { Metadata } from "next";
 
 import type { Image as SanityImage } from "sanity";
+
+export const metadata: Metadata = {
+  title: "Products | Vibgyor Engineering WLL",
+  description: "High-performance interior solutions engineered for modern architectural demands. From bespoke furniture to advanced partitioning and flooring systems.",
+};
 
 interface Category {
   _id: string;
@@ -19,26 +21,12 @@ interface Category {
   mainImage?: SanityImage;
 }
 
-export default function ProductsPage() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchCategories() {
-      try {
-        const data = await client.fetch(allCategoriesQuery);
-        setCategories(data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchCategories();
-  }, []);
-
-  if (loading) {
-    return <div className="min-h-screen bg-white" />;
+export default async function ProductsPage() {
+  let categories: Category[] = [];
+  try {
+    categories = await client.fetch(allCategoriesQuery);
+  } catch (error) {
+    console.error("Error fetching categories:", error);
   }
 
   return (
@@ -74,30 +62,25 @@ export default function ProductsPage() {
                         src={urlForImage(category.mainImage).width(800).url()}
                         alt={category.title}
                         fill
-                        unoptimized={true}
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover transition-transform duration-1000 group-hover:scale-110 transform-gpu"
                       />
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-700 pointer-events-none" />
                   </div>
- 
+
                   {/* View Products Label */}
                   <div className="absolute bottom-10 left-10 overflow-hidden">
-                    <motion.div 
-                      initial={{ y: "100%" }}
-                      whileHover={{ y: 0 }}
-                      className="flex items-center gap-3 text-white font-semibold tracking-wider uppercase text-sm"
-                    >
+                    <div className="flex items-center gap-3 text-white font-semibold tracking-wider uppercase text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       Explore
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                         <polyline points="12 5 19 12 12 19"></polyline>
                       </svg>
-                    </motion.div>
+                    </div>
                   </div>
                 </div>
- 
+
                 <div className="px-2">
                   <div className="mb-3">
                     <h2 className="text-[28px] md:text-[34px] font-semibold text-[#16232A] leading-tight group-hover:text-[#03AEF2] transition-colors duration-300 line-clamp-2">

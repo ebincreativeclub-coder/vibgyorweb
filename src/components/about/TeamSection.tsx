@@ -135,6 +135,7 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
             alt={member.name}
             fill
             sizes="(max-width: 768px) 220px, 271px"
+            loading="lazy"
             className="object-cover object-top"
             draggable={false}
           />

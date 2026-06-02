@@ -96,7 +96,6 @@ function ProjectCard({ project }: { project: SanityProject }) {
             src={urlForImage(project.mainImage).width(800).auto("format").quality(80).url()}
             alt={project.title}
             fill
-            unoptimized={true}
             className="object-cover transform-gpu will-change-transform transition-transform duration-1000 ease-[0.16, 1, 0.3, 1] group-hover:scale-110"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 100vw"
           />

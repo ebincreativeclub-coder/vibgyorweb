@@ -32,6 +32,7 @@ export function AboutHero() {
               muted 
               loop 
               playsInline 
+              preload="none"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000"
             >
               <source src="/images/video/8829009-hd_1366_720_25fps.mp4" type="video/mp4" />
