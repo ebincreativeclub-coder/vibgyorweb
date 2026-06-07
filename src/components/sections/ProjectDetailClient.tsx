@@ -70,7 +70,7 @@ export function ProjectDetailClient({ project }: { project: SanityProject }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
-                className="inline-block text-[10px] font-black tracking-[0.25em] uppercase text-[#03AEF2] bg-[#03AEF2]/8 px-4 py-2 rounded-full"
+                className="inline-block text-[10px] font-bold tracking-[0.15em] uppercase text-white bg-[#16232A]/95 border border-[#03AEF2]/30 px-3 py-1 rounded-full w-fit"
               >
                 {project.category}
               </motion.span>

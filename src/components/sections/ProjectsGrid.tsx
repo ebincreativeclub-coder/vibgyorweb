@@ -103,11 +103,11 @@ function ProjectCard({ project }: { project: SanityProject }) {
       </div>
 
       {/* Overlay & Content */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#16232A]/70 via-transparent to-transparent transition-opacity duration-700 ease-out z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#16232A]/90 via-[#16232A]/45 to-transparent transition-opacity duration-700 ease-out z-[1]" />
       
       <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 pointer-events-none z-[2]">
         <div className="transform-gpu transition-all duration-700 ease-[0.16, 1, 0.3, 1] group-hover:translate-y-[-4px]">
-          <span className="inline-flex items-center px-3 py-1 rounded-full border border-[#03AEF2]/30 bg-[#16232A]/95 text-[10px] font-bold tracking-[0.15em] text-[#03AEF2] uppercase mb-3 w-fit">
+          <span className="inline-flex items-center px-3 py-1 rounded-full border border-[#03AEF2]/30 bg-[#16232A]/95 text-[10px] font-bold tracking-[0.15em] text-white uppercase mb-3 w-fit">
             {project.category}
           </span>
           <h3 className="text-[18px] md:text-[22px] font-medium text-white leading-tight">

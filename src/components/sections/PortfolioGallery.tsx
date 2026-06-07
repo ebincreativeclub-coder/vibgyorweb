@@ -160,14 +160,14 @@ function GalleryCard({ item }: { item: any }) {
       </div>
 
       {/* Gradient Overlay for Text */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#16232A]/90 via-[#16232A]/20 to-transparent opacity-80 group-hover/card:opacity-90 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#16232A]/95 via-[#16232A]/50 to-transparent opacity-90 group-hover/card:opacity-95 transition-opacity duration-500" />
 
       {/* Text Content */}
       <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12 select-none">
-        <div className="mb-2 md:mb-3">
-          <p className="text-xs md:text-sm font-bold tracking-[0.2em] text-[#03AEF2] uppercase">
+        <div className="mb-3">
+          <span className="inline-flex items-center px-3 py-1 rounded-full border border-[#03AEF2]/30 bg-[#16232A]/95 text-[10px] font-bold tracking-[0.15em] text-white uppercase w-fit">
             {item.subtitle}
-          </p>
+          </span>
         </div>
         
         <h3 className="text-2xl md:text-4xl lg:text-h3 font-medium text-white leading-tight">
