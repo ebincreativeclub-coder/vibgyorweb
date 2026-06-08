@@ -50,10 +50,10 @@ function Counter({ value, suffix }: { value: string, suffix: string }) {
 
 export function Features() {
   const stats = [
-    { number: "10", suffix: "+", label: "Years of Experience" },
-    { number: "25", suffix: "+", label: "Expert Team Members" },
-    { number: "150", suffix: "+", label: "Happy Clients" },
-    { number: "300", suffix: "+", label: "Projects Completed" },
+    { number: "15", suffix: "+", label: "Years of Experience" },
+    { number: "100", suffix: "+", label: "Expert Team Members" },
+    { number: "200", suffix: "+", label: "Happy Clients" },
+    { number: "400", suffix: "+", label: "Projects Completed" },
   ];
   return (
     <section className="bg-white py-16 md:py-24">

@@ -92,7 +92,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative w-full h-[90vh] md:h-screen bg-white flex flex-col pt-[88px] md:pt-[100px] pb-6 px-4 md:px-6 lg:px-8">
+    <section className="relative w-full h-[90vh] md:h-screen min-h-[500px] md:min-h-[650px] lg:min-h-[750px] bg-white flex flex-col pt-[88px] md:pt-[100px] pb-6 px-4 md:px-6 lg:px-8">
       <div className="relative flex-1 w-full mx-auto rounded-[30px] md:rounded-[40px] overflow-hidden group shadow-[0_20px_50px_rgba(0,0,0,0.1)] bg-[#061014]">
         
         {/* --- BACKUP BACKGROUND LAYER (Prevents Black Flash) --- */}
@@ -148,7 +148,7 @@ export function Hero() {
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
             
         {/* --- 3. STATIONARY TEXT CONTAINER --- */}
-        <div className="absolute inset-0 z-20 flex flex-col justify-end pb-12 md:pb-24 lg:pb-32 px-8 md:px-16 lg:px-24 pointer-events-none">
+        <div className="absolute inset-0 z-20 flex flex-col justify-center py-12 md:py-16 lg:py-20 px-8 md:px-16 lg:px-24 pointer-events-none">
           <div className="max-w-[800px] pointer-events-auto">
             <AnimatePresence mode="wait">
               <motion.div

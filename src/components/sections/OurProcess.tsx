@@ -94,7 +94,7 @@ const ProcessCard = ({ step, index, totalSteps, smoothProgress }: ProcessCardPro
         borderColor,
         transform: "translateZ(0)", // Safari hardware acceleration
       }}
-      className="w-full lg:flex-1 bg-white border-[1.5px] rounded-[2.5rem] p-6 md:p-8 xl:p-10 flex flex-col relative overflow-hidden will-change-transform isolate"
+      className="w-full lg:flex-1 bg-white border-[1.5px] rounded-[2.5rem] p-6 md:p-8 xl:p-10 [@media(max-height:780px)]:p-5 flex flex-col relative overflow-hidden will-change-transform isolate"
     >
       {/* Decorative Glowing Background Blob - Safari optimized with translateZ */}
       <motion.div 
@@ -103,7 +103,7 @@ const ProcessCard = ({ step, index, totalSteps, smoothProgress }: ProcessCardPro
       />
 
       {/* Header: Ring Indicator & Step Number */}
-      <div className="flex justify-between items-start mb-12 relative z-10">
+      <div className="flex justify-between items-start mb-8 lg:mb-12 [@media(max-height:780px)]:mb-4 relative z-10">
         <div className="relative w-[76px] h-[76px] flex items-center justify-center bg-white rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
           {/* Background Track */}
           <svg className="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 76 76">
@@ -129,20 +129,20 @@ const ProcessCard = ({ step, index, totalSteps, smoothProgress }: ProcessCardPro
         </div>
 
         {/* Faded Step Number Watermark */}
-        <span className="text-display font-light text-[#16232A]/5 mb-2 block">
+        <span className="text-display [@media(max-height:780px)]:text-5xl font-light text-[#16232A]/5 mb-2 block">
           {step.id}
         </span>
       </div>
       
       {/* Text Content */}
       <div className="relative z-10">
-        <span className="inline-block text-[#03AEF2] text-ui-xs font-semibold tracking-widest uppercase mb-4">
+        <span className="inline-block text-[#03AEF2] text-ui-xs font-semibold tracking-widest uppercase mb-2 lg:mb-4 [@media(max-height:780px)]:mb-1">
           Step {step.id}
         </span>
-        <h3 className="text-h4 font-medium text-[#16232A] mb-4">
+        <h3 className="text-h4 font-medium text-[#16232A] mb-2 lg:mb-4 [@media(max-height:780px)]:mb-1.5">
           {step.title}
         </h3>
-        <p className="text-body-sm font-normal text-[#63757E]">
+        <p className="text-body-sm font-normal text-[#63757E] [@media(max-height:780px)]:text-[13px] [@media(max-height:780px)]:leading-relaxed">
           {step.description}
         </p>
       </div>
@@ -198,7 +198,7 @@ export function OurProcess() {
 
       {/* PART 2: Desktop Card Scrub Zone (Unchanged) */}
       <div className="hidden lg:block relative h-[400vh]">
-        <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+        <div className="sticky top-[88px] md:top-[100px] h-[calc(100vh-88px)] md:h-[calc(100vh-100px)] flex items-center overflow-hidden">
           <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px] w-full">
             <div className="flex flex-row gap-6 items-stretch w-full pb-10">
               {processSteps.map((step, index) => (

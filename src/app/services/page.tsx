@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { RevealText, FadeUp, RevealStaggerGroup, RevealItem, RevealImage } from "@/components/ui/Reveal";
 import { PortfolioGallery } from "@/components/sections/PortfolioGallery";
@@ -15,7 +16,7 @@ interface ServiceItem {
   stats: {
     projectsDone: string;
     projectsInHand: string;
-    experts: string;
+    team: string;
   };
 }
 
@@ -35,33 +36,13 @@ const serviceData: ServiceItem[] = [
       "Complete Flooring solution",
     ],
     stats: {
-      projectsDone: "300+",
+      projectsDone: "400+",
       projectsInHand: "5+",
-      experts: "8"
+      team: "100+"
     }
   },
   {
     id: "02",
-    title: "Civil Engineering Services",
-    image: "/images/service-page/civil.webp",
-    services: [
-      "Civil construction",
-      "Water proofing",
-      "Concrete & screed finishing",
-      "Road kerb & interlock floorings",
-      "Drainage construction",
-      "Plastering",
-      "Painting",
-      "ACP Claddings",
-    ],
-    stats: {
-      projectsDone: "300+",
-      projectsInHand: "5+",
-      experts: "8"
-    }
-  },
-  {
-    id: "03",
     title: "Carpentry Services",
     image: "/images/service-page/carpentry.webp",
     imagePosition: "object-bottom",
@@ -79,14 +60,64 @@ const serviceData: ServiceItem[] = [
       "Gypsum/Glass partitions with doors",
     ],
     stats: {
-      projectsDone: "200+",
+      projectsDone: "300+",
       projectsInHand: "5+",
-      experts: "8"
+      team: "100+"
+    }
+  },
+  {
+    id: "03",
+    title: "Civil Engineering Services",
+    image: "/images/service-page/civil.webp",
+    services: [
+      "Civil construction",
+      "Water proofing",
+      "Concrete & screed finishing",
+      "Road kerb & interlock floorings",
+      "Drainage construction",
+      "Plastering",
+      "Painting",
+      "ACP Claddings",
+    ],
+    stats: {
+      projectsDone: "400+",
+      projectsInHand: "5+",
+      team: "100+"
     }
   }
 ];
 
 export default function ServicesPage() {
+  useEffect(() => {
+    const handleScrollToHash = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const id = hash.replace("#", "");
+        const element = document.getElementById(id);
+        if (element) {
+          // Wait 350ms to allow layout, fonts, and animations to stabilize
+          setTimeout(() => {
+            const headerHeight = window.innerWidth >= 768 ? 100 : 88;
+            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+            const offsetPosition = elementPosition - headerHeight - 24; // 24px extra margin for premium breathing room
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth"
+            });
+          }, 350);
+        }
+      }
+    };
+
+    // Run on initial mount
+    handleScrollToHash();
+
+    // Listen for hashchange events
+    window.addEventListener("hashchange", handleScrollToHash);
+    return () => window.removeEventListener("hashchange", handleScrollToHash);
+  }, []);
+
   return (
     <main className="bg-white min-h-screen pt-24  md:pt-32 selection:bg-[#03AEF2] selection:text-white">
 
@@ -195,10 +226,10 @@ export default function ServicesPage() {
 
                   <FadeUp delay={0.5} className="flex flex-col items-center">
                     <span className="text-[32px] md:text-[40px] font-normal text-[#16232A] leading-[49px] uppercase">
-                      {section.stats.experts}
+                      {section.stats.team}
                     </span>
                     <span className="text-[14px] md:text-[16px] font-semibold text-[#16232A] leading-[20px] mt-[6px]">
-                      Experts
+                      Team
                     </span>
                   </FadeUp>
                 </div>

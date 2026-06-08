@@ -9,12 +9,15 @@ import { VibgyorButton } from "../ui/VibgyorButton";
 
 export function ServicesPortfolio() {
   const router = useRouter();
-  const [activeService, setActiveService] = useState<number | null>(1);
+  const [activeService, setActiveService] = useState<number | null>(null);
 
   const services = [
-    { id: "1", title: "Interior Fit out Services" },
-    { id: "2", title: "Civil Engineering Service" },
-    { id: "3", title: "Carpentry Services" },
+    { id: "1", title: "Interior Fitout Services", href: "/services#service-01" },
+    { id: "2", title: "Carpentry Services", href: "/services#service-02" },
+    { id: "3", title: "Furniture Services", href: "/products" },
+    { id: "4", title: "Partitioning Systems", href: "/products" },
+    { id: "5", title: "Raised Floor Systems", href: "/products" },
+    { id: "6", title: "Civil Engineering Services", href: "/services#service-03" },
   ];
 
   return (
@@ -37,8 +40,11 @@ export function ServicesPortfolio() {
         {services.map((service, index) => {
           const serviceImages = {
             "1": "/images/hero-services/interior.webp",
-            "2": "/images/hero-services/civil.webp",
-            "3": "/images/hero-services/carpending_1.webp",
+            "2": "/images/hero-services/carpentry.webp",
+            "3": "/images/hero-services/furniture.webp",
+            "4": "/images/hero-services/partition.webp",
+            "5": "/images/hero-services/raised.webp",
+            "6": "/images/hero-services/civil.webp",
           };
           const bgImage = serviceImages[service.id as keyof typeof serviceImages];
           const isActive = activeService === index;
@@ -48,9 +54,9 @@ export function ServicesPortfolio() {
               key={service.id}
               onMouseEnter={() => setActiveService(index)}
               onMouseLeave={() => setActiveService(null)}
-              className="group relative border-b border-[#63757E] border-opacity-50 min-h-[200px] md:min-h-[240px] lg:min-h-[289px] flex items-center cursor-pointer overflow-hidden transition-all duration-500 py-6"
+              className="group relative border-b border-[#63757E] border-opacity-50 min-h-[130px] md:min-h-[160px] lg:min-h-[180px] flex items-center cursor-pointer overflow-hidden transition-all duration-500 py-8"
             >
-              <Link href={`/services#service-0${service.id}`} className="absolute inset-0 z-20" />
+              <Link href={service.href} className="absolute inset-0 z-20" />
               
               <div className={`absolute inset-0 z-0 pointer-events-none transition-opacity duration-500 transform-gpu ${isActive ? 'opacity-100' : 'opacity-0'}`}>
                 <Image src={bgImage} alt={service.title} fill className="object-cover" />
@@ -65,12 +71,12 @@ export function ServicesPortfolio() {
                   </div>
                 </div>
                 <div className="w-[70%] md:w-[60%] flex justify-center text-center">
-                  <h3 className="text-2xl sm:text-3xl md:text-5xl lg:text-h1 font-medium text-white">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-[40px] font-medium text-white leading-tight">
                     {service.title}
                   </h3>
                 </div>
                 <div className="w-[15%] md:w-[20%] flex justify-end transition-transform duration-500 group-hover:translate-x-2 group-hover:-translate-y-2">
-                  <svg viewBox="0 0 115 115" fill="none" className={`w-10 h-10 md:w-20 md:h-20 lg:w-[94px] lg:h-[94px] origin-right transition-colors duration-500 ${isActive ? 'text-white' : 'text-[#63757E]'}`}>
+                  <svg viewBox="0 0 115 115" fill="none" className={`w-8 h-8 md:w-16 md:h-16 lg:w-[70px] lg:h-[70px] origin-right transition-colors duration-500 ${isActive ? 'text-white' : 'text-[#63757E]'}`}>
                     <path d="M29.6995 84.2159L84.2158 29.6991" stroke="currentColor" strokeWidth="9" />
                     <path d="M24.4648 30.0525H84.5689V90.1566" stroke="currentColor" strokeWidth="9" />
                   </svg>
