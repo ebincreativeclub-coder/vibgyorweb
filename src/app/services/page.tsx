@@ -60,7 +60,7 @@ const serviceData: ServiceItem[] = [
       "Gypsum/Glass partitions with doors",
     ],
     stats: {
-      projectsDone: "300+",
+      projectsDone: "200+",
       projectsInHand: "5+",
       team: "100+"
     }
@@ -80,7 +80,7 @@ const serviceData: ServiceItem[] = [
       "ACP Claddings",
     ],
     stats: {
-      projectsDone: "400+",
+      projectsDone: "300+",
       projectsInHand: "5+",
       team: "100+"
     }

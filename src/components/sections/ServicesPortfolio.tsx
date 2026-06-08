@@ -12,11 +12,11 @@ export function ServicesPortfolio() {
   const [activeService, setActiveService] = useState<number | null>(null);
 
   const services = [
-    { id: "1", title: "Interior Fitout Services", href: "/services#service-01" },
-    { id: "2", title: "Carpentry Services", href: "/services#service-02" },
-    { id: "3", title: "Furniture Services", href: "/products" },
+    { id: "1", title: "Interior Fit out", href: "/services#service-01" },
+    { id: "2", title: "Carpentry", href: "/services#service-02" },
+    { id: "3", title: "Furniture", href: "/products" },
     { id: "4", title: "Partitioning Systems", href: "/products" },
-    { id: "5", title: "Raised Floor Systems", href: "/products" },
+    { id: "5", title: "Raised Floor Systems.", href: "/products" },
     { id: "6", title: "Civil Engineering Services", href: "/services#service-03" },
   ];
 
