@@ -16,7 +16,7 @@ export function ServicesPortfolio() {
     { id: "2", title: "Carpentry", href: "/services#service-02" },
     { id: "3", title: "Furniture", href: "/products" },
     { id: "4", title: "Partitioning Systems", href: "/products" },
-    { id: "5", title: "Raised Floor Systems.", href: "/products" },
+    { id: "5", title: "Raised Floor Systems", href: "/products" },
     { id: "6", title: "Civil Engineering Services", href: "/services#service-03" },
   ];
 
