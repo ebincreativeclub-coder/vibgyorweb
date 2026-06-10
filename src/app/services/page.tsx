@@ -80,9 +80,9 @@ const serviceData: ServiceItem[] = [
       "ACP Claddings",
     ],
     stats: {
-      projectsDone: "300+",
-      projectsInHand: "5+",
-      team: "100+"
+      projectsDone: "50+",
+      projectsInHand: "1",
+      team: "20+"
     }
   }
 ];
