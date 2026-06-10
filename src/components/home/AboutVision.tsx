@@ -54,7 +54,7 @@ export function AboutVision({ showBanner = true }: AboutVisionProps) {
         <div className="flex flex-col lg:flex-row justify-between items-start mb-12 lg:mb-16 gap-10">
           <div className="lg:w-1/2">
             <FadeUp delay={0.1}>
-              <span className="text-body-lg font-medium text-white mb-4 block">
+              <span className="text-2xl md:text-3xl lg:text-4xl font-medium text-white mb-4 block tracking-tight">
                 Why Choose Us
               </span>
             </FadeUp>

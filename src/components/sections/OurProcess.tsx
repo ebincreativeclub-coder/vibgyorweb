@@ -175,7 +175,7 @@ export function OurProcess() {
         <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-[1280px]">
           <div className="flex flex-col lg:flex-row justify-between items-start">
             <FadeUp delay={0.1} className="lg:w-1/4 pt-2">
-              <span className="text-body-lg font-medium text-[#16232A]">Our Process</span>
+              <span className="text-2xl md:text-3xl lg:text-4xl font-medium text-[#16232A] tracking-tight block mb-6">Our Process</span>
             </FadeUp>
 
             <div className="lg:w-3/4 max-w-[700px]">

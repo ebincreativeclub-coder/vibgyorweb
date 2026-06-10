@@ -120,7 +120,7 @@ export function Sectors() {
         {/* Header Section */}
         <div className="flex flex-col items-center text-center mb-16 md:mb-24">
           <FadeUp delay={0.1}>
-            <span className="block text-body-md md:text-body-lg font-medium text-[#16232A] mb-8 tracking-tight">
+            <span className="block text-2xl md:text-3xl lg:text-4xl font-medium text-[#16232A] mb-8 tracking-tight">
               Who We Work With
             </span>
           </FadeUp>

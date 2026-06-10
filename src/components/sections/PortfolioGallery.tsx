@@ -80,7 +80,7 @@ export function PortfolioGallery() {
         <div className="flex flex-col md:flex-row justify-between items-start mb-12 md:mb-16 gap-8">
           <div className="max-w-[700px]">
              <FadeUp delay={0.1}>
-              <span className="text-body-lg font-medium text-white mb-6 block">
+              <span className="text-2xl md:text-3xl lg:text-4xl font-medium text-white mb-6 block tracking-tight">
                 Our Work
               </span>
             </FadeUp>

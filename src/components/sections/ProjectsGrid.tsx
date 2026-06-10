@@ -110,7 +110,7 @@ function ProjectCard({ project }: { project: SanityProject }) {
           <span className="inline-flex items-center px-3 py-1 rounded-full border border-[#03AEF2]/30 bg-[#16232A]/95 text-[10px] font-bold tracking-[0.15em] text-white uppercase mb-3 w-fit">
             {project.category}
           </span>
-          <h3 className="text-[18px] md:text-[22px] font-medium text-white leading-tight">
+          <h3 className="text-[18px] md:text-[28px] font-medium text-white leading-tight">
             {project.title}
           </h3>
         </div>
