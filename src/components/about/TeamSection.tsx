@@ -13,12 +13,14 @@ interface TeamMember {
 }
 
 const TEAM_MEMBERS = [
-  { id: 1, name: "Alexander Wright", designation: "Managing Director", image: "/images/team/team1.jpg" },
-  { id: 2, name: "Sarah Al-Thani", designation: "Design Lead", image: "/images/team/team2.jpg" },
-  { id: 3, name: "Marcus Chen", designation: "Project Manager", image: "/images/team/team3.jpg" },
-  { id: 4, name: "Elena Petrova", designation: "Civil Engineer", image: "/images/team/team1.jpg" },
-  { id: 5, name: "James Miller", designation: "Head of Carpentry", image: "/images/team/team2.jpg" },
-  { id: 6, name: "Lina Hadid", designation: "Interior Architect", image: "/images/team/team3.jpg" },
+  { id: 1, name: "Mr. Abdulla Saleh Al-Raisi", designation: "Chairman & Former C.E.O. of Commercial Bank Qatar", image: "/images/teams/abdulla_saleh.webp" },
+  { id: 2, name: "Mr. John Rajan", designation: "C.E.O", image: "/images/teams/john_rajan.webp" },
+  { id: 3, name: "Sreejith Nair", designation: "General Manager", image: "/images/teams/sreejith_nair.webp" },
+  { id: 4, name: "Sabeesh Korotholi", designation: "Head - Interior Design", image: "/images/teams/sabeesh_korotholi.webp" },
+  { id: 5, name: "Gireesh Thekkini", designation: "Manager-Operations", image: "/images/teams/gireesh_thekkini.webp" },
+  { id: 6, name: "Abdul Gafoor", designation: "Director of Sales", image: "/images/teams/abdul_gafoor.webp" },
+  { id: 7, name: "R. Mahalingam", designation: "Project Manager", image: "/images/teams/mahalingam.webp" },
+  { id: 8, name: "Mohammed Nawwaf", designation: "Project Manager", image: "/images/teams/nawwaf.webp" },
 ];
 
 export function TeamSection() {
